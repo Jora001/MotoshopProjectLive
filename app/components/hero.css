@@ -1,0 +1,62 @@
+/* Desktop ≥1440px */
+@media (min-width: 1440px) {
+  .hero-image {
+    width: 819px;
+    height: 815px;
+    left: 621px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    position: absolute;
+    opacity: 1;
+  }
+
+  .desktop-layout {
+    display: flex;
+  }
+
+  .mobile-tablet-layout {
+    display: none;
+  }
+}
+
+/* Tablet 1024px - 1439px */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .hero-image {
+    width: 511px;
+    height: 823px;
+    left: 257px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    position: absolute;
+    opacity: 1;
+  }
+
+  .desktop-layout {
+    display: none;
+  }
+
+  .mobile-tablet-layout {
+    display: flex;
+  }
+}
+
+/* Mobile <1024px */
+@media (max-width: 1023px) {
+  .hero-image {
+    width: 341px;
+    height: 659px;
+    left: 49px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    position: absolute;
+    opacity: 1;
+  }
+
+  .desktop-layout {
+    display: none;
+  }
+
+  .mobile-tablet-layout {
+    display: flex;
+  }
+}
