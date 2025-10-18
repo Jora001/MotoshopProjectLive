@@ -45,7 +45,7 @@ export default function Header() {
   return (
     <header className="w-full">
       {/* Top Bar */}
-      <div className="w-full bg-[#0A0A0A] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:h-[110px] 2xl:px-5 2xl:px-24 flex items-center justify-between  shadow-md fixed top-0 z-50 transition-transform duration-300">
+      <div className="w-full bg-[#0A0A0A] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:pt-[54px] 2xl:pb-5 2xl:h-[110px] 2xl:px-5 2xl:px-24 flex items-center justify-between  shadow-md fixed top-0 z-50 transition-transform duration-300">
         <div className="p-[6px] 2xl:hidden">
           <button className="relative h-9 w-9 2xl:hidden"
             onClick={() => setMobileMenuOpen(true)}>
@@ -63,14 +63,17 @@ export default function Header() {
         <div className="hidden 2xl:flex">
           <nav className="flex items-center ">
             {NAV_LINKS.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className={`font-semibold text-[14px] transition-colors ${link.label === "Ապառիկ" ? "text-[#FFC107]" : "text-[#F5F5F5] "} hover:text-[#FFC107] px-[6px] py-2 2xl:px-[10px] 2xl:pt-[54px]
+              <div className="px-[6px]  2xl:px-[10px]" key={link.label}>
+                <div className={`border-b-2 border-transparent ${link.label === "Ապառիկ" ? "hover:border-[#FFC107]" : "hover:border-white"} cursor-pointer py-2`}>
+                  <Link
+                    href={link.href}
+                    className={`font-semibold text-[14px] transition-colors ${link.label === "Ապառիկ" ? "text-[#FFC107]" : "text-[#F5F5F5] "}  
                   }`}
-              >
-                {link.label}
-              </Link>
+                  >
+                    {link.label}
+                  </Link>
+                </div>
+              </div>
             ))}
           </nav>
         </div>
@@ -107,14 +110,14 @@ export default function Header() {
           </div>
         </div>
 
-        <div className="flex gap-3 md:gap-6 2xl:gap-15 hover:color-red-400 2xl:pt-[42px]">
+        <div className="flex gap-3 md:gap-6 2xl:gap-10 hover:color-red-400 2xl:pb-5">
           <div className="flex items-center px-[2px] md:px-[5px] 2xl:px-[10px]">
             <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
               <Image
                 src="/icons/language.svg"
                 alt="language"
                 fill
-                className="object-contain"
+                className="object-contain cursor-pointer"
                 priority
               />
             </div>
@@ -124,85 +127,16 @@ export default function Header() {
               src="/icons/sign-up.svg"
               alt="sign-up"
               fill
-              className="object-contain"
+              className="object-contain cursor-pointer"
               priority
             />
           </div>
-          <div className="relative hidden bg-white h-11 rounded-xl px-2 py-[10px] 2xl:flex">
-            <div className="text-[#0A0A0A] text-base" >
+          <div className="relative hidden bg-white h-11 rounded-xl px-4 py-[10px] 2xl:flex cursor-pointer hover:bg-[#D0021B]">
+            <div className="text-[#0A0A0A] text-base " >
               Մուտք
             </div>
           </div>
         </div>
-
-
-        {/* <div className="flex items-center">
-          <Link href="/">
-            <div className="relative w-[47px] h-[24px] sm:w-[76px] sm:h-[56px] ">
-              <Image
-                src="/icons/motoshop_logo.svg"
-                alt="Logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </Link>
-          <Link href="/" className="sm:hidden ml-2">
-          <div className="relative w-[47px] h-[24px] sm:w-[76px] sm:h-[56px] ">
-            <Image 
-              src="/icons/motoshop_logo.svg"
-                alt="Logo"
-                fill
-                className="object-contain"
-                priority 
-            />
-            </div>
-          </Link>
-        </div>
-
-        <div className="flex items-center gap-[15px]">
-          <div className="hidden sm:flex items-center border-2 border-[#0E0E0E] rounded-md py-1 w-[326px] h-[36px] bg-white">
-            <Image
-              src="/icons/search.svg"
-              alt="Search"
-              width={24}
-              height={24}
-              className="mr-2"
-            />
-            <input
-              type="text"
-              placeholder="Որոնում"
-              className="w-full bg-transparent outline-none text-sm placeholder-gray-600"
-            />
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <div className="flex space-x-1 items-center">
-              <Image src="/icons/language.svg" alt="lang" width={24} height={24} />
-              <Image src="/icons/down.svg" alt="down" width={10} height={5} />
-            </div>
-
-            <div className="relative">
-              <Image src="/icons/favorite.svg" alt="wishlist" width={24} height={24} />
-              <span className="absolute -top-1 -right-2 bg-white text-black text-xs rounded-full px-1.5 py-0.5">0</span>
-            </div>
-
-            <div className="relative">
-              <Image src="/icons/shopping_bag.svg" alt="cart" width={24} height={24} />
-              <span className="absolute -top-1 -right-2 bg-white text-black text-xs rounded-full px-1.5 py-0.5">0</span>
-            </div>
-
-            <Image
-              src="/icons/person.svg"
-              alt="user"
-              width={24}
-              height={24}
-              className="cursor-pointer"
-              onClick={() => (window.location.href = "/login")}
-            />
-          </div>
-        </div> */}
       </div>
 
       {/* Bottom Bar Mobile */}
@@ -272,83 +206,17 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Bottom Bar Desktop */}
-      {/* <div
-        className={`w-full bg-white opacity-70 h-16 px-4 sm:px-6 2xl:px-10 hidden sm:flex items-center justify-between shadow-md fixed top-16 z-40 backdrop-blur-md transition-transform duration-300 ${showBottomBar ? "translate-y-0" : "-translate-y-full"
-          }`}
-      >
-        <div>
-          <Link href="/">
-            <Image
-              src="icons/motoshop_logo.svg"
-              alt="Logo"
-              width={76}
-              height={56}
-            />
-          </Link>
-        </div>
-
-        <nav className="flex items-center space-x-4 md:space-x-8 2xl:space-x-20">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className={`font-medium text-xs sm:text-base 2xl:text-2xl transition-colors ${pathname === link.href
-                ? "text-red-600"
-                : "text-black hover:text-red-600"
-                }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div>
-          <button className="border border-red-600 text-2xl text-black hover:bg-red-600/180 hover:text-red-700 hover:border-red-700 sm:px-2 md:px-3 2xl:px-5 py-1 rounded-2xl transition-all duration-300">
-            Ապառիկի պայմաններ
-          </button>
-        </div>
-      </div> */}
-
-      {/* Bottom Bar Mobile */}
-      {/* <div
-        className={`w-full bg-transparent h-16 flex sm:hidden items-center justify-between px-4 md:px-8 shadow-md fixed top-16 z-40 backdrop-blur-md transition-transform duration-300 ${showBottomBar ? "translate-y-0" : "-translate-y-full"
-          }`}
-      >
-        <div className="flex items-center space-x-2">
-          <button
-            className="py-2 rounded-full hover:bg-gray-800 transition"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-
-          <button className="bg-[#ADADAD] text-[#F9F9F9] border border-red-600 hover:bg-red-600/180 hover:text-red-700 hover:border-red-700 px-4 py-2 rounded-[16px] transition-all duration-300">
-            Ապառիկ
-          </button>
-        </div>
-
-        <div>
-          <Image
-            src="/icons/search.svg"
-            alt="Search"
-            width={24}
-            height={24}
-          />
-        </div>
-      </div>  */}
-
       {/* Burger Manu Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             key="mobileMenu"
-            className="fixed top-0 left-0 h-full w-full z-[200] bg-white flex flex-col gap-8"
+            className="fixed top-0 left-0 h-full w-full z-[200] bg-white flex flex-col gap-8 overflow-y-auto max-h-screen"
             variants={menuVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-            transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }} 
+            transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
           >
             <div className="flex items-center justify-between px-4 py-3 md:px-8 md:pt-8">
               <div className="relative h-10 w-18 md:h-[53px] md:w-24">

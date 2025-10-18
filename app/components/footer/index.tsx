@@ -5,11 +5,11 @@ import { FOOTER_RESOURCES_LINKS } from "@/constants/navlinks";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white px-4 py-8 md:p-8 2xl:px-24 2xl:py-13">
+    <footer className="bg-[url('/images/footer-bg.jpg')] bg-cover bg-center bg-no-repeat text-white px-4 py-8 md:p-8 2xl:px-24 2xl:py-13">
       <div className="max-w-7xl mx-auto flex flex-wrap">
         {FOOTER_RESOURCES_LINKS.map((section) => (
           <div key={section.title} className="w-1/2 md:w-1/4 mb-8 px-2">
-            <div className="border-b border-[#F5F5F5]">
+            <div className=" border-b border-[#F5F5F5]">
               <h3 className="text-sm 2xl:text-2xl font-semibold 2xl:font-bold py-1">{section.title}</h3>
             </div>
 
