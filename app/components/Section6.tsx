@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 
-const Section5 = () => {
+const Section6 = () => {
   const cards = [
     {
       text: "Աշխատակիցները շատ հոգատար ու համբերատար էին։ Պատասխանեցին բոլոր հարցերիս և նույնիսկ օգտակար խորհուրդներ տվեցին, նախքան իմ առաջին վարելը։ Ամբողջ ընթացքում ինձ իսկապես աջակցված զգացի։",
@@ -115,4 +115,4 @@ const Section5 = () => {
   );
 };
 
-export default Section5;
+export default Section6;
