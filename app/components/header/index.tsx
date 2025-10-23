@@ -6,6 +6,8 @@ import { NAV_LINKS, MOBILE_NAV_LINKS } from "@/constants/navlinks";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+// import WishIcon from "@/public/icons/wish-list.svg";
+
 
 const menuVariants = {
   hidden: { x: "-100%" },  // start off-screen to the left
@@ -122,7 +124,7 @@ export default function Header() {
               />
             </div>
           </div>
-          <div className="relative h-8 w-8 md:h-10 md:w-10 2xl:hidden">
+          <div className="relative h-8 w-8 md:h-10 md:w-10 2xl:hidden cursor-pointer">
             <Image
               src="/icons/sign-up.svg"
               alt="sign-up"
@@ -139,7 +141,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Bottom Bar Mobile */}
+      {/* Bottom Bar */}
       <div className={`w-full bg-gradient-to-r from-[#0A0A0A] to-[#4A4A4A] flex items-center justify-between px-4 py-[14px] md:px-8 2xl:px-24 2xl:h-16 shadow-md
         fixed top-16 md:top-18 2xl:top-[110px] z-40 backdrop-blur-md transition-transform duration-300 ${showBottomBar ? "translate-y-0" : "-translate-y-full"}`}
       >
@@ -169,7 +171,7 @@ export default function Header() {
           />
         </div>
         <div className="flex gap-[15.5px] md:gap-3 2xl:gap-6 items-center">
-          <div className="p-[2px] md:p-[5px]">
+          <div className="p-[2px] md:p-[5px] cursor-pointer">
             <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
               <Image
                 src="/icons/compair.svg"
@@ -180,7 +182,7 @@ export default function Header() {
               />
             </div>
           </div>
-          <div className="p-[2px] md:p-[5px]">
+          <div className="p-[2px] md:p-[5px] cursor-pointer">
             <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
               <Image
                 src="/icons/wish-list.svg"
@@ -191,7 +193,7 @@ export default function Header() {
               />
             </div>
           </div>
-          <div className="p-[2px] md:p-[5px]">
+          <div className="p-[2px] md:p-[5px] cursor-pointer">
             <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
               <Image
                 src="/icons/trash.svg"
