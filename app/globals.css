@@ -2,13 +2,13 @@
 
 /* Root & body settings */
 :root {
-  --background: #ffffff;
+  --background: #000000;
   --foreground: #171717;
 }
 
 html.dark {
-  --background: #fff7f7;
-  --foreground: #ededed;
+  --background: #fffefe;
+  --foreground: #000000;
 }
 
 body {
