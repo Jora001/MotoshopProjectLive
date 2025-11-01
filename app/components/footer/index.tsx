@@ -6,7 +6,7 @@ import { FOOTER_RESOURCES_LINKS } from "@/constants/navlinks";
 export default function Footer() {
   return (
     <footer
-      style={{ backgroundImage: "url('/images/footer-bg.jpg')" }}
+      style={{ backgroundImage: "url('/footer-bg.jpg')" }}
       className="bg-cover bg-center bg-no-repeat text-white px-4 py-8 md:p-8 2xl:px-24 2xl:py-13"
     >
       <div className="max-w-7xl mx-auto flex flex-wrap">
