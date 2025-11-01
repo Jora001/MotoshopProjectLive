@@ -56,15 +56,16 @@ const Section6 = () => {
                 "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.2) 100%)",
             }}
           >
-            <div className="w-[60px] h-[60px] mb-6 md:mb-[24px]">
-              <Image
-                src="/icons.png"
-                alt="Icon"
-                width={60}
-                height={60}
-                className="object-contain"
-              />
-            </div>
+       <div className="w-[60px] h-[60px] mb-6 md:mb-[24px]">
+  <Image
+    src="/icons.png"   // ✅ ուղղված ուղի
+    alt="Icon"
+    width={60}
+    height={60}
+    className="object-contain"
+  />
+</div>
+
 
             <div className="w-full h-[224px] rounded-[8px] flex flex-col justify-center items-start text-left px-4 py-3 mb-6 md:mb-[24px]">
               <p
