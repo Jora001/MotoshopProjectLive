@@ -40,10 +40,10 @@ export default function Header() {
 
   return (
     <header className="w-full">
-      <div className="w-full h-[20px] bg-white fixed top-0 left-0 z-[60] border-b border-gray-200" />
+      <div className="w-full h-[10px] bg-white fixed top-0 left-0 z-[60] border-b border-gray-200" />
 
       {/* Top Bar */}
-      <div className="w-full bg-[#0A0A0A] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:pt-[54px] 2xl:pb-5 2xl:h-[110px] 2xl:px-5 2xl:px-24 flex items-center justify-between shadow-md fixed top-[20px] z-50 transition-transform duration-300">
+      <div className="w-full bg-[#000000] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:pt-[24px] 2xl:pb-5 2xl:h-[70px] 2xl:px-5 2xl:px-24 flex items-center justify-between shadow-md fixed top-[11px] z-50 transition-transform duration-300">
         <div className="p-[6px] 2xl:hidden">
           <button
             className="relative h-9 w-9 2xl:hidden"
@@ -96,12 +96,12 @@ export default function Header() {
 
         <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-0 flex items-center z-20 2xl:h-30 2xl:top-[-24px]">
           <div
-            className="flex items-center justify-center h-16 w-[234px] 2xl:h-[134px] 2xl:w-[175px] px-8 py-2 bg-white"
-            style={{ clipPath: "polygon(0 0, 100% 0, 80% 100%, 20% 100%)" }}
+            className="flex items-center justify-center h-16 w-[234px] 2xl:h-[134px] 2xl:w-[275px] px-8 py-2 bg-white"
+            style={{ clipPath: "polygon(0 0, 100% 0, 80% 75%, 20% 75%)" }}
           >
-            <div className="relative h-[53px] w-24 2xl:h-20 2xl:w-36 bg-white">
+            <div className="relative h-[50px] w-24 2xl:h-20 2xl:w-23 ">
               <Image
-                src="/icons/logo-desktop.svg"
+                src="/logo22.png"
                 alt="logo"
                 fill
                 className="object-contain"
@@ -111,7 +111,7 @@ export default function Header() {
           </div>
         </div>
 
-        <div className="flex gap-3 md:gap-6 2xl:gap-10 2xl:pb-5">
+        <div className="flex gap-3 md:gap-6 2xl:gap-10 2xl:pb-3">
           <div className="flex items-center px-[2px] md:px-[5px] 2xl:px-[10px]">
             <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
               <Image
@@ -123,7 +123,7 @@ export default function Header() {
               />
             </div>
           </div>
-          <div className="relative h-8 w-8 md:h-10 md:w-10 2xl:hidden cursor-pointer">
+          {/* <div className="relative h-8 w-8 md:h-10 md:w-10 2xl:hidden cursor-pointer">
             <Image
               src="/icons/sign-up.svg"
               alt="sign-up"
@@ -131,17 +131,18 @@ export default function Header() {
               className="object-contain cursor-pointer"
               priority
             />
-          </div>
-          <div className="relative hidden bg-white h-11 rounded-xl px-4 py-[10px] 2xl:flex cursor-pointer hover:bg-[#D0021B]">
+          </div> */}
+          {/* <div className="relative hidden bg-white h-11 rounded-xl px-4 py-[10px] 2xl:flex cursor-pointer hover:bg-[#D0021B]">
             <div className="text-[#0A0A0A] text-base">Մուտք</div>
-          </div>
+          </div> */}
         </div>
       </div>
 
       {/* Bottom Bar */}
+      {/* from-[#0A0A0A] to-[#4A4A4A] */}
       <div
         className={`w-full bg-gradient-to-r from-[#0A0A0A] to-[#4A4A4A] flex items-center justify-between px-4 py-[14px] md:px-8 2xl:px-24 2xl:h-16 shadow-md
-        fixed top-[84px] md:top-[92px] 2xl:top-[130px] z-40 backdrop-blur-md transition-transform duration-300 ${
+        fixed top-[94px] md:top-[92px] 2xl:top-[80px] z-40 backdrop-blur-md transition-transform duration-300 ${
           showBottomBar ? "translate-y-0" : "-translate-y-full"
         }`}
       >
