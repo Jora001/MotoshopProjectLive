@@ -5,19 +5,23 @@ import { FOOTER_RESOURCES_LINKS } from "@/constants/navlinks";
 
 export default function Footer() {
   return (
-    <footer className="bg-[url('/images/footer-bg.jpg')] bg-cover bg-center bg-no-repeat text-white px-4 py-8 md:p-8 2xl:px-24 2xl:py-13">
+    <footer
+      style={{ backgroundImage: "url('/images/footer-bg.jpg')" }}
+      className="bg-cover bg-center bg-no-repeat text-white px-4 py-8 md:p-8 2xl:px-24 2xl:py-13"
+    >
       <div className="max-w-7xl mx-auto flex flex-wrap">
         {FOOTER_RESOURCES_LINKS.map((section) => (
           <div key={section.title} className="w-1/2 md:w-1/4 mb-8 px-2">
-            <div className=" border-b border-[#F5F5F5]">
-              <h3 className="text-sm 2xl:text-2xl font-semibold 2xl:font-bold py-1">{section.title}</h3>
+            <div className="border-b border-[#F5F5F5]">
+              <h3 className="text-sm 2xl:text-2xl font-semibold 2xl:font-bold py-1">
+                {section.title}
+              </h3>
             </div>
 
             <div className="space-y-2 mt-2">
               {section.content.map((item, idx) => (
                 <div key={idx} className="text-xs 2xl:text-base py-1 flex items-center gap-2">
 
-                  {/* Icon first for  section */}
                   {section.title === "Հետադարձ կապ" && item.icon && (
                     Array.isArray(item.icon) ? (
                       <div className="flex gap-2">
@@ -90,10 +94,10 @@ export default function Footer() {
               ))}
             </div>
           </div>
-
         ))}
       </div>
-      <div className="flex justify-center">
+
+      <div className="flex justify-center mt-4">
         <div className="relative hidden md:flex md:w-[342px] md:h-15 2xl:w-110 2xl:h-20">
           <Image
             src={`/icons/footer_bottom.svg`}
