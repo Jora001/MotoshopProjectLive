@@ -164,7 +164,7 @@ export default function Header() {
         </div>
         <div className="absolute left-1/2 -translate-x-1/2 h-6 w-18 md:h-10 md:w-30">
           <Image
-            src="/icons/logo-2.svg"
+            src="/logo-2.svg"
             alt="Hayasa Logo"
             fill
             className="object-contain"
