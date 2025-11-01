@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const menuVariants = {
-  hidden: { x: "-100%" },  // start off-screen to the left
-  visible: { x: 0 },       // slide in to full view
-  exit: { x: "-100%" },    // slide out to the left
+  hidden: { x: "-100%" },
+  visible: { x: 0 },
+  exit: { x: "-100%" },
 };
 
 export default function Header() {
@@ -65,13 +65,17 @@ export default function Header() {
               <div className="px-[6px] 2xl:px-[10px]" key={link.label}>
                 <div
                   className={`border-b-2 border-transparent ${
-                    link.label === "Ապառիկ" ? "hover:border-[#FFC107]" : "hover:border-white"
+                    link.label === "Ապառիկ"
+                      ? "hover:border-[#FFC107]"
+                      : "hover:border-white"
                   } cursor-pointer py-2`}
                 >
                   <Link
                     href={link.href}
                     className={`font-semibold text-[14px] transition-colors ${
-                      link.label === "Ապառիկ" ? "text-[#FFC107]" : "text-[#F5F5F5]"
+                      link.label === "Ապառիկ"
+                        ? "text-[#FFC107]"
+                        : "text-[#F5F5F5]"
                     }`}
                   >
                     {link.label}
@@ -83,20 +87,23 @@ export default function Header() {
         </div>
 
         <div className="absolute left-1/2 -translate-x-1/2 top-3 h-10 flex items-center align-center justify-center md:hidden z-20">
-          <div className="relative h-10 w-18">
-            <Image
-              src="/icons/logo.svg"
-              alt="logo"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
+          <Link href="/">
+            <div className="relative h-10 w-18 cursor-pointer">
+              <Image
+                src="/icons/logo.svg"
+                alt="logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </Link>
         </div>
 
         <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-0 flex items-center z-20 2xl:h-30 2xl:top-[-24px]">
-          <div
-            className="flex items-center justify-center h-16 w-[234px] 2xl:h-[134px] 2xl:w-[275px] px-8 py-2 bg-white"
+          <Link
+            href="/"
+            className="flex items-center justify-center h-16 w-[234px] 2xl:h-[134px] 2xl:w-[275px] px-8 py-2 bg-white cursor-pointer"
             style={{ clipPath: "polygon(0 0, 100% 0, 80% 75%, 20% 75%)" }}
           >
             <div className="relative h-[50px] w-24 2xl:h-20 2xl:w-23 ">
@@ -108,7 +115,7 @@ export default function Header() {
                 priority
               />
             </div>
-          </div>
+          </Link>
         </div>
 
         <div className="flex gap-3 md:gap-6 2xl:gap-10 2xl:pb-3">
@@ -123,23 +130,10 @@ export default function Header() {
               />
             </div>
           </div>
-          {/* <div className="relative h-8 w-8 md:h-10 md:w-10 2xl:hidden cursor-pointer">
-            <Image
-              src="/icons/sign-up.svg"
-              alt="sign-up"
-              fill
-              className="object-contain cursor-pointer"
-              priority
-            />
-          </div> */}
-          {/* <div className="relative hidden bg-white h-11 rounded-xl px-4 py-[10px] 2xl:flex cursor-pointer hover:bg-[#D0021B]">
-            <div className="text-[#0A0A0A] text-base">Մուտք</div>
-          </div> */}
         </div>
       </div>
 
       {/* Bottom Bar */}
-      {/* from-[#0A0A0A] to-[#4A4A4A] */}
       <div
         className={`w-full bg-gradient-to-r from-[#0A0A0A] to-[#4A4A4A] flex items-center justify-between px-4 py-[14px] md:px-8 2xl:px-24 2xl:h-16 shadow-md
         fixed top-[94px] md:top-[92px] 2xl:top-[80px] z-40 backdrop-blur-md transition-transform duration-300 ${
@@ -162,15 +156,21 @@ export default function Header() {
             Որոնել ...
           </div>
         </div>
+
         <div className="absolute left-1/2 -translate-x-1/2 h-6 w-18 md:h-10 md:w-30">
-          <Image
-            src="/logo-2.svg"
-            alt="Hayasa Logo"
-            fill
-            className="object-contain"
-            priority
-          />
+          <Link href="/">
+            <div className="relative h-full w-full cursor-pointer">
+              <Image
+                src="/logo-2.svg"
+                alt="Hayasa Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </Link>
         </div>
+
         <div className="flex gap-[15.5px] md:gap-3 2xl:gap-6 items-center">
           <div className="p-[2px] md:p-[5px] cursor-pointer">
             <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
@@ -221,15 +221,17 @@ export default function Header() {
             transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
           >
             <div className="flex items-center justify-between px-4 py-3 md:px-8 md:pt-8">
-              <div className="relative h-10 w-18 md:h-[53px] md:w-24">
-                <Image
-                  src="/icons/logo-desktop.svg"
-                  alt="logo"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
+              <Link href="/">
+                <div className="relative h-10 w-18 md:h-[53px] md:w-24 cursor-pointer">
+                  <Image
+                    src="/icons/logo-desktop.svg"
+                    alt="logo"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </Link>
               <div className="relative h-6 w-6 md:h-10 md:w-10 p-[2px] md:p-[5px]">
                 <button
                   className="relative h-full w-full"
