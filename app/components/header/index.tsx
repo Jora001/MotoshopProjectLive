@@ -40,7 +40,7 @@ export default function Header() {
 
   return (
     <header className="w-full">
-      <div className="w-full h-[10px] bg-white fixed top-0 left-0 z-[60] border-b border-gray-200" />
+      <div className="w-full h-[11px] bg-white fixed top-0 left-0 z-[60] border-b border-gray-200" />
 
       {/* Top Bar */}
       <div className="w-full bg-[#000000] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:pt-[24px] 2xl:pb-5 2xl:h-[70px] 2xl:px-5 2xl:px-24 flex items-center justify-between shadow-md fixed top-[11px] z-50 transition-transform duration-300">
