@@ -19,65 +19,75 @@ const Section6 = () => {
     },
     {
       text: "Կայքում փնտրելուց մինչև պատվերը ստանալը ամեն ինչ հեշտ ու հաճելի էր։ Շատ հազվադեպ է լինում խանութ, որ այսքան լավ ապրանքները համատեղի նման լավ փորձառության հետ։",
-      name: "ԱՆանուն օգտատեր",
+      name: "Անանուն օգտատեր",
       job: "",
-      img: "/rev2.jpg",
+      img: "/rev3.jpg",
     },
   ];
 
   return (
-    <section className="relative w-full overflow-hidden bg-black">
+    <section className="relative w-full overflow-hidden bg-black py-12 sm:py-16 md:py-20">
+      {/* Background */}
       <Image
         src="/tra.jpg"
-        alt="Section 5 Background"
+        alt="Section 6 Background"
         fill
         className="object-cover object-center"
         priority
       />
+      <div className="absolute inset-0 bg-black/50" />
 
-      <div className="absolute inset-0 bg-black/40"></div>
-
-      <div className="relative z-10 w-full max-w-[1440px] h-[196px] flex items-end px-6 md:px-[96px] pt-[40px] pb-[20px] border-b border-[#2E2E2E] mx-auto">
+      {/* Title */}
+      <div className="relative z-10 w-full max-w-[1440px] mx-auto border-b border-[#2E2E2E] px-6 sm:px-8 md:px-[64px] xl:px-[96px] pb-6 md:pb-[20px]">
         <h2
-          className="text-white font-bold text-[32px] md:text-[48px] leading-[40px] md:leading-[58px]"
-          style={{ fontFamily: "GHEA Grapalat", letterSpacing: "-1%" }}
+          className="text-white font-bold text-[28px] sm:text-[36px] md:text-[44px] xl:text-[48px] leading-tight"
+          style={{ fontFamily: "GHEA Grapalat" }}
         >
-          Արհեստանոց և սպասարկում
+          Կարծիքներ և փորձառություններ
         </h2>
       </div>
 
-      <div className="relative z-10 mt-12 md:mt-[48px] max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between gap-8 px-6 md:px-[96px]">
+      {/* Cards */}
+      <div
+        className="
+        relative z-10 
+        mt-10 sm:mt-12 md:mt-[48px] 
+        max-w-[1440px] mx-auto 
+        grid 
+        grid-cols-1 
+        sm:grid-cols-2 
+        lg:grid-cols-3 
+        gap-6 sm:gap-8 md:gap-10 
+        px-6 sm:px-8 md:px-[64px] xl:px-[96px]
+      "
+      >
         {cards.map((card, index) => (
           <div
             key={index}
-            className="w-full md:w-[384px] h-[480px] rounded-[24px] flex flex-col justify-start items-start p-6 md:p-[24px]"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.2) 100%)",
-            }}
+            className="rounded-[24px] p-5 sm:p-6 md:p-8 flex flex-col justify-start items-start bg-gradient-to-b from-white/20 to-neutral-400/20 backdrop-blur-sm"
           >
-       <div className="w-[60px] h-[60px] mb-6 md:mb-[24px]">
-  <Image
-    src="/icons.png"   // ✅ ուղղված ուղի
-    alt="Icon"
-    width={60}
-    height={60}
-    className="object-contain"
-  />
-</div>
-
-
-            <div className="w-full h-[224px] rounded-[8px] flex flex-col justify-center items-start text-left px-4 py-3 mb-6 md:mb-[24px]">
-              <p
-                className="font-bold text-[18px] md:text-[20px] leading-[24px] md:leading-[28px] text-[#ffffff]"
-                style={{ fontFamily: "GHEA Grapalat" }}
-              >
-                {card.text}
-              </p>
+            {/* Quote icon */}
+            <div className="w-[48px] sm:w-[60px] h-[48px] sm:h-[60px] mb-4 sm:mb-6">
+              <Image
+                src="/icons.png"
+                alt="Icon"
+                width={60}
+                height={60}
+                className="object-contain"
+              />
             </div>
 
-            <div className="w-full flex items-center gap-6 mt-auto">
-              <div className="w-[60px] h-[60px] md:w-[80px] md:h-[80px] rounded-full overflow-hidden">
+            {/* Text */}
+            <p
+              className="text-white text-[16px] sm:text-[17px] md:text-[19px] lg:text-[20px] leading-[24px] sm:leading-[26px] md:leading-[28px] font-semibold mb-6 md:mb-[24px]"
+              style={{ fontFamily: "GHEA Grapalat" }}
+            >
+              {card.text}
+            </p>
+
+            {/* Author */}
+            <div className="flex items-center gap-4 mt-auto">
+              <div className="w-[60px] h-[60px] sm:w-[70px] sm:h-[70px] md:w-[80px] md:h-[80px] rounded-full overflow-hidden">
                 <Image
                   src={card.img}
                   alt={card.name}
@@ -86,16 +96,17 @@ const Section6 = () => {
                   className="object-cover"
                 />
               </div>
+
               <div className="flex flex-col justify-center">
                 <p
-                  className="text-[20px] md:text-[23px] leading-[28px] md:leading-[32px] text-white font-bold"
-                  style={{ fontFamily: "GHEA Grapalat", letterSpacing: "-0.5%" }}
+                  className="text-white font-bold text-[18px] sm:text-[20px] md:text-[22px] lg:text-[23px] leading-[26px] sm:leading-[28px] md:leading-[32px]"
+                  style={{ fontFamily: "GHEA Grapalat" }}
                 >
                   {card.name}
                 </p>
                 {card.job && (
                   <p
-                    className="text-[14px] md:text-[16px] leading-[18px] md:leading-[20px] text-white opacity-90"
+                    className="text-white/90 text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] leading-[18px] md:leading-[20px]"
                     style={{ fontFamily: "Noto Sans Armenian" }}
                   >
                     {card.job}
@@ -107,9 +118,10 @@ const Section6 = () => {
         ))}
       </div>
 
-      <div className="relative z-10 mt-12 md:mt-[48px] flex justify-center">
-        <button className="w-[198px] md:w-[220px] h-[48px] md:h-[56px] bg-white text-[#D0021B] rounded-[16px] font-bold text-[16px] md:text-[16px] flex items-center justify-center px-6 py-2 md:px-[24px] md:py-[16px] hover:bg-[#f5f5f5] transition">
-          թողնել կարծիք
+      {/* Button */}
+      <div className="relative z-10 mt-10 sm:mt-12 md:mt-[48px] flex justify-center">
+        <button className="w-[180px] sm:w-[198px] md:w-[220px] h-[44px] sm:h-[48px] md:h-[56px] bg-white text-[#D0021B] rounded-[12px] sm:rounded-[16px] font-bold text-[14px] sm:text-[15px] md:text-[16px] flex items-center justify-center px-6 py-2 hover:bg-[#f5f5f5] transition">
+          Թողնել կարծիք
         </button>
       </div>
     </section>
