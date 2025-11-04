@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 
 const Section3 = () => {
@@ -15,20 +15,35 @@ const Section3 = () => {
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollNext = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
-    }
-  };
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
 
-  const scrollPrev = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    }
-  };
+    const cardWidth = scrollContainer.firstElementChild
+      ? (scrollContainer.firstElementChild as HTMLElement).offsetWidth + 36 // gap-ով
+      : 300;
+
+    const interval = setInterval(() => {
+      if (!scrollContainer) return;
+
+      // scroll-ել աջ
+      if (
+        scrollContainer.scrollLeft + scrollContainer.offsetWidth >=
+        scrollContainer.scrollWidth
+      ) {
+        // եթե հասնում ենք վերջը՝ վերադառնալ սկզբին
+        scrollContainer.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        scrollContainer.scrollBy({ left: cardWidth, behavior: "smooth" });
+      }
+    }, 2000); // 2 վրկ
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="relative w-full flex flex-col items-center bg-black overflow-hidden">
+      {/* --- Վերևի հատված --- */}
       <div className="relative w-full h-[539px]">
         <Image
           src="/cro.png"
@@ -62,21 +77,36 @@ const Section3 = () => {
         </div>
       </div>
 
+      {/* --- Վաճառքների վերնագիր --- */}
       <div className="w-full max-w-[1440px] flex items-end border-b border-[#2E2E2E] px-6 md:px-[96px] pt-[60px] pb-[20px] mt-8">
         <h2 className="text-white font-bold text-[32px] md:text-[48px] leading-[58px] font-[GHEA Grapalat]">
           Թոփ վաճառքները
         </h2>
       </div>
 
+      {/* --- Քարտերի հատված --- */}
       <div className="w-full max-w-[1440px] relative px-6 md:px-[96px] mt-10 mb-16">
         <div
           ref={scrollRef}
-          className="flex gap-6 md:gap-[36px] overflow-x-hidden scroll-smooth"
+          className="
+            flex gap-6 md:gap-[36px]
+            overflow-x-auto 
+            scroll-smooth
+            snap-x snap-mandatory
+            touch-pan-x
+            scrollbar-hide
+            pb-4
+          "
         >
           {cards.map((card) => (
             <div
               key={card.id}
-              className="flex-shrink-0 w-[250px] sm:w-[280px] md:w-[300px] lg:w-[350px] bg-white rounded-[8px] flex flex-col items-center overflow-hidden transition-transform duration-300 hover:scale-105"
+              className="
+                flex-shrink-0 w-[250px] sm:w-[280px] md:w-[300px] lg:w-[350px]
+                bg-white rounded-[8px] flex flex-col items-center overflow-hidden
+                transition-transform duration-300 hover:scale-105
+                snap-start
+              "
             >
               <div className="relative w-full h-[200px] md:h-[254px]">
                 <Image
@@ -91,21 +121,6 @@ const Section3 = () => {
               </h3>
             </div>
           ))}
-        </div>
-
-        <div className="absolute top-1/2 -translate-y-1/2 right-0 flex gap-2">
-          <button
-            onClick={scrollPrev}
-            className="bg-white text-black px-3 py-2 rounded shadow hover:bg-gray-200 transition"
-          >
-            ◀
-          </button>
-          <button
-            onClick={scrollNext}
-            className="bg-white text-black px-3 py-2 rounded shadow hover:bg-gray-200 transition"
-          >
-            ▶
-          </button>
         </div>
       </div>
     </section>
