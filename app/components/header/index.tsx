@@ -42,8 +42,13 @@ export default function Header() {
     <header className="w-full">
       <div className="w-full h-[11px] bg-white fixed top-0 left-0 z-[60] border-b border-gray-200" />
 
+
+
+
+
+
       {/* Top Bar */}
-      <div className="w-full bg-[#000000] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:pt-[24px] 2xl:pb-5 2xl:h-[70px] 2xl:px-5 2xl:px-24 flex items-center justify-between shadow-md fixed top-[11px] z-50 transition-transform duration-300">
+<div className="w-full bg-[#000000] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:pt-[24px] 2xl:pb-5 2xl:h-[70px] 2xl:px-5 2xl:px-24 flex items-center justify-between shadow-md fixed top-0 z-50 transition-transform duration-300">
         <div className="p-[6px] 2xl:hidden">
           <button
             className="relative h-9 w-9 2xl:hidden"
@@ -136,8 +141,8 @@ export default function Header() {
       {/* Bottom Bar */}
       <div
         className={`w-full bg-gradient-to-r from-[#0A0A0A] to-[#4A4A4A] flex items-center justify-between px-4 py-[14px] md:px-8 2xl:px-24 2xl:h-16 shadow-md
-        fixed top-[94px] md:top-[92px] 2xl:top-[80px] z-40 backdrop-blur-md transition-transform duration-300 ${
-          showBottomBar ? "translate-y-0" : "-translate-y-full"
+  fixed top-16 md:top-[70px] z-40 backdrop-blur-md transition-transform duration-300 ${
+    showBottomBar ? "translate-y-0" : "-translate-y-full"
         }`}
       >
         <div className="relative flex items-center h-7 md:h-10 2xl:h-11 w-[115px] md:w-70 rounded-lg md:rounded-[10px] 2xl:rounded-xl border border-[#F5F5F5]">
