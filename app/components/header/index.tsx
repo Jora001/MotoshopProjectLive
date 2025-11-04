@@ -42,13 +42,8 @@ export default function Header() {
     <header className="w-full">
       <div className="w-full h-[11px] bg-white fixed top-0 left-0 z-[60] border-b border-gray-200" />
 
-
-
-
-
-
       {/* Top Bar */}
-<div className="w-full bg-[#000000] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:pt-[24px] 2xl:pb-5 2xl:h-[70px] 2xl:px-5 2xl:px-24 flex items-center justify-between shadow-md fixed top-0 z-50 transition-transform duration-300">
+      <div className="w-full bg-[#000000] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:pt-[24px] 2xl:pb-5 2xl:h-[70px] 2xl:px-5 2xl:px-24 flex items-center justify-between shadow-md fixed top-0 z-50 transition-transform duration-300">
         <div className="p-[6px] 2xl:hidden">
           <button
             className="relative h-9 w-9 2xl:hidden"
@@ -213,115 +208,130 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Burger Menu Drawer */}
+      {/* Burger Menu Drawer with overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            key="mobileMenu"
-            className="fixed top-0 left-0 h-full w-full z-[200] bg-white flex flex-col gap-8 overflow-y-auto max-h-screen"
-            variants={menuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
-          >
-            <div className="flex items-center justify-between px-4 py-3 md:px-8 md:pt-8">
-              <Link href="/">
-                <div className="relative h-10 w-18 md:h-[53px] md:w-24 cursor-pointer">
-                  <Image
-                    src="/icons/logo-desktop.svg"
-                    alt="logo"
-                    fill
-                    className="object-contain"
-                    priority
-                  />
-                </div>
-              </Link>
-              <div className="relative h-6 w-6 md:h-10 md:w-10 p-[2px] md:p-[5px]">
-                <button
-                  className="relative h-full w-full"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <Image
-                    src="/icons/close.svg"
-                    alt="close"
-                    fill
-                    className="object-contain"
-                    priority
-                  />
-                </button>
-              </div>
-            </div>
+          <>
+            {/* Overlay background */}
+            <motion.div
+              key="overlay"
+              className="fixed top-0 left-0 w-full h-full bg-black/50 z-[150]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+            />
 
-            <div className="flex flex-col">
-              {MOBILE_NAV_LINKS.map((link) => (
-                <div
-                  key={link.label}
-                  className="flex flex-col border-b border-b-[#E0E0E0]"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <div>
-                    <div className="flex justify-between items-center px-4 py-5 md:px-8 md:py-[21px] gap-3 cursor-pointer">
-                      <Link
-                        href={link.href}
-                        className={`font-medium md:font-semibold text-lg transition-colors ${
-                          link.label === "Ապառիկ" ? "text-[#D0021B]" : ""
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-
-                      {link.icon && (
-                        <div
-                          key={link.label}
-                          className="relative h-8 w-8 md:h-11 md:w-11 p-[6px]"
-                        >
-                          <div className="relative w-full h-full">
-                            <Image
-                              src={`/icons/mobile-menu-${link.icon}.svg`}
-                              alt={`${link.label} icon`}
-                              fill
-                              className="object-contain"
-                              priority
-                            />
-                          </div>
-                        </div>
-                      )}
-                    </div>
+            {/* Drawer */}
+            <motion.div
+              key="mobileMenu"
+              className="fixed top-0 left-0 h-full 
+              w-full md:w-[60%]
+              z-[200] bg-white flex flex-col gap-8 overflow-y-auto max-h-screen shadow-2xl"
+              variants={menuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ type: 'tween', duration: 0.5, ease: 'easeInOut' }}
+            >
+              <div className="flex items-center justify-between px-4 py-3 md:px-8 md:pt-8">
+                <Link href="/">
+                  <div className="relative h-10 w-18 md:h-[53px] md:w-24 cursor-pointer">
+                    <Image
+                      src="/icons/logo-desktop.svg"
+                      alt="logo"
+                      fill
+                      className="object-contain"
+                      priority
+                    />
                   </div>
+                </Link>
+                <div className="relative h-6 w-6 md:h-10 md:w-10 p-[2px] md:p-[5px]">
+                  <button
+                    className="relative h-full w-full"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Image
+                      src="/icons/close.svg"
+                      alt="close"
+                      fill
+                      className="object-contain"
+                      priority
+                    />
+                  </button>
+                </div>
+              </div>
 
-                  {"products" in link && (
-                    <div className="flex flex-col justify-between gap-1">
-                      {link.products.map((product) => (
-                        <div
-                          key={product.label}
-                          className="flex items-center justify-between px-4 py-5 md:px-8 md:py-[38px] border-b border-t border-[#F5F5F5]"
+              <div className="flex flex-col">
+                {MOBILE_NAV_LINKS.map((link) => (
+                  <div
+                    key={link.label}
+                    className="flex flex-col border-b border-b-[#E0E0E0]"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div>
+                      <div className="flex justify-between items-center px-4 py-5 md:px-8 md:py-[21px] gap-3 cursor-pointer">
+                        <Link
+                          href={link.href}
+                          className={`font-medium md:font-semibold text-lg transition-colors ${
+                            link.label === "Ապառիկ" ? "text-[#D0021B]" : ""
+                          }`}
                         >
-                          <Link
-                            href={product.href}
-                            className="text-gray-600 hover:text-orange-600 font-normal text-sm md:text-base"
+                          {link.label}
+                        </Link>
+
+                        {link.icon && (
+                          <div
+                            key={link.label}
+                            className="relative h-8 w-8 md:h-11 md:w-11 p-[6px]"
                           >
-                            {product.label}
-                          </Link>
-                          <div className="relative h-[50px] w-[50px] md:h-20 md:w-20">
                             <div className="relative w-full h-full">
                               <Image
-                                src={`/icons/mobile-menu-product-${product.icon}.svg`}
-                                alt={`${product.label} icon`}
+                                src={`/icons/mobile-menu-${link.icon}.svg`}
+                                alt={`${link.label} icon`}
                                 fill
                                 className="object-contain"
                                 priority
                               />
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </motion.div>
+
+                    {"products" in link && (
+                      <div className="flex flex-col justify-between gap-1">
+                        {link.products.map((product) => (
+                          <div
+                            key={product.label}
+                            className="flex items-center justify-between px-4 py-5 md:px-8 md:py-[38px] border-b border-t border-[#F5F5F5]"
+                          >
+                            <Link
+                              href={product.href}
+                              className="text-gray-600 hover:text-orange-600 font-normal text-sm md:text-base"
+                            >
+                              {product.label}
+                            </Link>
+                            <div className="relative h-[50px] w-[50px] md:h-20 md:w-20">
+                              <div className="relative w-full h-full">
+                                <Image
+                                  src={`/icons/mobile-menu-product-${product.icon}.svg`}
+                                  alt={`${product.label} icon`}
+                                  fill
+                                  className="object-contain"
+                                  priority
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>
