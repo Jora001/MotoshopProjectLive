@@ -12,8 +12,7 @@ const Section7 = () => {
     className="text-white font-bold text-[24px] sm:text-[32px] md:text-[40px] xl:text-[44px] leading-tight"
     style={{ fontFamily: "GHEA Grapalat" }}
   >
-    Կարծիքներ և փորձառություններ
-  </h2>
+Վերջին հրապարակումները  </h2>
 </div>
 
 
