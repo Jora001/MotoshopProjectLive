@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import Image from "next/image";
 
@@ -15,8 +14,10 @@ const Section5 = () => {
       />
       <div className="absolute inset-0 bg-black/40" />
 
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto flex items-end border-b border-[#2E2E2E]
-        px-4 sm:px-8 md:px-12 xl:px-[96px] pt-[40px] pb-[20px] h-auto md:h-[196px]">
+      <div
+        className="relative z-10 w-full max-w-[1440px] mx-auto flex items-end border-b border-[#2E2E2E]
+        px-4 sm:px-8 md:px-12 xl:px-[96px] pt-[40px] pb-[20px] h-auto md:h-[196px]"
+      >
         <h2
           className="text-white font-bold text-[28px] sm:text-[36px] md:text-[44px] xl:text-[48px] leading-tight md:leading-[58px]"
           style={{
@@ -40,12 +41,15 @@ const Section5 = () => {
             className="object-cover"
           />
 
-          <div className="absolute bottom-[20px] left-[16px] sm:bottom-[30px] sm:left-[20px] w-[90%] sm:w-[510px] flex flex-col gap-[16px] sm:gap-[24px] md:gap-[32px]">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+
+          <div className="absolute bottom-[20px] left-[16px] sm:bottom-[30px] sm:left-[20px] w-[90%] sm:w-[510px] flex flex-col gap-[16px] sm:gap-[24px] md:gap-[32px] z-10">
             <h3
               className="text-white font-bold text-[22px] sm:text-[28px] md:text-[36px] leading-[28px] sm:leading-[36px] md:leading-[48px]"
               style={{
                 fontFamily: "GHEA Grapalat",
                 letterSpacing: "-0.5%",
+                textShadow: "0 2px 6px rgba(0,0,0,0.7)",
               }}
             >
               Շարժիչի յուղի փոխում
@@ -56,6 +60,7 @@ const Section5 = () => {
               style={{
                 fontFamily: "Noto Sans Armenian",
                 letterSpacing: "0.5%",
+                textShadow: "0 1px 4px rgba(0,0,0,0.6)",
               }}
             >
               Յուղի արագ և որակյալ փոխման ծառայություն մեր արհեստանոցում՝
@@ -64,7 +69,8 @@ const Section5 = () => {
 
             <button
               className="w-[180px] sm:w-[200px] md:w-[245px] h-[36px] sm:h-[40px] bg-[#D0021B] text-white 
-              rounded-[8px] font-bold text-[12px] sm:text-[14px] flex items-center justify-center px-[16px] py-[8px]"
+              rounded-[8px] font-bold text-[12px] sm:text-[14px] flex items-center justify-center px-[16px] py-[8px]
+              hover:bg-[#b00116] transition-colors duration-300"
             >
               Պատվիրել հիմա
             </button>
@@ -114,12 +120,16 @@ const Section5 = () => {
                 fill
                 className="object-cover"
               />
-              <div className="absolute bottom-[10px] right-[10px] w-[80%] sm:w-[348px] flex items-center justify-end px-[12px] sm:px-[16px] text-right">
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+
+              <div className="absolute bottom-[10px] right-[10px] w-[80%] sm:w-[348px] flex items-center justify-end px-[12px] sm:px-[16px] text-right z-10">
                 <h4
                   className="font-bold text-white text-[16px] sm:text-[18px] md:text-[19px] leading-[24px] sm:leading-[28px] md:leading-[32px]"
                   style={{
                     fontFamily: "GHEA Grapalat",
                     letterSpacing: "-0.5%",
+                    textShadow: "0 2px 6px rgba(0,0,0,0.7)",
                   }}
                 >
                   {item.text}
