@@ -11,6 +11,7 @@ const AboutPage = () => {
         priority
         className="object-cover"
       />
+      <p>Hello</p>
     </div>
   );
 };
