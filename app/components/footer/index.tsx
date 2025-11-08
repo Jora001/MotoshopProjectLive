@@ -19,79 +19,94 @@ export default function Footer() {
             </div>
 
             <div className="space-y-2 mt-2">
-              {section.content.map((item, idx) => (
-                <div key={idx} className="text-xs 2xl:text-base py-1 flex items-center gap-2">
+              {section.content.map((item, idx) => {
+                const isPayment = item.label === "Վճարման եղանակներ";
 
-                  {section.title === "Հետադարձ կապ" && item.icon && (
-                    Array.isArray(item.icon) ? (
-                      <div className="flex gap-2">
-                        {item.icon.map((icon) => (
-                          <div className="relative w-6 h-6 2xl:w-12 2xl:h-12" key={icon}>
+                return (
+                  <div
+                    key={idx}
+                    className={`text-xs 2xl:text-base py-1 gap-2
+                      ${isPayment ? "flex flex-col items-start" : "flex items-center"}
+                    `}
+                  >
+                    {section.title === "Հետադարձ կապ" && item.icon && (
+                      Array.isArray(item.icon) ? (
+                        <div className="flex gap-2">
+                          {item.icon.map((icon) => (
+                            <div className="relative w-6 h-6 2xl:w-12 2xl:h-12" key={icon}>
+                              <Image
+                                src={`/icons/${icon}.svg`}
+                                alt={icon}
+                                fill
+                                className="object-cover"
+                                priority
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="relative w-6 h-6 2xl:w-12 2xl:h-12">
+                          <Image
+                            src={`/icons/${item.icon}.svg`}
+                            alt={item.icon}
+                            fill
+                            className="object-cover"
+                            priority
+                          />
+                        </div>
+                      )
+                    )}
+                    {item.label && !Array.isArray(item.label) && (
+                      <a href={item.href} className="hover:underline">
+                        {item.label}
+                      </a>
+                    )}
+
+                    {Array.isArray(item.label) && (
+                      <div className="flex flex-col">
+                        {item.label.map((text) => (
+                          <p key={text}>{text}</p>
+                        ))}
+                      </div>
+                    )}
+
+                    {section.title !== "Հետադարձ կապ" && item.icon && (
+                      <div
+                        className={`
+                          ${isPayment ? "flex gap-3 pt-1" : "flex items-center gap-2"}
+                        `}
+                      >
+                        {Array.isArray(item.icon) ? (
+                          item.icon.map((icon) => (
+                            <div
+                              className="relative w-6 h-6 2xl:w-12 2xl:h-12"
+                              key={icon}
+                            >
+                              <Image
+                                src={`/icons/${icon}.svg`}
+                                alt={icon}
+                                fill
+                                className="object-cover"
+                                priority
+                              />
+                            </div>
+                          ))
+                        ) : (
+                          <div className="relative w-[86px] 2xl:w-29 h-20 2xl:h-28">
                             <Image
-                              src={`/icons/${icon}.svg`}
-                              alt={icon}
+                              src={`/icons/${item.icon}.svg`}
+                              alt={item.icon}
                               fill
                               className="object-cover"
                               priority
                             />
                           </div>
-                        ))}
+                        )}
                       </div>
-                    ) : (
-                      <div className="relative w-6 h-6 2xl:w-12 2xl:h-12">
-                        <Image
-                          src={`/icons/${item.icon}.svg`}
-                          alt={item.icon}
-                          fill
-                          className="object-cover"
-                          priority
-                        />
-                      </div>
-                    )
-                  )}
-
-                  {item.label && !Array.isArray(item.label) && (
-                    <a href={item.href} className="hover:underline">
-                      {item.label}
-                    </a>
-                  )}
-                  {Array.isArray(item.label) && (
-                    <div className="flex flex-col">
-                      {item.label.map((text) => <p key={text}>{text}</p>)}
-                    </div>
-                  )}
-
-                  {/* Icon after label for other sections */}
-                  {section.title !== "Հետադարձ կապ" && item.icon && (
-                    Array.isArray(item.icon) ? (
-                      <div className="flex gap-2">
-                        {item.icon.map((icon) => (
-                          <div className="relative w-6 h-6 2xl:w-12 2xl:h-12" key={icon}>
-                            <Image
-                              src={`/icons/${icon}.svg`}
-                              alt={icon}
-                              fill
-                              className="object-cover"
-                              priority
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="relative w-[86px] 2xl:w-29 h-20 2xl:h-28">
-                        <Image
-                          src={`/icons/${item.icon}.svg`}
-                          alt={item.icon}
-                          fill
-                          className="object-cover"
-                          priority
-                        />
-                      </div>
-                    )
-                  )}
-
-                </div>
-              ))}
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         ))}
