@@ -7,11 +7,15 @@ import { POSTS } from "@/constants/posts";
 const Section7 = () => {
   return (
     <section className="bg-black py-8 flex flex-col items-center gap-4 px-4 md:px-8 2xl:px-24">
-      <div>
-        <h2 className="text-white text-4xl font-bold">
-          Վերջին հրապարակումները
-        </h2>
-      </div>
+<div className="relative z-10 w-full  mx-auto border-b border-[#2E2E2E] px-6 sm:px-8 md:px-[64px] xl:px-[96px] pb-6 md:pb-[20px]">
+  <h2
+    className="text-white font-bold text-[24px] sm:text-[32px] md:text-[40px] xl:text-[44px] leading-tight"
+    style={{ fontFamily: "GHEA Grapalat" }}
+  >
+    Կարծիքներ և փորձառություններ
+  </h2>
+</div>
+
 
       <div className="flex flex-col py-4 gap-4">
         <div className="flex">

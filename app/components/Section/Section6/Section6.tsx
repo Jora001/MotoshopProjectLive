@@ -38,14 +38,15 @@ const Section6 = () => {
       <div className="absolute inset-0 bg-black/50" />
 
       {/* Title */}
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto border-b border-[#2E2E2E] px-6 sm:px-8 md:px-[64px] xl:px-[96px] pb-6 md:pb-[20px]">
-        <h2
-          className="text-white font-bold text-[28px] sm:text-[36px] md:text-[44px] xl:text-[48px] leading-tight"
-          style={{ fontFamily: "GHEA Grapalat" }}
-        >
-          Կարծիքներ և փորձառություններ
-        </h2>
-      </div>
+     <div className="relative z-10 w-full max-w-[1440px] mx-auto border-b border-[#2E2E2E] px-6 sm:px-8 md:px-[64px] xl:px-[96px] pb-6 md:pb-[20px]">
+  <h2
+    className="text-white font-bold text-[24px] sm:text-[32px] md:text-[40px] xl:text-[44px] leading-tight"
+    style={{ fontFamily: 'GHEA Grapalat' }}
+  >
+    Կարծիքներ և փորձառություններ
+  </h2>
+</div>
+
 
       {/* Cards */}
       <div
