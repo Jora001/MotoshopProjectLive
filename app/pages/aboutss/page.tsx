@@ -1,15 +1,16 @@
 "use client";
 
+import * as React from "react";
 import Image from "next/image";
 
-const AboutPage = () => {
+const AboutPage: React.FC = () => {
   return (
     <section className="relative w-full min-h-[600px] lg:h-[875px] flex items-center justify-center text-white overflow-hidden">
-      
+
       {/* Նկարը */}
       <div className="absolute inset-0">
         <Image
-          src="/crd.jpg"
+          src="/crd.jpg" // Համոզվիր, որ public/crd.jpg ֆայլը կա
           alt="Hero background"
           fill
           priority
@@ -17,6 +18,7 @@ const AboutPage = () => {
         />
       </div>
 
+      {/* Գրադիենտ շերտ */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -25,15 +27,12 @@ const AboutPage = () => {
         }}
       />
 
+      {/* Մեր մասին տեքստը */}
       <div
         className="
-          absolute 
-          top-[320px] md:top-[420px] lg:top-[620px] 
-          left-0 
-          flex items-center 
-          opacity-90
-          w-[260px] h-[55px] 
-          md:w-[500px] md:h-[70px]
+          absolute top-[320px] md:top-[420px] lg:top-[620px] 
+          left-0 flex items-center opacity-90
+          w-[260px] h-[55px] md:w-[500px] md:h-[70px]
           lg:w-[636px] lg:h-[78px]
         "
         style={{
@@ -43,12 +42,7 @@ const AboutPage = () => {
         }}
       >
         <p
-          className="
-            text-white font-bold tracking-tight
-            text-[20px] leading-[28px] pl-[24px]
-            md:text-[30px] md:leading-[38px] md:pl-[160px]
-            lg:text-[36px] lg:leading-[44px] lg:pl-[200px]
-          "
+          className="text-white font-bold tracking-tight text-[20px] leading-[28px] pl-[24px] md:text-[30px] md:leading-[38px] md:pl-[160px] lg:text-[36px] lg:leading-[44px] lg:pl-[200px]"
           style={{
             fontFamily: "GHEA Grapalat, sans-serif",
             letterSpacing: "-0.5%",
@@ -59,15 +53,12 @@ const AboutPage = () => {
         </p>
       </div>
 
+      {/* Ճանապարհը բացում է նոր հորիզոններ */}
       <div
         className="
-          absolute 
-          bottom-[40px] md:bottom-[100px] lg:bottom-[0px]
-          right-0 
-          flex items-center justify-center
-          opacity-90
-          w-[200px] h-[45px]
-          md:w-[500px] md:h-[70px]
+          absolute bottom-[40px] md:bottom-[100px] lg:bottom-[0px]
+          right-0 flex items-center justify-center opacity-90
+          w-[200px] h-[45px] md:w-[500px] md:h-[70px]
           lg:w-[636px] lg:h-[78px]
         "
         style={{
@@ -77,19 +68,13 @@ const AboutPage = () => {
         }}
       >
         <p
-          className="
-            text-white font-bold tracking-tight text-center
-            text-[11px] leading-[20px]
-            md:text-[17px] md:leading-[24px]
-            lg:text-[20px] lg:leading-[28px]
-            translate-x-[28px] md:translate-x-[70px] lg:translate-x-[90px]
-          "
+          className="text-white font-bold tracking-tight text-center text-[11px] leading-[20px] md:text-[17px] md:leading-[24px] lg:text-[20px] lg:leading-[28px] translate-x-[28px] md:translate-x-[70px] lg:translate-x-[90px]"
           style={{
             fontFamily: "GHEA Grapalat, sans-serif",
             letterSpacing: "-0.5%",
           }}
         >
-          Ճանապարհը բացում է նոր հորxիզոններ
+          Ճանապարհը բացում է նոր հորիզոններ
         </p>
       </div>
     </section>
