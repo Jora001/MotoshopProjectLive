@@ -93,6 +93,9 @@ const AboutPage = () => {
         </p>
       </div>
     </section>
+
+      <p>Hello</p>
+    </div>
   );
 };
 
