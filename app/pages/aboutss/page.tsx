@@ -10,7 +10,7 @@ const AboutPage: React.FC = () => {
       {/* Նկարը */}
       <div className="absolute inset-0">
         <Image
-          src="/crd.jpg" // Համոզվիր, որ public/crd.jpg ֆայլը կա
+          src="/crd.jpg"
           alt="Hero background"
           fill
           priority
