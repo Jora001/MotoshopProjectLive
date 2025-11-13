@@ -26,7 +26,7 @@ const AboutPage: React.FC = () => {
         />
 
         <div
-          className="absolute top-[25%] md:top-[30%] lg:top-[40%] left-0 flex items-center opacity-90 w-[260px] h-[55px] md:w-[500px] md:h-[70px] lg:w-[636px] lg:h-[78px]"
+          className="absolute top-[25%] md:top-[30%] lg:top-[70%] left-0 flex items-center opacity-90 w-[260px] h-[55px] md:w-[500px] md:h-[70px] lg:w-[636px] lg:h-[78px]"
           style={{
             clipPath: "polygon(0 0, 80% 0%, 70% 100%, 0 100%)",
             background:
@@ -46,7 +46,7 @@ const AboutPage: React.FC = () => {
         </div>
 
         <div
-          className="absolute bottom-[5%] md:bottom-[15%] lg:bottom-[5%] right-0 flex items-center justify-center opacity-90 w-[200px] h-[45px] md:w-[500px] md:h-[70px] lg:w-[636px] lg:h-[78px]"
+          className="absolute bottom-[5%] md:bottom-[15%] lg:bottom-[0%] right-0 flex items-center justify-center opacity-90 w-[200px] h-[45px] md:w-[500px] md:h-[70px] lg:w-[636px] lg:h-[78px]"
           style={{
             clipPath: "polygon(100% 0, 20% 0%, 28% 100%, 100% 100%)",
             background:
@@ -65,7 +65,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      <div className="w-full flex items-center justify-center bg-[#D0051D] h-[34px] md:h-[52px] lg:h-[64px]">
+      <div className="w-full flex items-center justify-center bg-[#0A0A0A] h-[34px] md:h-[52px] lg:h-[64px]">
         <Image
           src="/vectortw.png"
           alt="Scroll down"
