@@ -5,13 +5,17 @@ import Image from "next/image";
 const AboutPage = () => {
   return (
     <section className="relative w-full min-h-[600px] lg:h-[875px] flex items-center justify-center text-white overflow-hidden">
-      <Image
-        src="/crd.jpg"
-        alt="Hero background"
-        fill
-        priority
-        className="object-cover object-center"
-      />
+      
+      {/* Նկարը */}
+      <div className="absolute inset-0">
+        <Image
+          src="/crd.jpg"
+          alt="Hero background"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+      </div>
 
       <div
         className="absolute inset-0 pointer-events-none"
