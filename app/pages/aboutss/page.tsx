@@ -1,11 +1,19 @@
 "use client";
 import * as React from "react";
 import Image from "next/image";
+import { StatsSection } from "../../components/StatsSection";
 
 const AboutPage: React.FC = () => {
+  const stats = [
+    { value: "2002թ", label: "Սկսած" },
+    { value: "1990+", label: "Հաճախորդ" },
+    { value: "9990+", label: "Վաճառք" },
+  ];
+
   return (
     <main className="w-full text-white overflow-hidden">
 
+      {/* === SECTION 1 === */}
       <section className="relative w-full min-h-[600px] lg:h-[875px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <Image
@@ -75,6 +83,7 @@ const AboutPage: React.FC = () => {
         />
       </div>
 
+      {/* === SECTION 2 === */}
       <section className="relative w-full min-h-[500px] lg:h-[780px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <Image
@@ -179,6 +188,12 @@ const AboutPage: React.FC = () => {
 
         </div>
       </section>
+
+      {/* === SECTION 3    */}
+      <section className="bg-[#0A0A0A] py-16">
+        <StatsSection stats={stats} />
+      </section>
+
     </main>
   );
 };
