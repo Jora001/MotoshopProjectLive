@@ -64,11 +64,11 @@ export const FOOTER_RESOURCES_LINKS: FooterSection[] = [
       },
     ],
   },
-  {
+    {
     title: "Հետադարձ կապ",
     content: [
       {
-        label: "ՀՀ, Երևան 0008 Դավիթ Բեկ 1/5",
+        label: ["ՀՀ, Երևան 0008", "Դավիթ Բեկի փողոց 1/5"],
         href: "/pages/delivery_information",
         icon: "footer_map",
       },
