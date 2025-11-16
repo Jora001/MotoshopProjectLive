@@ -32,7 +32,7 @@ export const StatsSection = ({ stats }: StatsSectionProps) => {
                   duration={2.5}
                   separator=","
                 />
-                {stat.value.replace(/\d/g, "")} 
+                {stat.value.replace(/\d/g, "")}
               </div>
               <div className="text-sm md:text-base text-muted-foreground">
                 {stat.label}

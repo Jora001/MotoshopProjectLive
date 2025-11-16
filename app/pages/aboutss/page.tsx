@@ -2,6 +2,10 @@
 import * as React from "react";
 import Image from "next/image";
 import { StatsSection } from "../../components/StatsSection";
+import Timeline from "../../components/Timeline";
+import Section5 from "../../components/Section/Section5/Section5";
+
+import Section6 from "@/app/components/Section/Section3/section6";
 
 const AboutPage: React.FC = () => {
   const stats = [
@@ -103,7 +107,6 @@ const AboutPage: React.FC = () => {
         />
 
         <div className="relative z-10 flex flex-col lg:flex-row justify-center items-center px-4 md:px-8 gap-6 md:gap-10">
-
           <div className="relative flex justify-center items-center">
             <div className="w-[280px] h-[160px] sm:w-[420px] sm:h-[240px] md:w-[550px] md:h-[300px] lg:w-[700px] lg:h-[429px] rounded-[10px] overflow-hidden shadow-lg transform lg:-translate-y-[130px] lg:-translate-x-[350px]">
               <Image
@@ -185,14 +188,88 @@ const AboutPage: React.FC = () => {
               մոտոցիկլային մշակույթը Հայաստանում և լրացնելու ոլորտում առկա բացերը։
             </p>
           </div>
-
         </div>
       </section>
 
-      {/* === SECTION 3    */}
+      {/* === SECTION 3 === */}
       <section className="bg-[#0A0A0A] py-16">
         <StatsSection stats={stats} />
+
+        <div className="w-full max-w-5xl mx-auto mt-12 px-6 flex flex-col md:flex-row gap-10">
+          <div className="flex flex-col gap-4 w-full md:w-[40%]">
+            <button
+              className="
+                bg-red-700 hover:bg-red-800 transition text-white font-semibold
+                w-[457px] h-[148px]
+                pt-[50px] pr-[91px] pb-[50px] pl-[91px]
+                rounded-l-[10px]
+              "
+            >
+              Առաքելություն
+            </button>
+            <button className="w-full py-4 bg-white hover:bg-red-800 transition rounded-xl text-black font-semibold">
+              Տեսլական
+            </button>
+            <button className="w-full py-4 bg-white hover:bg-red-800 transition rounded-xl text-black font-semibold">
+              Առավելություններ
+            </button>
+          </div>
+
+          <div className="w-full md:w-[60%] flex flex-col justify-center pl-4 md:pl-8 lg:pl-10">
+            <p className="text-gray-300 text-[16px] leading-[26px]">
+              Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:
+              Մենք ձգտում ենք ստեղծել միջավայր, որտեղ փորձառու արհեստավորներն ու մասնագետները կարող են շարունակել կատարելագործվել և տրամադրել լավագույն սպասարկումն իրենց հաճախորդներին:
+            </p>
+          </div>
+        </div>
+
+        <div className="relative w-full h-[539px] top-0 mt-16">
+          <Image
+            src="/ammoto.jpg"
+            alt="Main Section Image"
+            fill
+            className="object-cover"
+            priority
+          />
+
+          <div
+            className="absolute top-0 right-0 flex flex-col items-center justify-center gap-6 px-6 md:px-[96px] text-center"
+            style={{
+              width: "100%",
+              maxWidth: "720px",
+              height: "100%",
+              background:
+                "linear-gradient(269.79deg, rgba(10, 10, 10, 0.8) 0.16%, rgba(10, 10, 10, 0.1) 99.8%)",
+            }}
+          >
+          <h3
+  className="text-white text-center max-w-[530px]"
+  style={{
+    fontFamily: "GHEA Grapalat",
+    fontWeight: 700,
+    fontSize: "25px",
+    lineHeight: "40px",
+    letterSpacing: "-0.5%",
+  }}
+>
+  Մոտոշոփը տրամադրում է <br /> 
+  <span className="text-red-600">1 տարվա պաշտոնական երաշխիք</span> <br /> 
+  յուրաքանչյուր մոտոցիկլի գնման դեպքում
+</h3>
+
+            <button className="rounded-[12px] w-[280px] md:w-[350px] h-[44px] bg-white text-[#D0021B] font-medium text-[16px] leading-[20px] hover:bg-[#f5f5f5] transition">
+Ներբեռնել Երաշխիքային Պայմանները            </button>
+          </div>
+        </div>
       </section>
+
+      {/* === SECTION 4: Timeline === */}
+      <section className="bg-black">
+        <Timeline />
+      </section>
+{/* === SECTION 5 === */}
+<Section5 />
+<Section6 />
 
     </main>
   );
