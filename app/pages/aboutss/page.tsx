@@ -2,6 +2,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { StatsSection } from "../../components/StatsSection";
+import Timeline from "../../components/Timeline";
 
 const AboutPage: React.FC = () => {
   const stats = [
@@ -73,6 +74,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Arrow Down */}
       <div className="w-full flex items-center justify-center bg-[#0A0A0A] h-[34px] md:h-[52px] lg:h-[64px]">
         <Image
           src="/vectortw.png"
@@ -168,6 +170,7 @@ const AboutPage: React.FC = () => {
             </div>
           </div>
 
+          {/* Mobile Text */}
           <div className="flex flex-col lg:hidden text-center md:text-justify mt-6 md:mt-8 max-w-[90%]">
             <p
               className="text-white font-bold mb-3 text-[22px] sm:text-[26px] md:text-[30px]"
@@ -189,9 +192,14 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* === SECTION 3    */}
+      {/* === SECTION 3 === */}
       <section className="bg-[#0A0A0A] py-16">
         <StatsSection stats={stats} />
+      </section>
+
+      {/* === SECTION 4 — TIMELINE === */}
+      <section className="w-full relative">
+        <Timeline />
       </section>
 
     </main>
