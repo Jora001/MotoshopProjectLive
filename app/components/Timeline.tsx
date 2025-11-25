@@ -22,23 +22,35 @@ const allEvents: TimelineEvent[] = [
 export default function Timeline() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+<<<<<<< HEAD
 
   const spacing = 70;
+=======
+  const spacing = 120;
+>>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
 
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
+<<<<<<< HEAD
       const scrollY = window.scrollY || window.pageYOffset;
       const offsetTop = scrollY + rect.top;
 
+=======
+      const offsetTop = window.scrollY + rect.top;
+>>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
       const relativeScroll = window.scrollY + window.innerHeight / 2 - offsetTop;
 
       let closestIndex = 0;
       let minDist = Infinity;
 
       allEvents.forEach((_, idx) => {
+<<<<<<< HEAD
         const yPos = idx * spacing + 75;
+=======
+        const yPos = idx * spacing + 50;
+>>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
         const dist = Math.abs(yPos - relativeScroll);
         if (dist < minDist) {
           minDist = dist;
@@ -51,12 +63,16 @@ export default function Timeline() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
+<<<<<<< HEAD
 
+=======
+>>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div
+<<<<<<< HEAD
       className="w-full py-20 px-6 bg-black relative"
       style={{
         fontFamily: "'Arial', sans-serif",
@@ -108,10 +124,23 @@ export default function Timeline() {
 
         {allEvents.map((event, idx) => {
           const topPos = idx * spacing + 75;
+=======
+      ref={containerRef}
+      className="relative w-full py-20 px-4 md:px-6 bg-black text-white"
+      style={{ minHeight: `${allEvents.length * spacing + 100}px` }}
+    >
+      <h2 className="text-3xl font-bold mb-12 text-center md:text-left">Key Dates</h2>
+
+      <div className="max-w-4xl mx-auto relative">
+        {/* Timeline events */}
+        {allEvents.map((event, idx) => {
+          const topPos = idx * spacing + 50;
+>>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
 
           return (
             <div
               key={event.year}
+<<<<<<< HEAD
               className="absolute flex items-center w-full"
               style={{ top: topPos }}
             >
@@ -122,6 +151,19 @@ export default function Timeline() {
                     {event.text}
                   </span>
                   <div className="w-5 h-5 rounded-full border-2 border-white flex-shrink-0 relative flex items-center justify-center">
+=======
+              className="absolute w-full flex items-center"
+              style={{ top: topPos }}
+            >
+              {/* Left side */}
+              {event.isLeft && (
+                <div className="flex items-center ml-0 mr-auto gap-4 relative">
+                  <span className="font-semibold text-right max-w-[280px] md:max-w-[320px] z-10">
+                    <strong>{event.year} — </strong>
+                    {event.text}
+                  </span>
+                  <div className="w-5 h-5 rounded-full border-2 border-white flex items-center justify-center">
+>>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
                     {activeIndex === idx && (
                       <div className="w-3 h-3 bg-red-600 rounded-full transition-all duration-300" />
                     )}
@@ -129,14 +171,25 @@ export default function Timeline() {
                 </div>
               )}
 
+<<<<<<< HEAD
               {!event.isLeft && (
                 <div className="flex items-center ml-auto" style={{ gap: "8px" }}>
                   <div className="w-5 h-5 rounded-full border-2 border-white flex-shrink-0 relative flex items-center justify-center">
+=======
+              {/* Right side */}
+              {!event.isLeft && (
+                <div className="flex items-center ml-auto gap-4 relative">
+                  <div className="w-5 h-5 rounded-full border-2 border-white flex items-center justify-center">
+>>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
                     {activeIndex === idx && (
                       <div className="w-3 h-3 bg-red-600 rounded-full transition-all duration-300" />
                     )}
                   </div>
+<<<<<<< HEAD
                   <span className="font-semibold text-left" style={{ maxWidth: 320 }}>
+=======
+                  <span className="font-semibold text-left max-w-[280px] md:max-w-[320px] z-10">
+>>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
                     <strong>{event.year} — </strong>
                     {event.text}
                   </span>

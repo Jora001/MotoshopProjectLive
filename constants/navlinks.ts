@@ -29,7 +29,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Մեր մասին", href: "/pages/aboutss", icon: "about-us" },
   {
     label: "Տեսականի",
-    href: "/pages/aboutss",
+    href: "/pages/assortment",
     products: [
       { label: "Մոտոցիկլեր", href: "/our/motorcycles", icon: "motorcycles" },
       { label: "Աքսեսուարներ", href: "/our/accessories", icon: "accessories" },
@@ -64,11 +64,11 @@ export const FOOTER_RESOURCES_LINKS: FooterSection[] = [
       },
     ],
   },
-  {
+    {
     title: "Հետադարձ կապ",
     content: [
       {
-        label: "ՀՀ, Երևան 0008 Դավիթ Բեկ 1/5",
+        label: ["ՀՀ, Երևան 0008", "Դավիթ Բեկի փողոց 1/5"],
         href: "/pages/delivery_information",
         icon: "footer_map",
       },
