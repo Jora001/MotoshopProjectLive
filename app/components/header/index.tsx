@@ -5,6 +5,7 @@ import Link from "next/link";
 import { NAV_LINKS, MOBILE_NAV_LINKS } from "@/constants/navlinks";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const menuVariants = {
   hidden: { x: "-100%" },
@@ -17,6 +18,7 @@ export default function Header() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsMounted(true);
@@ -31,6 +33,7 @@ export default function Header() {
       setShowBottomBar(goingUp);
       setLastScrollY(currentScroll);
     };
+
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -64,22 +67,47 @@ export default function Header() {
             {NAV_LINKS.map((link) => (
               <div className="px-[6px] 2xl:px-[10px]" key={link.label}>
                 <div
-                  className={`border-b-2 border-transparent ${
-                    link.label === "Ապառիկ"
-                      ? "hover:border-[#FFC107]"
-                      : "hover:border-white"
-                  } cursor-pointer py-2`}
-                >
-                  <Link
-                    href={link.href}
-                    className={`font-semibold text-[14px] transition-colors ${
-                      link.label === "Ապառիկ"
-                        ? "text-[#FFC107]"
-                        : "text-[#F5F5F5]"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
+  className={`
+    border-b-2 
+    ${
+      pathname === link.href
+        ? link.label === "Ապառիկ"
+          ? "border-[#ffc107]"
+          : "border-white"
+        : "border-transparent"
+    }
+    ${
+      link.label === "Ապառիկ"
+        ? "hover:border-[#fff]"
+        : "hover:border-white"
+    }
+    cursor-pointer py-2
+  `}
+>
+
+                  
+<Link
+  href={link.href}
+  className={`
+    font-medium md:font-semibold text-lg transition-colors
+    ${
+      link.label === "Ապառիկ"
+        ? "text-[#ffc107]"
+        : "text-white"
+    }
+    ${
+      pathname === link.href && link.label !== "Ապառիկ"
+        ? "text-white"
+        : ""
+    }
+  `}
+>
+  {link.label}
+</Link>
+
+
+
+
                 </div>
               </div>
             ))}
@@ -226,7 +254,7 @@ export default function Header() {
             <motion.div
               key="mobileMenu"
               className="fixed top-0 left-0 h-full 
-              w-full md:w-[60%]
+              w-full md:w-[25%]
               z-[200] bg-white flex flex-col gap-8 overflow-y-auto max-h-screen shadow-2xl"
               variants={menuVariants}
               initial="hidden"

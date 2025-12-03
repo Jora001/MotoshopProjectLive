@@ -3,12 +3,8 @@ import * as React from "react";
 import Image from "next/image";
 import { StatsSection } from "../../components/StatsSection";
 import Timeline from "../../components/Timeline";
-<<<<<<< HEAD
-=======
 import Section5 from "../../components/Section/Section5/Section5";
-
 import Section6 from "@/app/components/Section/Section3/section6";
->>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
 
 const AboutPage: React.FC = () => {
   const stats = [
@@ -17,6 +13,7 @@ const AboutPage: React.FC = () => {
     { value: "9990+", label: "Վաճառք" },
   ];
 
+  const [activeButton, setActiveButton] = React.useState("mission");
   return (
     <main className="w-full text-white overflow-hidden">
 
@@ -197,92 +194,81 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* === SECTION 3 === */}
-      <section className="bg-[#0A0A0A] py-16">
-        <StatsSection stats={stats} />
+{/* === SECTION 3 === */}
+<section className="bg-[#0A0A0A] py-16">
+  <StatsSection stats={stats} />
 
-        <div className="w-full max-w-5xl mx-auto mt-12 px-6 flex flex-col md:flex-row gap-10">
-          <div className="flex flex-col gap-4 w-full md:w-[40%]">
-            <button
-              className="
-                bg-red-700 hover:bg-red-800 transition text-white font-semibold
-                w-[457px] h-[148px]
-                pt-[50px] pr-[91px] pb-[50px] pl-[91px]
-                rounded-l-[10px]
-              "
-            >
-              Առաքելություն
-            </button>
-            <button className="w-full py-4 bg-white hover:bg-red-800 transition rounded-xl text-black font-semibold">
-              Տեսլական
-            </button>
-            <button className="w-full py-4 bg-white hover:bg-red-800 transition rounded-xl text-black font-semibold">
-              Առավելություններ
-            </button>
-          </div>
-
-          <div className="w-full md:w-[60%] flex flex-col justify-center pl-4 md:pl-8 lg:pl-10">
-            <p className="text-gray-300 text-[16px] leading-[26px]">
-              Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:
-              Մենք ձգտում ենք ստեղծել միջավայր, որտեղ փորձառու արհեստավորներն ու մասնագետները կարող են շարունակել կատարելագործվել և տրամադրել լավագույն սպասարկումն իրենց հաճախորդներին:
-            </p>
-          </div>
-        </div>
-
-        <div className="relative w-full h-[539px] top-0 mt-16">
-          <Image
-            src="/ammoto.jpg"
-            alt="Main Section Image"
-            fill
-            className="object-cover"
-            priority
-          />
-
-          <div
-            className="absolute top-0 right-0 flex flex-col items-center justify-center gap-6 px-6 md:px-[96px] text-center"
-            style={{
-              width: "100%",
-              maxWidth: "720px",
-              height: "100%",
-              background:
-                "linear-gradient(269.79deg, rgba(10, 10, 10, 0.8) 0.16%, rgba(10, 10, 10, 0.1) 99.8%)",
-            }}
+  <div className="w-full max-w-5xl mx-auto mt-12 px-6 flex flex-col md:flex-row gap-10">
+    {/* Buttons */}
+    <div className="flex flex-col gap-4 w-full md:w-[40%]">
+      {[
+        {
+          id: "mission",
+          label: "Առաքելություն",
+          description:
+            "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը: Մենք ձգտում ենք ստեղծել միջավայր, որտեղ փորձառու արհեստավորներն ու մասնագետները կարող են շարունակել կատարելագործվել և տրամադրել լավագույն սպասարկումն իրենց հաճախորդներին:"
+        },
+        {
+          id: "vision",
+          label: "Տեսլական",
+          description:
+            "Տեսլականը կենտրոնացած է Motoshop Armenia-ի զարգացման վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
+        },
+        {
+          id: "advantages",
+          label: "Առավելություններ",
+          description:
+            "Առավելությունները ներառում են բարձրորակ սպասարկում, արագ առաքում և պրոֆեսիոնալ տեխնիկական աջակցություն:"
+        }
+      ].map((btn) => {
+        const isActive = activeButton === btn.id;
+        return (
+          <button
+            key={btn.id}
+            onClick={() => setActiveButton(btn.id)}
+            className={`
+              transition-all font-semibold rounded-l-[10px] 
+              ${isActive ? "bg-red-700 text-white w-[457px] h-[148px] pt-[50px] pr-[91px] pb-[50px] pl-[91px] hover:bg-red-800" 
+                         : "bg-white text-black w-[100%] h-[60px] pt-[10px] pr-[20px] pb-[10px] pl-[20px] hover:bg-red-800"}
+            `}
           >
-          <h3
-  className="text-white text-center max-w-[530px]"
-  style={{
-    fontFamily: "GHEA Grapalat",
-    fontWeight: 700,
-    fontSize: "25px",
-    lineHeight: "40px",
-    letterSpacing: "-0.5%",
-  }}
->
-  Մոտոշոփը տրամադրում է <br /> 
-  <span className="text-red-600">1 տարվա պաշտոնական երաշխիք</span> <br /> 
-  յուրաքանչյուր մոտոցիկլի գնման դեպքում
-</h3>
+            {btn.label}
+          </button>
+        );
+      })}
+    </div>
 
-            <button className="rounded-[12px] w-[280px] md:w-[350px] h-[44px] bg-white text-[#D0021B] font-medium text-[16px] leading-[20px] hover:bg-[#f5f5f5] transition">
-Ներբեռնել Երաշխիքային Պայմանները            </button>
-          </div>
-        </div>
-      </section>
+    <div className="w-full md:w-[100%] flex flex-col justify-center pl-4 md:pl-8 lg:pl-10">
+      <p className="text-gray-300 text-[16px] leading-[26px]">
+        {[
+          {
+            id: "mission",
+            description:
+              "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը: Մենք ձգտում ենք ստեղծել միջավայր, որտեղ փորձառու արհեստավորներն ու մասնագետները կարող են շարունակել կատարելագործվել և տրամադրել լավագույն սպասարկումն իրենց հաճախորդներին:"
+          },
+          {
+            id: "vision",
+            description:
+              "Տեսլականը կենտրոնացած է Motoshop Armenia-ի发展的 վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
+          },
+          {
+            id: "advantages",
+            description:
+              "Առավելությունները ներառում են բարձրորակ սպասարկում, արագ առաքում և պրոֆեսիոնալ տեխնիկական աջակցություն:"
+          }
+        ].find((btn) => btn.id === activeButton)?.description}
+      </p>
+    </div>
+  </div>
+</section>
 
-<<<<<<< HEAD
-      {/* === SECTION 4 — TIMELINE === */}
-      <section className="w-full relative">
-        <Timeline />
-      </section>
-=======
-      {/* === SECTION 4: Timeline === */}
-      <section className="bg-black">
-        <Timeline />
-      </section>
 {/* === SECTION 5 === */}
 <Section5 />
 <Section6 />
->>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
-
+{/* === SECTION 4 — TIMELINE === */}
+<section className="w-full relative">
+        <Timeline />
+      </section>
     </main>
   );
 };

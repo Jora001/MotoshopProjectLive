@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface TimelineEvent {
   year: number;
@@ -8,197 +9,154 @@ interface TimelineEvent {
   isLeft: boolean;
 }
 
-const allEvents: TimelineEvent[] = [
-  { year: 2012, text: "Motoshop Armenia was founded", isLeft: false },
-  { year: 2013, text: "The first store was opened", isLeft: true },
-  { year: 2016, text: "A new store was launched", isLeft: false },
-  { year: 2018, text: "Recorded the highest sales", isLeft: true },
-  { year: 2020, text: "The HAYASA brand was created", isLeft: false },
-  { year: 2021, text: "The online store was launched", isLeft: true },
-  { year: 2022, text: "The number of customers exceeded 1000", isLeft: false },
-  { year: 2023, text: "A new range of international brands was added", isLeft: true },
+const events: TimelineEvent[] = [
+  { year: 2012, text: "Հիմնադրվեց Motoshop Armenia", isLeft: false },
+  { year: 2013, text: "բացվեց առաջին խանութը", isLeft: true },
+  { year: 2016, text: "բացվեց նոր խանութ", isLeft: false },
+  { year: 2018, text: "գրանցվեցին աննախադեպ վաճառքներ", isLeft: true },
+  { year: 2020, text: "ստեղծվեց HAYASA բրենդը", isLeft: false },
+  { year: 2021, text: "մեկնարկեց առցանց խանութը", isLeft: true },
+  { year: 2022, text: "հաճախորդների թիվը անցավ 1000‑ը", isLeft: false },
+  {
+    year: 2023,
+    text: "ավելացվեց միջազգային բրենդների նոր շարք",
+    isLeft: true,
+  },
 ];
 
 export default function Timeline() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-<<<<<<< HEAD
 
-  const spacing = 70;
-=======
-  const spacing = 120;
->>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
+  // Գեոմետրիա
+  const containerWidth = 900;
+  const centerX = containerWidth / 2;
+  const offsetX = 80;
+  const baseY = 120;
+  const gapY = 140;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-<<<<<<< HEAD
-      const scrollY = window.scrollY || window.pageYOffset;
-      const offsetTop = scrollY + rect.top;
+  const points = events.map((e, index) => ({
+    x: centerX + (e.isLeft ? -offsetX : offsetX),
+    y: baseY + index * gapY,
+  }));
 
-=======
-      const offsetTop = window.scrollY + rect.top;
->>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
-      const relativeScroll = window.scrollY + window.innerHeight / 2 - offsetTop;
+  const totalHeight = points[points.length - 1].y + 180;
 
-      let closestIndex = 0;
-      let minDist = Infinity;
+  // Scroll progress
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"],
+  });
 
-      allEvents.forEach((_, idx) => {
-<<<<<<< HEAD
-        const yPos = idx * spacing + 75;
-=======
-        const yPos = idx * spacing + 50;
->>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
-        const dist = Math.abs(yPos - relativeScroll);
-        if (dist < minDist) {
-          minDist = dist;
-          closestIndex = idx;
-        }
-      });
+  // Active index based on scroll - step by step movement
+  const activeIndex = useTransform(scrollYProgress, (progress) => {
+    if (!progress || isNaN(progress)) return 0;
+    const clamped = Math.max(0, Math.min(1, progress));
+    const raw = clamped * (points.length - 1);
+    return Math.round(raw);
+  });
 
-      setActiveIndex(closestIndex);
-    };
+  // Red dot position - directly from active index
+  const dotX = useTransform(activeIndex, (idx) => {
+    const safeIdx = Math.max(0, Math.min(points.length - 1, idx || 0));
+    return points[safeIdx].x;
+  });
+  
+  const dotY = useTransform(activeIndex, (idx) => {
+    const safeIdx = Math.max(0, Math.min(points.length - 1, idx || 0));
+    return points[safeIdx].y;
+  });
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-<<<<<<< HEAD
-
-=======
->>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Zig-zag path
+  const polylinePoints = points.map((p) => `${p.x},${p.y}`).join(" ");
 
   return (
-    <div
-<<<<<<< HEAD
-      className="w-full py-20 px-6 bg-black relative"
-      style={{
-        fontFamily: "'Arial', sans-serif",
-        color: "white",
-        minHeight: `${allEvents.length * spacing + 150}px`,
-        backgroundImage: `repeating-linear-gradient(
-          45deg,
-          transparent,
-          transparent 15px,
-          rgba(30,30,30,0.3) 15px,
-          rgba(30,30,30,0.3) 30px
-        )`,
-      }}
+    <section
       ref={containerRef}
+      className="w-full relative py-20 px-4 md:px-8 lg:px-16 text-white"
+      style={{
+        minHeight: totalHeight + 200,
+        backgroundColor: "#0A0A0A",
+        backgroundImage:
+          "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(30, 30, 30, 0.5) 15px, rgba(30, 30, 30, 0.5) 30px)",
+      }}
     >
-      <h2 className="text-3xl font-bold mb-12 pl-4">Key Dates</h2>
+      <h2
+        className="text-left text-[28px] md:text-[32px] font-bold mb-12 text-white pl-4"
+        style={{ fontFamily: "GHEA Grapalat, sans-serif" }}
+      >
+        Կարևոր Տարեթվեր
+      </h2>
 
-      <div className="max-w-4xl mx-auto relative">
+      <div
+        className="relative mx-auto"
+        style={{ width: containerWidth, minHeight: totalHeight }}
+      >
         <svg
-          className="absolute left-1/2 top-0 -translate-x-1/2"
-          width={200}
-          height={allEvents.length * spacing + 150}
+          width={containerWidth}
+          height={totalHeight}
+          className="absolute top-0 left-0 pointer-events-none"
           style={{ overflow: "visible" }}
         >
-          {allEvents.map((_, idx) => {
-            if (idx === allEvents.length - 1) return null;
+          <polyline
+            points={polylinePoints}
+            fill="none"
+            stroke="#ffffff"
+            strokeWidth={2}
+            strokeDasharray="8 6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
 
-            const yStart = idx * spacing + 75 + 10;
-            const yEnd = (idx + 1) * spacing + 75 + 10;
+          {points.map((p, idx) => (
+            <circle
+              key={idx}
+              cx={p.x}
+              cy={p.y}
+              r={8}
+              fill="#ffffff"
+              stroke="none"
+            />
+          ))}
 
-            const xStart = 0;
-
-            const xMid = idx % 2 === 0 ? -120 : 120;
-            const xEnd = 0;
-
-            return (
-              <path
-                key={idx}
-                d={`M${xStart} ${yStart} Q${xMid} ${(yStart + yEnd) / 2} ${xEnd} ${yEnd}`}
-                stroke="white"
-                strokeWidth={2}
-                fill="none"
-                strokeDasharray="5 3"
-                opacity={0.7}
-              />
-            );
-          })}
+          <motion.circle
+            r={9}
+            fill="#D0051D"
+            stroke="none"
+            style={{
+              cx: dotX,
+              cy: dotY,
+            } as React.CSSProperties & { cx: typeof dotX; cy: typeof dotY }}
+          />
         </svg>
 
-        {allEvents.map((event, idx) => {
-          const topPos = idx * spacing + 75;
-=======
-      ref={containerRef}
-      className="relative w-full py-20 px-4 md:px-6 bg-black text-white"
-      style={{ minHeight: `${allEvents.length * spacing + 100}px` }}
-    >
-      <h2 className="text-3xl font-bold mb-12 text-center md:text-left">Key Dates</h2>
+        {events.map((event, index) => {
+          const p = points[index];
+          const isLeft = event.isLeft;
+          const textWidth = 300;
+          const gapFromLine = 100;
 
-      <div className="max-w-4xl mx-auto relative">
-        {/* Timeline events */}
-        {allEvents.map((event, idx) => {
-          const topPos = idx * spacing + 50;
->>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
+          const leftPos = isLeft
+            ? centerX - gapFromLine - textWidth
+            : centerX + gapFromLine;
 
           return (
             <div
               key={event.year}
-<<<<<<< HEAD
-              className="absolute flex items-center w-full"
-              style={{ top: topPos }}
+              className="absolute text-[13px] md:text-[15px] leading-relaxed"
+              style={{
+                top: p.y,
+                left: leftPos,
+                width: textWidth,
+                transform: "translateY(-50%)",
+                textAlign: isLeft ? "right" : "left",
+              }}
             >
-              {event.isLeft && (
-                <div className="flex items-center ml-0 mr-auto" style={{ gap: "8px" }}>
-                  <span className="font-semibold text-right" style={{ maxWidth: 320 }}>
-                    <strong>{event.year} — </strong>
-                    {event.text}
-                  </span>
-                  <div className="w-5 h-5 rounded-full border-2 border-white flex-shrink-0 relative flex items-center justify-center">
-=======
-              className="absolute w-full flex items-center"
-              style={{ top: topPos }}
-            >
-              {/* Left side */}
-              {event.isLeft && (
-                <div className="flex items-center ml-0 mr-auto gap-4 relative">
-                  <span className="font-semibold text-right max-w-[280px] md:max-w-[320px] z-10">
-                    <strong>{event.year} — </strong>
-                    {event.text}
-                  </span>
-                  <div className="w-5 h-5 rounded-full border-2 border-white flex items-center justify-center">
->>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
-                    {activeIndex === idx && (
-                      <div className="w-3 h-3 bg-red-600 rounded-full transition-all duration-300" />
-                    )}
-                  </div>
-                </div>
-              )}
-
-<<<<<<< HEAD
-              {!event.isLeft && (
-                <div className="flex items-center ml-auto" style={{ gap: "8px" }}>
-                  <div className="w-5 h-5 rounded-full border-2 border-white flex-shrink-0 relative flex items-center justify-center">
-=======
-              {/* Right side */}
-              {!event.isLeft && (
-                <div className="flex items-center ml-auto gap-4 relative">
-                  <div className="w-5 h-5 rounded-full border-2 border-white flex items-center justify-center">
->>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
-                    {activeIndex === idx && (
-                      <div className="w-3 h-3 bg-red-600 rounded-full transition-all duration-300" />
-                    )}
-                  </div>
-<<<<<<< HEAD
-                  <span className="font-semibold text-left" style={{ maxWidth: 320 }}>
-=======
-                  <span className="font-semibold text-left max-w-[280px] md:max-w-[320px] z-10">
->>>>>>> a30ed184e4b6257d1e63696468cda156ebe142e5
-                    <strong>{event.year} — </strong>
-                    {event.text}
-                  </span>
-                </div>
-              )}
+              <span className="font-bold">{event.year} — </span>
+              <span>{event.text}</span>
             </div>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }
