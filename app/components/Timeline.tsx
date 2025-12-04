@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 interface TimelineEvent {
@@ -16,7 +16,7 @@ const events: TimelineEvent[] = [
   { year: 2018, text: "գրանցվեցին աննախադեպ վաճառքներ", isLeft: true },
   { year: 2020, text: "ստեղծվեց HAYASA բրենդը", isLeft: false },
   { year: 2021, text: "մեկնարկեց առցանց խանութը", isLeft: true },
-  { year: 2022, text: "հաճախորդների թիվը անցավ 1000‑ը", isLeft: false },
+  { year: 2022, text: "հաճախորդների թիվը անցավ 1000-ը", isLeft: false },
   {
     year: 2023,
     text: "ավելացվեց միջազգային բրենդների նոր շարք",
@@ -26,28 +26,38 @@ const events: TimelineEvent[] = [
 
 export default function Timeline() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Գեոմետրիա
-  const containerWidth = 900;
-  const centerX = containerWidth / 2;
-  const offsetX = 80;
-  const baseY = 120;
-  const gapY = 140;
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const containerWidth = isMobile ? 380 : 900;
+
+  const centerX = isMobile ? 40 : containerWidth / 2;
+  const offsetX = isMobile ? 0 : 80;
+
+  const baseY = isMobile ? 100 : 120;
+  const gapY = isMobile ? 110 : 140;
 
   const points = events.map((e, index) => ({
-    x: centerX + (e.isLeft ? -offsetX : offsetX),
+    x: isMobile ? centerX : centerX + (e.isLeft ? -offsetX : offsetX),
     y: baseY + index * gapY,
   }));
 
-  const totalHeight = points[points.length - 1].y + 180;
+  const totalHeight = points[points.length - 1].y + 200;
 
-  // Scroll progress
+  // scroll animation
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start center", "end center"],
   });
 
-  // Active index based on scroll - step by step movement
   const activeIndex = useTransform(scrollYProgress, (progress) => {
     if (!progress || isNaN(progress)) return 0;
     const clamped = Math.max(0, Math.min(1, progress));
@@ -55,18 +65,16 @@ export default function Timeline() {
     return Math.round(raw);
   });
 
-  // Red dot position - directly from active index
-  const dotX = useTransform(activeIndex, (idx) => {
-    const safeIdx = Math.max(0, Math.min(points.length - 1, idx || 0));
+  const dotX = useTransform(activeIndex, (index) => {
+    const safeIdx = Math.max(0, Math.min(points.length - 1, index || 0));
     return points[safeIdx].x;
   });
-  
-  const dotY = useTransform(activeIndex, (idx) => {
-    const safeIdx = Math.max(0, Math.min(points.length - 1, idx || 0));
+
+  const dotY = useTransform(activeIndex, (index) => {
+    const safeIdx = Math.max(0, Math.min(points.length - 1, index || 0));
     return points[safeIdx].y;
   });
 
-  // Zig-zag path
   const polylinePoints = points.map((p) => `${p.x},${p.y}`).join(" ");
 
   return (
@@ -81,74 +89,102 @@ export default function Timeline() {
       }}
     >
       <h2
-        className="text-left text-[28px] md:text-[32px] font-bold mb-12 text-white pl-4"
+        className="text-left text-[24px] sm:text-[28px] md:text-[32px] font-bold mb-8 sm:mb-12 text-white pl-2 sm:pl-4"
         style={{ fontFamily: "GHEA Grapalat, sans-serif" }}
       >
         Կարևոր Տարեթվեր
       </h2>
 
       <div
-        className="relative mx-auto"
-        style={{ width: containerWidth, minHeight: totalHeight }}
+        className="relative mx-auto px-2 sm:px-0"
+        style={{
+          width: "100%",
+          maxWidth: containerWidth,
+          minHeight: totalHeight,
+        }}
       >
         <svg
-          width={containerWidth}
+          width="100%"
           height={totalHeight}
+          viewBox={`0 0 ${containerWidth} ${totalHeight}`}
           className="absolute top-0 left-0 pointer-events-none"
           style={{ overflow: "visible" }}
+          preserveAspectRatio="xMidYMin meet"
         >
-          <polyline
-            points={polylinePoints}
-            fill="none"
-            stroke="#ffffff"
-            strokeWidth={2}
-            strokeDasharray="8 6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          {isMobile ? (
+            <>
+              <line
+                x1={centerX}
+                y1={baseY}
+                x2={centerX}
+                y2={points[points.length - 1].y}
+                stroke="#ffffff"
+                strokeWidth={1.5}
+                strokeDasharray="8 6"
+                strokeLinecap="round"
+              />
 
-          {points.map((p, idx) => (
-            <circle
-              key={idx}
-              cx={p.x}
-              cy={p.y}
-              r={8}
-              fill="#ffffff"
-              stroke="none"
-            />
-          ))}
+              {points.map((p, idx) => (
+                <circle
+                  key={idx}
+                  cx={p.x}
+                  cy={p.y}
+                  r={7}
+                  fill="#ffffff"
+                />
+              ))}
+              <motion.circle
+                  r={9}
+                  fill="#D0051D"
+                  cx={dotX}
+                  cy={dotY}
+              />
 
-          <motion.circle
-            r={9}
-            fill="#D0051D"
-            stroke="none"
-            style={{
-              cx: dotX,
-              cy: dotY,
-            } as React.CSSProperties & { cx: typeof dotX; cy: typeof dotY }}
-          />
+            </>
+          ) : (
+            <>
+              <polyline
+                points={polylinePoints}
+                fill="none"
+                stroke="#ffffff"
+                strokeWidth={2}
+                strokeDasharray="8 6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              {points.map((p, idx) => (
+                <circle key={idx} cx={p.x} cy={p.y} r={8} fill="#ffffff" />
+              ))}
+              <motion.circle
+                  r={9}
+                  fill="#D0051D"
+                  cx={dotX}
+                  cy={dotY}
+              />
+            </>
+          )}
         </svg>
-
         {events.map((event, index) => {
           const p = points[index];
-          const isLeft = event.isLeft;
-          const textWidth = 300;
-          const gapFromLine = 100;
+          const textWidth = isMobile ? 220 : 300;
+          const gapFromLine = isMobile ? 35 : 100;
 
-          const leftPos = isLeft
+          const leftPos = isMobile
+            ? centerX + gapFromLine
+            : event.isLeft
             ? centerX - gapFromLine - textWidth
             : centerX + gapFromLine;
 
           return (
             <div
               key={event.year}
-              className="absolute text-[13px] md:text-[15px] leading-relaxed"
+              className="absolute text-[12px] md:text-[15px] leading-relaxed text-white"
               style={{
                 top: p.y,
-                left: leftPos,
-                width: textWidth,
+                left: `${leftPos}px`,
+                width: `${textWidth}px`,
                 transform: "translateY(-50%)",
-                textAlign: isLeft ? "right" : "left",
+                textAlign: isMobile ? "left" : event.isLeft ? "right" : "left",
               }}
             >
               <span className="font-bold">{event.year} — </span>

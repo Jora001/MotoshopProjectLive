@@ -15,7 +15,6 @@ const Section4 = () => {
 
     const triggers: ScrollTrigger[] = [];
 
-    // First animation - image wrapper
     const imageTween = gsap.to(".image-wrapper", {
       y: "0%",
       scrollTrigger: {
@@ -28,7 +27,6 @@ const Section4 = () => {
     });
     triggers.push(imageTween.scrollTrigger!);
 
-    // Second animation - text overlay
     const textTween = gsap.fromTo(
       ".text-overlay",
       { opacity: 0, y: 50 },
@@ -45,7 +43,6 @@ const Section4 = () => {
     );
     triggers.push(textTween.scrollTrigger!);
 
-    // Cleanup
     return () => {
       triggers.forEach((trigger) => trigger?.kill());
     };
@@ -69,10 +66,22 @@ const Section4 = () => {
           className="w-full h-full object-cover"
         />
 
-        <div className="text-overlay absolute inset-0 flex items-start justify-center z-20 pointer-events-none">
-          <h1 className="text-white text-6xl sm:text-7xl md:text-8xl font-bold drop-shadow-xl">
-            hello
-          </h1>
+        <div className="text-overlay absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+          <div
+            className="
+              px-4 py-3 sm:px-6 sm:py-4
+              rounded-[8px] sm:rounded-[10px]
+              max-w-[480px] sm:max-w-[540px]
+              text-center leading-tight
+            "
+          >
+            <p className="text-white text-[14px] sm:text-[16px] md:text-[18px] font-semibold tracking-wide">
+              Պարզապես գնելու փոխարեն
+            </p>
+            <p className="text-white text-[18px] sm:text-[20px] md:text-[22px] font-bold mt-1 tracking-[0.04em] uppercase">
+              ՓՈԽԱՆԱԿԻՐ ԵՎ ԽՆԱՅԻՐ
+            </p>
+          </div>
         </div>
       </div>
     </section>
