@@ -67,43 +67,43 @@ export default function Header() {
             {NAV_LINKS.map((link) => (
               <div className="px-[6px] 2xl:px-[10px]" key={link.label}>
                 <div
-  className={`
+                  className={`
     border-b-2 
     ${
       pathname === link.href
-        ? link.label === "Ապառիկ"
-          ? "border-[#ffc107]"
-          : "border-white"
-        : "border-transparent"
-    }
+                      ? link.label === "Ապառիկ"
+                        ? "border-[#ffc107]"
+                        : "border-white"
+                      : "border-transparent"
+                    }
     ${
       link.label === "Ապառիկ"
-        ? "hover:border-[#fff]"
-        : "hover:border-white"
-    }
+                      ? "hover:border-[#fff]"
+                      : "hover:border-white"
+                    }
     cursor-pointer py-2
   `}
->
+                >
 
-                  
-<Link
-  href={link.href}
-  className={`
+
+                  <Link
+                    href={link.href}
+                    className={`
     font-medium md:font-semibold text-lg transition-colors
     ${
       link.label === "Ապառիկ"
-        ? "text-[#ffc107]"
-        : "text-white"
-    }
+                        ? "text-[#ffc107]"
+                        : "text-white"
+                      }
     ${
       pathname === link.href && link.label !== "Ապառիկ"
-        ? "text-white"
-        : ""
-    }
+                        ? "text-white"
+                        : ""
+                      }
   `}
->
-  {link.label}
-</Link>
+                  >
+                    {link.label}
+                  </Link>
 
 
 
@@ -128,13 +128,13 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-0 flex items-center z-20 2xl:h-30 2xl:top-[-24px]">
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-[-20px] flex items-center z-20 2xl:h-30 2xl:top-[-24px]">
           <Link
             href="/"
-            className="flex items-center justify-center h-16 w-[234px] 2xl:h-[134px] 2xl:w-[275px] px-8 py-2 bg-white cursor-pointer"
+            className="flex items-center justify-center h-30 w-[270px] 2xl:h-[134px] 2xl:w-[275px] px-8 bg-white cursor-pointer"
             style={{ clipPath: "polygon(0 0, 100% 0, 80% 75%, 20% 75%)" }}
           >
-            <div className="relative h-[50px] w-24 2xl:h-20 2xl:w-23 ">
+            <div className="relative h-20 w-23 ">
               <Image
                 src="/logo22.png"
                 alt="logo"
@@ -166,7 +166,7 @@ export default function Header() {
         className={`w-full bg-gradient-to-r from-[#0A0A0A] to-[#4A4A4A] flex items-center justify-between px-4 py-[14px] md:px-8 2xl:px-24 2xl:h-16 shadow-md
   fixed top-16 md:top-[70px] z-40 backdrop-blur-md transition-transform duration-300 ${
     showBottomBar ? "translate-y-0" : "-translate-y-full"
-        }`}
+          }`}
       >
         <div className="relative flex items-center h-7 md:h-10 2xl:h-11 w-[115px] md:w-70 rounded-lg md:rounded-[10px] 2xl:rounded-xl border border-[#F5F5F5]">
           <div className="pl-2 md:pl-4">
@@ -222,7 +222,7 @@ export default function Header() {
               />
             </div>
           </div>
-          <div className="p-[2px] md:p-[5px] cursor-pointer">
+          {/* <div className="p-[2px] md:p-[5px] cursor-pointer">
             <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
               <Image
                 src="/icons/trash.svg"
@@ -232,7 +232,7 @@ export default function Header() {
                 priority
               />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -303,7 +303,7 @@ export default function Header() {
                           href={link.href}
                           className={`font-medium md:font-semibold text-lg transition-colors ${
                             link.label === "Ապառիկ" ? "text-[#D0021B]" : ""
-                          }`}
+                            }`}
                         >
                           {link.label}
                         </Link>
