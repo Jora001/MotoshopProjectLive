@@ -47,7 +47,7 @@ export default function Footer() {
                           ))}
                         </div>
                       ) : (
-                        <div className="relative w-6 h-6 2xl:w-12 2xl:h-12">
+                        <div className="relative w-6 h-6 2xl:w-8 2xl:h-8">
                           <Image
                             src={`/icons/${item.icon}.svg`}
                             alt={item.icon}
