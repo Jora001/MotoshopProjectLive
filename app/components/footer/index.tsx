@@ -12,11 +12,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto flex flex-wrap">
         {FOOTER_RESOURCES_LINKS.map((section) => (
           <div key={section.title} className="w-1/2 md:w-1/4 mb-8 px-2">
-            <div className="border-b border-[#F5F5F5]">
-              <h3 className="text-sm 2xl:text-2xl font-semibold 2xl:font-bold py-1">
-                {section.title}
-              </h3>
-            </div>
+              <div className="inline-block border-b border-[#F5F5F5]">
+                <h3 className="text-sm 2xl:text-2xl font-semibold 2xl:font-bold py-1">
+                  {section.title}
+                </h3>
+              <div/>
+          </div>
+          
 
             <div className="space-y-2 mt-2">
               {section.content.map((item, idx) => {
@@ -45,7 +47,7 @@ export default function Footer() {
                           ))}
                         </div>
                       ) : (
-                        <div className="relative w-6 h-6 2xl:w-8 2xl:h-8">
+                        <div className="relative w-6 h-6 2xl:w-12 2xl:h-12">
                           <Image
                             src={`/icons/${item.icon}.svg`}
                             alt={item.icon}

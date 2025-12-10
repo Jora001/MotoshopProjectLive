@@ -52,7 +52,6 @@ export default function Timeline() {
 
   const totalHeight = points[points.length - 1].y + 200;
 
-  // scroll animation
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start center", "end center"],
@@ -84,8 +83,9 @@ export default function Timeline() {
       style={{
         minHeight: totalHeight + 200,
         backgroundColor: "#0A0A0A",
-        backgroundImage:
-          "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(30, 30, 30, 0.5) 15px, rgba(30, 30, 30, 0.5) 30px)",
+        backgroundImage: "url('/timeline-bg.png')", // ←‼️ ԱՅՍ Է ՓՈԽՎԱԾ
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       <h2
@@ -125,21 +125,9 @@ export default function Timeline() {
               />
 
               {points.map((p, idx) => (
-                <circle
-                  key={idx}
-                  cx={p.x}
-                  cy={p.y}
-                  r={7}
-                  fill="#ffffff"
-                />
+                <circle key={idx} cx={p.x} cy={p.y} r={7} fill="#ffffff" />
               ))}
-              <motion.circle
-                  r={9}
-                  fill="#D0051D"
-                  cx={dotX}
-                  cy={dotY}
-              />
-
+              <motion.circle r={9} fill="#D0051D" cx={dotX} cy={dotY} />
             </>
           ) : (
             <>
@@ -155,15 +143,11 @@ export default function Timeline() {
               {points.map((p, idx) => (
                 <circle key={idx} cx={p.x} cy={p.y} r={8} fill="#ffffff" />
               ))}
-              <motion.circle
-                  r={9}
-                  fill="#D0051D"
-                  cx={dotX}
-                  cy={dotY}
-              />
+              <motion.circle r={9} fill="#D0051D" cx={dotX} cy={dotY} />
             </>
           )}
         </svg>
+
         {events.map((event, index) => {
           const p = points[index];
           const textWidth = isMobile ? 220 : 300;

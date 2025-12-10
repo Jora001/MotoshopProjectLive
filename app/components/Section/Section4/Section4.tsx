@@ -66,7 +66,7 @@ const Section4 = () => {
           className="w-full h-full object-cover"
         />
 
-        <div className="text-overlay absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+        <div className="text-overlay absolute inset-0 flex items-center justify-center z-20 pointer-events-none bottom-100">
           <div
             className="
               px-4 py-3 sm:px-6 sm:py-4

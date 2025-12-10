@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
 const Section3 = () => {
@@ -14,35 +15,51 @@ const Section3 = () => {
   ];
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const cardWidthRef = useRef<number>(300);
 
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // --- Auto scroll ---
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    const cardWidth = scrollContainer.firstElementChild
-      ? (scrollContainer.firstElementChild as HTMLElement).offsetWidth + 36 // gap-ով
-      : 300;
+    const firstCard = scrollContainer.firstElementChild as HTMLElement;
+    if (firstCard) {
+      cardWidthRef.current = firstCard.offsetWidth + 36;
+    }
 
     const interval = setInterval(() => {
-      if (!scrollContainer) return;
+      setActiveIndex((prev) => {
+        const nextIndex = (prev + 1) % cards.length;
 
-      // scroll-ել աջ
-      if (
-        scrollContainer.scrollLeft + scrollContainer.offsetWidth >=
-        scrollContainer.scrollWidth
-      ) {
-        // եթե հասնում ենք վերջը՝ վերադառնալ սկզբին
-        scrollContainer.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        scrollContainer.scrollBy({ left: cardWidth, behavior: "smooth" });
-      }
-    }, 2000); // 2 վրկ
+        scrollContainer.scrollTo({
+          left: nextIndex * cardWidthRef.current,
+          behavior: "smooth",
+        });
+
+        return nextIndex;
+      });
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
 
+  // --- Pagination click ---
+  const goToCard = (index: number) => {
+    if (!scrollRef.current) return;
+
+    scrollRef.current.scrollTo({
+      left: index * cardWidthRef.current,
+      behavior: "smooth",
+    });
+
+    setActiveIndex(index);
+  };
+
   return (
     <section className="relative w-full flex flex-col items-center bg-black overflow-hidden">
+      
       {/* --- Վերևի հատված --- */}
       <div className="relative w-full h-[539px]">
         <Image
@@ -77,28 +94,29 @@ const Section3 = () => {
         </div>
       </div>
 
-      {/* --- Վաճառքների վերնագիր --- */}
+      {/* Վաճառքների վերնագիր */}
       <div className="w-full max-w-[1440px] flex items-end border-b border-[#2E2E2E] px-6 md:px-[96px] pt-[60px] pb-[20px] mt-8">
         <h2 className="text-white font-bold text-[32px] md:text-[48px] leading-[58px] font-[GHEA Grapalat]">
           Թոփ վաճառքները
         </h2>
       </div>
 
-      {/* --- Քարտերի հատված --- */}
+      {/* --- Քարտերի հատված + Pagination --- */}
       <div className="w-full max-w-[1440px] relative px-6 md:px-[96px] mt-10 mb-16">
+
+        {/* Քարտերը */}
         <div
           ref={scrollRef}
           className="
             flex gap-6 md:gap-[36px]
-            overflow-x-auto 
-            scroll-smooth
-            snap-x snap-mandatory
-            touch-pan-x
-            scrollbar-hide
+            overflow-x-auto scroll-smooth snap-x snap-mandatory touch-pan-x 
             pb-4
+            [&::-webkit-scrollbar]:hidden
+            [-ms-overflow-style:'none']
+            [scrollbar-width:'none']
           "
         >
-          {cards.map((card) => (
+          {cards.map((card, index) => (
             <div
               key={card.id}
               className="
@@ -120,6 +138,20 @@ const Section3 = () => {
                 {card.title}
               </h3>
             </div>
+          ))}
+        </div>
+
+        {/* --- Pagination (Radio-style dots) --- */}
+        <div className="flex justify-center gap-2 mt-4">
+          {cards.map((_, index) => (
+            <div
+              key={index}
+              onClick={() => goToCard(index)}
+              className={`
+                h-[8px] rounded-full cursor-pointer transition-all duration-300 
+                ${activeIndex === index ? "w-[32px] bg-white" : "w-[8px] bg-white/40"}
+              `}
+            ></div>
           ))}
         </div>
       </div>
