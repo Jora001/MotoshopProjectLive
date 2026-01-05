@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 interface TimelineEvent {
@@ -26,20 +26,31 @@ const events: TimelineEvent[] = [
 
 export default function Timeline() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Գեոմետրիա
-  const containerWidth = 900;
-  const centerX = containerWidth / 2;
-  const offsetX = 80;
-  const baseY = 120;
-  const gapY = 140;
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const containerWidth = isMobile ? 380 : 900;
+
+  const centerX = isMobile ? 40 : containerWidth / 2;
+  const offsetX = isMobile ? 0 : 80;
+
+  const baseY = isMobile ? 100 : 120;
+  const gapY = isMobile ? 110 : 140;
 
   const points = events.map((e, index) => ({
     x: centerX + (e.isLeft ? -offsetX : offsetX),
     y: baseY + index * gapY,
   }));
 
-  const totalHeight = points[points.length - 1].y + 180;
+  const totalHeight = points[points.length - 1].y + 200;
 
   // Scroll progress
   const { scrollYProgress } = useScroll({
@@ -76,8 +87,9 @@ export default function Timeline() {
       style={{
         minHeight: totalHeight + 200,
         backgroundColor: "#0A0A0A",
-        backgroundImage:
-          "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(30, 30, 30, 0.5) 15px, rgba(30, 30, 30, 0.5) 30px)",
+        backgroundImage: "url('/timeline-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       <h2
