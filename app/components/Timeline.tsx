@@ -98,6 +98,7 @@ export default function Timeline() {
         >
           {isMobile ? (
             <>
+              {/* Mobile vertical dashed line */}
               <line
                 x1={centerX}
                 y1={baseY}
@@ -105,25 +106,30 @@ export default function Timeline() {
                 y2={points.at(-1)?.y}
                 stroke="#fff"
                 strokeWidth={1.5}
-                strokeDasharray="8 6"
+                strokeDasharray="28 22"
               />
+
               {points.map((p, i) => (
                 <circle key={i} cx={p.x} cy={p.y} r={7} fill="#fff" />
               ))}
+
               <motion.circle r={9} fill="#D0051D" cx={dotX} cy={dotY} />
             </>
           ) : (
             <>
+              {/* Desktop dashed polyline */}
               <polyline
                 points={polylinePoints}
                 fill="none"
                 stroke="#fff"
                 strokeWidth={2}
-                strokeDasharray="8 6"
+                strokeDasharray="32 24"
               />
+
               {points.map((p, i) => (
                 <circle key={i} cx={p.x} cy={p.y} r={8} fill="#fff" />
               ))}
+
               <motion.circle r={9} fill="#D0051D" cx={dotX} cy={dotY} />
             </>
           )}
