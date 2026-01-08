@@ -201,6 +201,23 @@
                 </button>
               </div>
             </div>
+          <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-3 z-40">
+            {HERO_SLIDES.map((_, index) => {
+              const isActive = currentIndex === index;
+              return (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`
+                    transition-all duration-300 rounded-full
+                    ${isActive 
+                      ? "w-6 h-3 bg-white"
+                      : "w-3 h-3 bg-white/40"}    // պասիվ → շրջան
+                  `}
+                />
+              );
+            })}
+          </div>
           </section>
         );
       };
