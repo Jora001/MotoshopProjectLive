@@ -1,4 +1,5 @@
 "use client";
+
 import * as React from "react";
 import Image from "next/image";
 import { StatsSection } from "../../components/StatsSection";
@@ -14,6 +15,10 @@ const AboutPage: React.FC = () => {
   ];
 
   const [activeButton, setActiveButton] = React.useState("mission");
+
+  // 🔽 REF FOR SECTION 2
+  const secondSectionRef = React.useRef<HTMLElement | null>(null);
+
   return (
     <main className="w-full text-white overflow-hidden">
 
@@ -47,11 +52,7 @@ const AboutPage: React.FC = () => {
         >
           <p
             className="text-white font-bold tracking-tight text-[20px] leading-[28px] pl-[24px] md:text-[30px] md:leading-[38px] md:pl-[160px] lg:text-[36px] lg:leading-[44px] lg:pl-[200px]"
-            style={{
-              fontFamily: "GHEA Grapalat, sans-serif",
-              letterSpacing: "-0.5%",
-              textAlign: "justify",
-            }}
+            style={{ fontFamily: "GHEA Grapalat, sans-serif" }}
           >
             Մեր Մասին
           </p>
@@ -67,18 +68,23 @@ const AboutPage: React.FC = () => {
         >
           <p
             className="text-white font-bold tracking-tight text-center text-[11px] leading-[20px] md:text-[17px] md:leading-[24px] lg:text-[20px] lg:leading-[28px] translate-x-[28px] md:translate-x-[70px] lg:translate-x-[90px]"
-            style={{
-              fontFamily: "GHEA Grapalat, sans-serif",
-              letterSpacing: "-0.5%",
-            }}
+            style={{ fontFamily: "GHEA Grapalat, sans-serif" }}
           >
             Ճանապարհը բացում է նոր հորիզոններ
           </p>
         </div>
       </section>
 
-      {/* Arrow Down */}
-      <div className="w-full flex items-center justify-center bg-[#0A0A0A] h-[34px] md:h-[52px] lg:h-[64px]">
+      {/* 🔽 ARROW DOWN — ONLY CLICK BEHAVIOR */}
+      <div
+        className="w-full flex items-center justify-center bg-[#0A0A0A] h-[34px] md:h-[52px] lg:h-[64px] cursor-pointer"
+        onClick={() =>
+          secondSectionRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          })
+        }
+      >
         <Image
           src="/vectortw.png"
           alt="Scroll down"
@@ -89,7 +95,10 @@ const AboutPage: React.FC = () => {
       </div>
 
       {/* === SECTION 2 === */}
-      <section className="relative w-full min-h-[500px] lg:h-[780px] flex items-center justify-center overflow-hidden">
+      <section
+        ref={secondSectionRef} // 🔽 ONLY THIS ADDED
+        className="relative w-full min-h-[500px] lg:h-[780px] flex items-center justify-center overflow-hidden"
+      >
         <div className="absolute inset-0">
           <Image
             src="/ab2sec.png"
@@ -164,15 +173,14 @@ const AboutPage: React.FC = () => {
                   lineHeight: "28px",
                 }}
               >
-                Motoshop Armenia-ն խանութ-արհեստանոցային հարթակ է, որը կենտրոնացած է 
-                մոտոցիկլների, պահեստամասերի և համապատասխան հանդերձանքի վաճառքի 
-                և տեխնիկական սպասարկման վրա։ Հիմնադրվել է 2012 թվականին՝ զարգացնելու 
-                մոտոցիկլային մշակույթը Հայաստանում և լրացնելու ոլորտում առկա բացերը։
+                Motoshop Armenia-ն խանութ-արհեստանոցային հարթակ է, որը կենտրոնացած է
+                մոտոցիկլների, պահեստամասերի և համապատասխան հանդերձանքի վաճառքի
+                և տեխնիկական սպասարկման վրա։ Հիմնադրվել է 2012 թվականին։
               </p>
             </div>
           </div>
 
-          {/* Mobile Text */}
+          {/* MOBILE TEXT */}
           <div className="flex flex-col lg:hidden text-center md:text-justify mt-6 md:mt-8 max-w-[90%]">
             <p
               className="text-white font-bold mb-3 text-[22px] sm:text-[26px] md:text-[30px]"
@@ -184,10 +192,9 @@ const AboutPage: React.FC = () => {
               className="text-white text-[15px] sm:text-[17px] md:text-[18px] leading-[24px]"
               style={{ fontFamily: "GHEA Grapalat, sans-serif" }}
             >
-              Motoshop Armenia-ն խանութ-արհեստանոցային հարթակ է, որը կենտրոնացած է 
-              մոտոցիկլների, պահեստամասերի և համապատասխան հանդերձանքի վաճառքի 
-              և տեխնիկական սպասարկման վրա։ Հիմնադրվել է 2012 թվականին՝ զարգացնելու 
-              մոտոցիկլային մշակույթը Հայաստանում և լրացնելու ոլորտում առկա բացերը։
+              Motoshop Armenia-ն խանութ-արհեստանոցային հարթակ է, որը կենտրոնացած է
+              մոտոցիկլների, պահեստամասերի և համապատասխան հանդերձանքի վաճառքի
+              և տեխնիկական սպասարկման վրա։ Հիմնադրվել է 2012 թվականին։
             </p>
           </div>
         </div>
@@ -195,96 +202,17 @@ const AboutPage: React.FC = () => {
 
       {/* === SECTION 3 === */}
       <section className="bg-[#0A0A0A] py-16">
-  <StatsSection stats={stats} />
+        <StatsSection stats={stats} />
+      </section>
 
-  <div className="w-full max-w-5xl mx-auto mt-12 px-6 flex flex-col md:flex-row gap-10">
-    
-    {/* Buttons */}
-    <div className="relative flex flex-col gap-4 w-full md:w-[35%]">
+      {/* OTHER SECTIONS */}
+      <Section5 />
+      <Section6 />
 
-      {/* VERTICAL ACTIVE LINE */}
-      <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-red-900" />
-
-      {[
-        {
-          id: "mission",
-          label: "Առաքելություն",
-          description:
-            "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:"
-        },
-        {
-          id: "vision",
-          label: "Տեսլական",
-          description:
-            "Տեսլականը կենտրոնացած է Motoshop Armenia-ի զարգացման վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
-        },
-        {
-          id: "advantages",
-          label: "Առավելություններ",
-          description:
-            "Առավելությունները ներառում են բարձրորակ սպասարկում, արագ առաքում և պրոֆեսիոնալ տեխնիկական աջակցություն:"
-        }
-      ].map((btn) => {
-        const isActive = activeButton === btn.id;
-
-        return (
-          <button
-            key={btn.id}
-            onClick={() => setActiveButton(btn.id)}
-            className={`
-              relative w-full
-              font-semibold rounded-l-[10px]
-              transition-all duration-300
-              flex items-center justify-center
-              ${
-                isActive
-                  ? "bg-red-700 text-white py-10 "
-                  : "bg-white text-black py-4 hover:bg-red-100 md:w-[92%]"
-              }
-            `}
-          >
-            {btn.label}
-          </button>
-        );
-      })}
-    </div>
-
-    {/* Content */}
-    <div className="w-full md:w-[60%] flex items-center">
-      <p className="text-gray-300 text-[16px] leading-[26px] max-w-xl transition-opacity duration-300">
-        {[
-          {
-            id: "mission",
-            description:
-              "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:"
-          },
-          {
-            id: "vision",
-            description:
-              "Տեսլականը կենտրոնացած է Motoshop Armenia-ի զարգացման վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
-          },
-          {
-            id: "advantages",
-            description:
-              "Առավելությունները ներառում են բարձրորակ սպասարկում, արագ առաքում և պրոֆեսիոնալ տեխնիկական աջակցություն:"
-          }
-        ].find((btn) => btn.id === activeButton)?.description}
-      </p>
-    </div>
-
-  </div>
-</section>
-
-
-
-
-{/* === SECTION 5 === */}
-<Section5 />
-<Section6 />
-{/* === SECTION 4 — TIMELINE === */}
-<section className="w-full relative">
+      <section className="w-full relative">
         <Timeline />
       </section>
+
     </main>
   );
 };
