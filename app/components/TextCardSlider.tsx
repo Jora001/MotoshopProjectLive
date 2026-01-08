@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { HiArrowLongRight } from "react-icons/hi2";
+import { HiArrowRight } from "react-icons/hi"; // ✅ FIXED: hi (ոչ hi2)
 
 const slides = [
   {
@@ -33,11 +33,13 @@ export default function TextCardSlider() {
   useEffect(() => {
     const timer = setInterval(nextSlide, 5000);
     return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const indicatorWidth = 100 / slides.length; // ✅ universal (ոչ միայն 2 slide-ի համար)
 
   return (
     <div className="relative w-[720px] h-[400px] rounded-xl overflow-hidden shadow-xl text-white">
-      
       {/* 🖼 BACKGROUND IMAGE */}
       <Image
         src={slides[activeIndex].image}
@@ -47,16 +49,17 @@ export default function TextCardSlider() {
         className="object-cover"
       />
 
+      {/* Dark overlay (որ տեքստը լավ կարդացվի) */}
+
       {/* 📝 CONTENT */}
       <div className="relative z-20 p-6 h-full flex flex-col justify-center">
-        
         {/* 🔴 SLIDING INDICATOR ABOVE TEXT */}
-<div className="w-[580px] h-[4px] bg-white/30 mb-3 relative mx-auto overflow-hidden">
+        <div className="w-[580px] h-[4px] bg-white/30 mb-3 relative mx-auto overflow-hidden rounded-full">
           <div
-            className="h-full bg-red-600 transition-all duration-500 absolute"
+            className="h-full bg-red-600 transition-all duration-500 absolute top-0"
             style={{
-              width: "50%", // միշտ կեսը, եթե երկու slide կա
-              left: `${activeIndex * 50}%`,
+              width: `${indicatorWidth}%`,
+              left: `${activeIndex * indicatorWidth}%`,
             }}
           />
         </div>
@@ -68,7 +71,7 @@ export default function TextCardSlider() {
             style={{
               fontFamily: "GHEA Grapalat, sans-serif",
               fontWeight: 500,
-              fontStyle: "Bold",
+              fontStyle: "normal",
               fontSize: "36px",
               lineHeight: "48px",
               letterSpacing: "-0.5%",
@@ -86,7 +89,7 @@ export default function TextCardSlider() {
             style={{
               fontFamily: "GHEA Grapalat, sans-serif",
               fontWeight: 500,
-              fontStyle: "Bold",
+              fontStyle: "normal",
               fontSize: "18px",
               lineHeight: "28px",
               letterSpacing: "0%",
@@ -95,7 +98,6 @@ export default function TextCardSlider() {
               opacity: 1,
               display: "flex",
               flexDirection: "column",
-            //   justifyContent: "center",
             }}
           >
             {slides[activeIndex].text}
@@ -104,15 +106,20 @@ export default function TextCardSlider() {
 
         {/* Next Button */}
         <div className="flex justify-end mt-4 w-full">
-          <HiArrowLongRight
-            size={32}
+          <button
+            type="button"
             onClick={nextSlide}
-            className={`text-white hover:text-red-500 transition-transform duration-500 ${
-              activeIndex === 1 ? "rotate-180" : "rotate-0"
-            }`}
-          />
+            className="p-2 rounded-full hover:bg-white/10 transition"
+            aria-label="Next slide"
+          >
+            <HiArrowRight
+              size={32}
+              className={`text-white hover:text-red-500 transition-transform duration-500 ${
+                activeIndex === slides.length - 1 ? "rotate-180" : "rotate-0"
+              }`}
+            />
+          </button>
         </div>
-
       </div>
     </div>
   );
