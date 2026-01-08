@@ -194,19 +194,23 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* === SECTION 3 === */}
-{/* === SECTION 3 === */}
-<section className="bg-[#0A0A0A] py-16">
+      <section className="bg-[#0A0A0A] py-16">
   <StatsSection stats={stats} />
 
   <div className="w-full max-w-5xl mx-auto mt-12 px-6 flex flex-col md:flex-row gap-10">
+    
     {/* Buttons */}
-    <div className="flex flex-col gap-4 w-full md:w-[40%]">
+    <div className="relative flex flex-col gap-4 w-full md:w-[35%]">
+
+      {/* VERTICAL ACTIVE LINE */}
+      <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-red-900" />
+
       {[
         {
           id: "mission",
           label: "Առաքելություն",
           description:
-            "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը: Մենք ձգտում ենք ստեղծել միջավայր, որտեղ փորձառու արհեստավորներն ու մասնագետները կարող են շարունակել կատարելագործվել և տրամադրել լավագույն սպասարկումն իրենց հաճախորդներին:"
+            "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:"
         },
         {
           id: "vision",
@@ -222,14 +226,21 @@ const AboutPage: React.FC = () => {
         }
       ].map((btn) => {
         const isActive = activeButton === btn.id;
+
         return (
           <button
             key={btn.id}
             onClick={() => setActiveButton(btn.id)}
             className={`
-              transition-all font-semibold rounded-l-[10px] 
-              ${isActive ? "bg-red-700 text-white w-[457px] h-[148px] pt-[50px] pr-[91px] pb-[50px] pl-[91px] hover:bg-red-800" 
-                         : "bg-white text-black w-[100%] h-[60px] pt-[10px] pr-[20px] pb-[10px] pl-[20px] hover:bg-red-800"}
+              relative w-full
+              font-semibold rounded-l-[10px]
+              transition-all duration-300
+              flex items-center justify-center
+              ${
+                isActive
+                  ? "bg-red-700 text-white py-10 "
+                  : "bg-white text-black py-4 hover:bg-red-100 md:w-[92%]"
+              }
             `}
           >
             {btn.label}
@@ -238,18 +249,19 @@ const AboutPage: React.FC = () => {
       })}
     </div>
 
-    <div className="w-full md:w-[100%] flex flex-col justify-center pl-4 md:pl-8 lg:pl-10">
-      <p className="text-gray-300 text-[16px] leading-[26px]">
+    {/* Content */}
+    <div className="w-full md:w-[60%] flex items-center">
+      <p className="text-gray-300 text-[16px] leading-[26px] max-w-xl transition-opacity duration-300">
         {[
           {
             id: "mission",
             description:
-              "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը: Մենք ձգտում ենք ստեղծել միջավայր, որտեղ փորձառու արհեստավորներն ու մասնագետները կարող են շարունակել կատարելագործվել և տրամադրել լավագույն սպասարկումն իրենց հաճախորդներին:"
+              "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:"
           },
           {
             id: "vision",
             description:
-              "Տեսլականը կենտրոնացած է Motoshop Armenia-ի发展的 վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
+              "Տեսլականը կենտրոնացած է Motoshop Armenia-ի զարգացման վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
           },
           {
             id: "advantages",
@@ -259,8 +271,12 @@ const AboutPage: React.FC = () => {
         ].find((btn) => btn.id === activeButton)?.description}
       </p>
     </div>
+
   </div>
 </section>
+
+
+
 
 {/* === SECTION 5 === */}
 <Section5 />

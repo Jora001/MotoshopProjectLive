@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 interface TimelineEvent {
@@ -29,16 +29,13 @@ export default function Timeline() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const containerWidth = isMobile ? 380 : 900;
-
   const centerX = isMobile ? 40 : containerWidth / 2;
   const offsetX = isMobile ? 0 : 80;
 
@@ -58,21 +55,12 @@ export default function Timeline() {
   });
 
   const activeIndex = useTransform(scrollYProgress, (progress) => {
-    if (!progress || isNaN(progress)) return 0;
-    const clamped = Math.max(0, Math.min(1, progress));
-    const raw = clamped * (points.length - 1);
-    return Math.round(raw);
+    const clamped = Math.max(0, Math.min(1, progress || 0));
+    return Math.round(clamped * (points.length - 1));
   });
 
-  const dotX = useTransform(activeIndex, (index) => {
-    const safeIdx = Math.max(0, Math.min(points.length - 1, index || 0));
-    return points[safeIdx].x;
-  });
-
-  const dotY = useTransform(activeIndex, (index) => {
-    const safeIdx = Math.max(0, Math.min(points.length - 1, index || 0));
-    return points[safeIdx].y;
-  });
+  const dotX = useTransform(activeIndex, (i) => points[i]?.x ?? points[0].x);
+  const dotY = useTransform(activeIndex, (i) => points[i]?.y ?? points[0].y);
 
   const polylinePoints = points.map((p) => `${p.x},${p.y}`).join(" ");
 
@@ -83,22 +71,21 @@ export default function Timeline() {
       style={{
         minHeight: totalHeight + 200,
         backgroundColor: "#0A0A0A",
-        backgroundImage: "url('/timeline-bg.png')", // ←‼️ ԱՅՍ Է ՓՈԽՎԱԾ
+        backgroundImage: "url('/timeline-bg.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
       <h2
-        className="text-left text-[24px] sm:text-[28px] md:text-[32px] font-bold mb-8 sm:mb-12 text-white pl-2 sm:pl-4"
+        className="text-left text-[24px] sm:text-[28px] md:text-[32px] font-bold mb-12"
         style={{ fontFamily: "GHEA Grapalat, sans-serif" }}
       >
         Կարևոր Տարեթվեր
       </h2>
 
       <div
-        className="relative mx-auto px-2 sm:px-0"
+        className="relative mx-auto"
         style={{
-          width: "100%",
           maxWidth: containerWidth,
           minHeight: totalHeight,
         }}
@@ -108,8 +95,6 @@ export default function Timeline() {
           height={totalHeight}
           viewBox={`0 0 ${containerWidth} ${totalHeight}`}
           className="absolute top-0 left-0 pointer-events-none"
-          style={{ overflow: "visible" }}
-          preserveAspectRatio="xMidYMin meet"
         >
           {isMobile ? (
             <>
@@ -117,15 +102,13 @@ export default function Timeline() {
                 x1={centerX}
                 y1={baseY}
                 x2={centerX}
-                y2={points[points.length - 1].y}
-                stroke="#ffffff"
+                y2={points.at(-1)?.y}
+                stroke="#fff"
                 strokeWidth={1.5}
                 strokeDasharray="8 6"
-                strokeLinecap="round"
               />
-
-              {points.map((p, idx) => (
-                <circle key={idx} cx={p.x} cy={p.y} r={7} fill="#ffffff" />
+              {points.map((p, i) => (
+                <circle key={i} cx={p.x} cy={p.y} r={7} fill="#fff" />
               ))}
               <motion.circle r={9} fill="#D0051D" cx={dotX} cy={dotY} />
             </>
@@ -134,14 +117,12 @@ export default function Timeline() {
               <polyline
                 points={polylinePoints}
                 fill="none"
-                stroke="#ffffff"
+                stroke="#fff"
                 strokeWidth={2}
                 strokeDasharray="8 6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
               />
-              {points.map((p, idx) => (
-                <circle key={idx} cx={p.x} cy={p.y} r={8} fill="#ffffff" />
+              {points.map((p, i) => (
+                <circle key={i} cx={p.x} cy={p.y} r={8} fill="#fff" />
               ))}
               <motion.circle r={9} fill="#D0051D" cx={dotX} cy={dotY} />
             </>
@@ -151,28 +132,28 @@ export default function Timeline() {
         {events.map((event, index) => {
           const p = points[index];
           const textWidth = isMobile ? 220 : 300;
-          const gapFromLine = isMobile ? 35 : 100;
+          const gap = isMobile ? 35 : 100;
 
-          const leftPos = isMobile
-            ? centerX + gapFromLine
+          const left = isMobile
+            ? centerX + gap
             : event.isLeft
-            ? centerX - gapFromLine - textWidth
-            : centerX + gapFromLine;
+            ? centerX - gap - textWidth
+            : centerX + gap;
 
           return (
             <div
               key={event.year}
-              className="absolute text-[12px] md:text-[15px] leading-relaxed text-white"
+              className="absolute text-[13px] md:text-[15px]"
               style={{
                 top: p.y,
-                left: `${leftPos}px`,
-                width: `${textWidth}px`,
+                left,
+                width: textWidth,
                 transform: "translateY(-50%)",
                 textAlign: isMobile ? "left" : event.isLeft ? "right" : "left",
               }}
             >
-              <span className="font-bold">{event.year} — </span>
-              <span>{event.text}</span>
+              <strong>{event.year} — </strong>
+              {event.text}
             </div>
           );
         })}
