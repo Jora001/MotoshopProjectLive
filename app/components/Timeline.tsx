@@ -149,7 +149,7 @@ export default function Timeline() {
           return (
             <div
               key={event.year}
-              className="absolute text-[13px] md:text-[15px]"
+              className="absolute text-[13px] md:text-[12px]"
               style={{
                 top: p.y,
                 left,
