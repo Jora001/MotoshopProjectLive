@@ -49,14 +49,14 @@ export default function Header() {
       <div className="w-full bg-[#000000] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:pt-[24px] 2xl:pb-5 2xl:h-[70px] 2xl:px-5 2xl:px-24 flex items-center justify-between shadow-md fixed top-0 z-50 transition-transform duration-300">
         <div className="p-[6px] 2xl:hidden">
           <button
-            className="relative h-9 w-9 2xl:hidden"
+            className="relative h-9 w-9 2xl:hidden cursor-pointer"
             onClick={() => setMobileMenuOpen(true)}
           >
             <Image
               src="/icons/burger-menu.svg"
               alt="burger-menu"
               fill
-              className="object-contain"
+              className="object-contain cursor-pointer"
               priority
             />
           </button>
