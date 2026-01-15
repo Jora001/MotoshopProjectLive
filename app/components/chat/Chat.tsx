@@ -14,16 +14,14 @@ export default function Chat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  /* ===== Auto scroll ===== */
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  /* ===== Send message ===== */
   const sendMessage = async () => {
     if (!input.trim()) return;
 
@@ -44,25 +42,23 @@ export default function Chat() {
         body: JSON.stringify({ message: userMessage.text }),
       });
 
-      if (!res.ok) throw new Error("API Error");
-
       const data = await res.json();
 
-      const botMessage: ChatMessage = {
-        id: Date.now() + 1,
-        sender: "bot",
-        text: data.reply,
-      };
-
-      setMessages((prev) => [...prev, botMessage]);
-    } catch (error) {
-      console.error(error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now() + 1,
+          sender: "bot",
+          text: data.reply,
+        },
+      ]);
+    } catch {
       setMessages((prev) => [
         ...prev,
         {
           id: Date.now() + 2,
           sender: "error",
-          text: "Something went wrong. Please try again.",
+          text: "Something went wrong",
         },
       ]);
     } finally {
@@ -70,23 +66,26 @@ export default function Chat() {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") sendMessage();
-  };
-
   return (
-    <div
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
-      className="fixed bottom-18 right-15 z-50 transition-all duration-300"
-      style={{
-        width: isExpanded ? 320 : 64,
-        height: isExpanded ? 500 : 64,
-      }}
-    >
-      {isExpanded ? (
-        /* ===== EXPANDED CHAT ===== */
-        <div className="flex flex-col h-full bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden">
+    <div className="fixed bottom-6 right-6 z-50">
+      {/* ===== HOVER WRAPPER (KEY PART) ===== */}
+      <div
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        className="relative w-[360px] h-[560px] pointer-events-auto"
+      >
+        {/* ===== CHAT WINDOW ===== */}
+        <div
+          className={`absolute bottom-20 right-0 w-[320px] h-[480px]
+          bg-white dark:bg-gray-800 rounded-2xl shadow-2xl
+          flex flex-col overflow-hidden
+          transition-all duration-300 ease-out
+          ${
+            open
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-95 pointer-events-none"
+          }`}
+        >
           <div className="flex-1 overflow-y-auto p-4">
             {messages.map((msg) => (
               <MessageBubble
@@ -97,7 +96,7 @@ export default function Chat() {
             ))}
 
             {loading && (
-              <div className="text-gray-500 italic mb-2">
+              <div className="text-sm italic text-gray-500">
                 Bot is typing...
               </div>
             )}
@@ -105,39 +104,34 @@ export default function Chat() {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="p-4 bg-gray-100 dark:bg-gray-900 flex gap-2">
+          <div className="p-3 border-t bg-gray-100 dark:bg-gray-900 flex gap-2">
             <input
               type="text"
-              className="flex-1 rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-700 dark:text-white"
+              className="flex-1 rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 dark:bg-gray-700 dark:text-white"
               placeholder="Type your message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              disabled={loading}
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             />
             <button
               onClick={sendMessage}
-              disabled={loading}
-              className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg disabled:opacity-50"
+              className="bg-orange-600 hover:bg-orange-700 text-white px-4 rounded-lg text-sm"
             >
               Send
             </button>
           </div>
         </div>
-      ) : (
-        /* ===== ROUND CHAT ICON ===== */
-   <div className="w-40 h-40 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform duration-200">
-  <Image
-    src="/LiFe_chat.jpg"
-    alt="Live Chat"
-    width={54}
-    height={54}
-    className="select-none"
-    priority
-  />
-</div>
 
-      )}
+        {/* ===== CHAT ICON ===== */}
+        <div className="absolute bottom-0 right-0 w-16 h-16 rounded-full bg-white shadow-xl cursor-pointer flex items-center justify-center hover:scale-110 transition-transform duration-200">
+          <Image
+            src="/LiFe_chat.jpg"
+            alt="Live Chat"
+            fill
+            className="rounded-full object-cover"
+          />
+        </div>
+      </div>
     </div>
   );
 }
