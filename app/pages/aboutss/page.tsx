@@ -140,6 +140,7 @@ const AboutPage: React.FC = () => {
       {/* CARD — ONLY DESKTOP */}
       <div className="hidden lg:block absolute right-[-500px] bottom-[-200px]">
         <TextCardSlider />
+        
       </div>
 
     </div>
