@@ -94,7 +94,7 @@ const Section2 = () => {
                   <h3 className="text-white text-base font-medium">
                     {card.title}
                   </h3>
-                  <Image src="/vector.png" alt="Arrow" width={24} height={13} />
+                  <Image src="/Vector.png" alt="Arrow" width={24} height={13} />
                 </div>
                 <div className="relative mt-2 flex-1 overflow-hidden rounded-b-lg">
                   <Image

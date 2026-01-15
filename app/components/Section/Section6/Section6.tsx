@@ -70,7 +70,7 @@ const Section6 = () => {
             {/* Quote icon */}
             <div className="w-[48px] sm:w-[60px] h-[48px] sm:h-[60px] mb-4 sm:mb-6">
               <Image
-                src="/icons.png"
+                src="/Icons.png"
                 alt="Icon"
                 width={60}
                 height={60}
