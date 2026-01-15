@@ -12,40 +12,47 @@ const Section3 = () => {
     { id: 4, title: "Card 4", img: "/jugs.jpg" },
     { id: 5, title: "Card 5", img: "/wow2.png" },
     { id: 6, title: "Card 6", img: "/wow4.png" },
+
+    // կրկնվող քարտեր (loop-ի համար)
+    { id: 7, title: "Card 5", img: "/wow2.png" },
+    { id: 8, title: "Card 6", img: "/wow4.png" },
   ];
+
+  const REAL_CARDS_COUNT = 6;
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const cardWidthRef = useRef<number>(300);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // --- Auto scroll ---
+  /* ---------- Auto scroll ---------- */
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+    const container = scrollRef.current;
+    if (!container) return;
 
-    const firstCard = scrollContainer.firstElementChild as HTMLElement;
+    const firstCard = container.firstElementChild as HTMLElement;
     if (firstCard) {
       cardWidthRef.current = firstCard.offsetWidth + 36;
     }
 
     const interval = setInterval(() => {
       setActiveIndex((prev) => {
-        const nextIndex = (prev + 1) % cards.length;
+        const next = prev + 1;
 
-        scrollContainer.scrollTo({
-          left: nextIndex * cardWidthRef.current,
+        container.scrollTo({
+          left: next * cardWidthRef.current,
           behavior: "smooth",
         });
 
-        return nextIndex;
+        // 🔑 pagination-ի համար վերադարձնում ենք 0–5 միջակայք
+        return next % REAL_CARDS_COUNT;
       });
     }, 2000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // --- Pagination click ---
+  /* ---------- Pagination click ---------- */
   const goToCard = (index: number) => {
     if (!scrollRef.current) return;
 
@@ -59,8 +66,7 @@ const Section3 = () => {
 
   return (
     <section className="relative w-full flex flex-col items-center bg-black overflow-hidden">
-      
-      {/* --- Վերևի հատված --- */}
+      {/* ===== Top image ===== */}
       <div className="relative w-full h-[539px]">
         <Image
           src="/cro.png"
@@ -77,56 +83,52 @@ const Section3 = () => {
             maxWidth: "720px",
             height: "100%",
             background:
-              "linear-gradient(269.79deg, rgba(10, 10, 10, 0.8) 0.16%, rgba(10, 10, 10, 0.1) 99.8%)",
+              "linear-gradient(269.79deg, rgba(10,10,10,0.8) 0.16%, rgba(10,10,10,0.1) 99.8%)",
           }}
         >
-          <h3 className="text-white font-bold text-[24px] md:text-[30px] leading-[40px] font-[GHEA Grapalat] max-w-[510px]">
+          <h3 className="text-white font-bold text-[24px] md:text-[30px]">
             Միայն մեկ քայլ է բաժանում Ձեզ Ձեր գնումից
           </h3>
 
-          <p className="text-white font-medium text-[15px] md:text-[16px] leading-[24px] font-[Noto Sans Armenian] max-w-[398px]">
-            Ստուգեք ապառիկի պայմանները և պարզեք բանկի հաստատումը՝ ընդամենը մի քանի վայրկյանում
+          <p className="text-white text-[16px] max-w-[400px]">
+            Ստուգեք ապառիկի պայմանները և պարզեք բանկի հաստատումը՝ ընդամենը մի քանի
+            վայրկյանում
           </p>
 
-          <button className="rounded-[12px] w-[280px] md:w-[350px] h-[44px] bg-white text-[#D0021B] font-medium text-[16px] leading-[20px] hover:bg-[#f5f5f5] transition">
+          <button className="rounded-[12px] w-[320px] h-[44px] bg-white text-[#D0021B]">
             Ստուգել իմ համապատասխանությունը
           </button>
         </div>
       </div>
 
-      {/* Վաճառքների վերնագիր */}
-      <div className="w-full max-w-[1440px] flex items-end border-b border-[#2E2E2E] px-6 md:px-[96px] pt-[60px] pb-[20px] mt-8">
-        <h2 className="text-white font-bold text-[32px] md:text-[48px] leading-[58px] font-[GHEA Grapalat]">
+      {/* ===== Title ===== */}
+      <div className="w-full max-w-[1440px] border-b border-[#2E2E2E] px-6 md:px-[96px] pt-16 pb-6">
+        <h2 className="text-white text-[48px] font-bold">
           Թոփ վաճառքները
         </h2>
       </div>
 
-      {/* --- Քարտերի հատված + Pagination --- */}
-      <div className="w-full max-w-[1440px] relative px-6 md:px-[96px] mt-10 mb-16">
-
-        {/* Քարտերը */}
+      {/* ===== Cards + Pagination ===== */}
+      <div className="w-full max-w-[1440px] px-6 md:px-[96px] mt-10 mb-16">
+        {/* Cards */}
         <div
           ref={scrollRef}
           className="
-            flex gap-6 md:gap-[36px]
-            overflow-x-auto scroll-smooth snap-x snap-mandatory touch-pan-x 
-            pb-4
+            flex gap-[36px]
+            overflow-x-auto scroll-smooth snap-x snap-mandatory
             [&::-webkit-scrollbar]:hidden
-            [-ms-overflow-style:'none']
-            [scrollbar-width:'none']
           "
         >
-          {cards.map((card, index) => (
+          {cards.map((card) => (
             <div
               key={card.id}
               className="
-                flex-shrink-0 w-[250px] sm:w-[280px] md:w-[300px] lg:w-[350px]
-                bg-white rounded-[8px] flex flex-col items-center overflow-hidden
-                transition-transform duration-300 hover:scale-105
-                snap-start
+                flex-shrink-0 w-[300px] lg:w-[350px]
+                bg-white rounded-[8px] snap-start
+                transition-transform hover:scale-105
               "
             >
-              <div className="relative w-full h-[200px] md:h-[254px]">
+              <div className="relative w-full h-[250px]">
                 <Image
                   src={card.img}
                   alt={card.title}
@@ -134,24 +136,29 @@ const Section3 = () => {
                   className="object-cover rounded-t-[8px]"
                 />
               </div>
-              <h3 className="text-black font-medium text-[16px] md:text-[18px] mt-4 text-center px-2">
+
+              <h3 className="text-black text-center mt-4 mb-4">
                 {card.title}
               </h3>
             </div>
           ))}
         </div>
 
-        {/* --- Pagination (Radio-style dots) --- */}
-        <div className="flex justify-center gap-2 mt-4">
-          {cards.map((_, index) => (
+        {/* ===== Pagination ===== */}
+        <div className="flex justify-center gap-2 mt-6">
+          {Array.from({ length: REAL_CARDS_COUNT }).map((_, index) => (
             <div
               key={index}
               onClick={() => goToCard(index)}
               className={`
-                h-[8px] rounded-full cursor-pointer transition-all duration-300 
-                ${activeIndex === index ? "w-[32px] bg-white" : "w-[8px] bg-white/40"}
+                h-[8px] rounded-full cursor-pointer transition-all
+                ${
+                  activeIndex === index
+                    ? "w-[32px] bg-white"
+                    : "w-[8px] bg-white/40"
+                }
               `}
-            ></div>
+            />
           ))}
         </div>
       </div>
