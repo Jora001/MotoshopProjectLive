@@ -126,13 +126,13 @@ const AboutPage: React.FC = () => {
     <div className="relative">
 
       {/* IMAGE */}
-  <div className="w-[280px]  h-[160px] sm:w-[420px] sm:h-[240px] md:w-[550px] md:h-[300px] lg:w-[700px] lg:h-[429px] rounded-[10px] overflow-hidden shadow-lg ml-[-500px]  -mt-20">
+      <div className="w-[280px] h-[160px] sm:w-[420px] sm:h-[240px] md:w-[500px] md:h-[300px] lg:w-[700px] lg:h-[429px] rounded-[10px] overflow-hidden shadow-lg ml-[-500px] -mt-20">
   <Image
     src="/xanut.jpg"
     alt="Inner section image"
     width={700}
     height={429}
-    className="object-cover w-full h-full"
+    className="object-cover w-full h-full ml-[120px]"
   />
 </div>
 
@@ -151,13 +151,15 @@ const AboutPage: React.FC = () => {
         <StatsSection stats={stats} />
       </section>
 
+      <section className="w-full relative">
+        <Timeline />
+      </section>
+
       {/* OTHER SECTIONS */}
       <Section5 />
       <Section6 />
 
-      <section className="w-full relative">
-        <Timeline />
-      </section>
+     
 
     </main>
   );
