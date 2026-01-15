@@ -78,7 +78,7 @@ export default function Chat() {
     <div
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
-      className="fixed bottom-4 right-4 z-50 transition-all duration-300"
+      className="fixed bottom-18 right-15 z-50 transition-all duration-300"
       style={{
         width: isExpanded ? 320 : 64,
         height: isExpanded ? 500 : 64,
