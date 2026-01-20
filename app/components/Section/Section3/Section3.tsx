@@ -6,14 +6,13 @@ import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
 const Section3 = () => {
-  const cards = [
-    { id: 1, title: "Card 1", img: "/wow.png" },
-    { id: 2, title: "Card 2", img: "/wow3.png" },
-    { id: 3, title: "Card 3", img: "/jug.png" },
-    { id: 4, title: "Card 4", img: "/jugs.jpg" },
-    { id: 5, title: "Card 5", img: "/wow2.png" },
-    { id: 6, title: "Card 6", img: "/wow4.png" },
-  ];
+  const cards = [ { id: 1, title: "Card 1", img: "/wow.png" }, 
+                  { id: 2, title: "Card 2", img: "/wow3.png" },
+                  { id: 3, title: "Card 3", img: "/jug.png" },
+                  { id: 4, title: "Card 4", img: "/jugs.jpg" },
+                  { id: 5, title: "Card 5", img: "/wow2.png" },
+                  { id: 6, title: "Card 6", img: "/wow4.png" },
+                ];
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const cardWidthRef = useRef<number>(300);
