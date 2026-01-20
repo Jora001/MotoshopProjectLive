@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
 const Section6 = () => {
@@ -14,26 +15,51 @@ const Section6 = () => {
   ];
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const cardWidthRef = useRef<number>(300);
+  const [activeIndex, setActiveIndex] = useState(0);
 
+  /* ---------- Auto scroll ---------- */
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    const cardWidth = scrollContainer.firstElementChild
-      ? (scrollContainer.firstElementChild as HTMLElement).offsetWidth + 36
-      : 300;
+    const firstCard = scrollContainer.firstElementChild as HTMLElement;
+    if (firstCard) {
+      cardWidthRef.current = firstCard.offsetWidth + 36;
+    }
 
     const interval = setInterval(() => {
       if (!scrollContainer) return;
-      if (scrollContainer.scrollLeft + scrollContainer.offsetWidth >= scrollContainer.scrollWidth) {
-        scrollContainer.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        scrollContainer.scrollBy({ left: cardWidth, behavior: "smooth" });
-      }
+      setActiveIndex((prev) => {
+        const nextIndex = (prev + 1) % cards.length;
+        scrollContainer.scrollTo({
+          left: nextIndex * cardWidthRef.current,
+          behavior: "smooth",
+        });
+        return nextIndex;
+      });
     }, 2000);
 
     return () => clearInterval(interval);
   }, []);
+
+  /* ---------- Scroll sync ---------- */
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const scrollLeft = scrollRef.current.scrollLeft;
+    const index = Math.round(scrollLeft / cardWidthRef.current);
+    setActiveIndex(index);
+  };
+
+  /* ---------- Pagination click ---------- */
+  const goToCard = (index: number) => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollTo({
+      left: index * cardWidthRef.current,
+      behavior: "smooth",
+    });
+    setActiveIndex(index);
+  };
 
   return (
     <section className="relative w-full flex flex-col items-center bg-black overflow-hidden">
@@ -45,17 +71,23 @@ const Section6 = () => {
       </div>
 
       {/* Քարտերի հատված */}
-      <div className="w-full max-w-[1440px] relative px-6 md:px-[96px] mt-10 mb-16">
+      <div className="w-full max-w-[1440px] relative px-6 md:px-[96px] mt-10 mb-6">
         <div
           ref={scrollRef}
-          className="flex gap-6 md:gap-[36px] overflow-x-auto scroll-smooth snap-x snap-mandatory touch-pan-x scrollbar-hide pb-4"
+          onScroll={handleScroll}
+          className="
+            flex gap-6 md:gap-[36px] overflow-x-auto scroll-smooth snap-x snap-mandatory touch-pan-x pb-4
+            [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']
+          "
         >
           {cards.map((card) => (
             <div
               key={card.id}
-              className="flex-shrink-0 w-[250px] sm:w-[280px] md:w-[300px] lg:w-[350px]
-                         bg-white rounded-[8px] flex flex-col items-center overflow-hidden
-                         transition-transform duration-300 hover:scale-105 snap-start"
+              className="
+                flex-shrink-0 w-[250px] sm:w-[280px] md:w-[300px] lg:w-[350px]
+                bg-white rounded-[8px] flex flex-col items-center overflow-hidden
+                transition-transform duration-300 hover:scale-105 snap-start
+              "
             >
               <div className="relative w-full h-[200px] md:h-[254px]">
                 <Image
@@ -69,6 +101,20 @@ const Section6 = () => {
                 {card.title}
               </h3>
             </div>
+          ))}
+        </div>
+
+        {/* ---------- Pagination (radio dots) ---------- */}
+        <div className="flex justify-center gap-2 mt-4">
+          {cards.map((_, index) => (
+            <div
+              key={index}
+              onClick={() => goToCard(index)}
+              className={`
+                h-[8px] rounded-full cursor-pointer transition-all duration-300
+                ${activeIndex === index ? "w-[32px] bg-white" : "w-[8px] bg-white/40"}
+              `}
+            />
           ))}
         </div>
       </div>
