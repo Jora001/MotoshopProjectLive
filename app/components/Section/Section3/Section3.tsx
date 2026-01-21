@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
@@ -94,17 +95,14 @@ const Section3 = () => {
         </div>
       </div>
 
-      {/* Վաճառքների վերնագիր */}
       <div className="w-full max-w-[1440px] flex items-end border-b border-[#2E2E2E] px-6 md:px-[96px] pt-[60px] pb-[20px] mt-8">
         <h2 className="text-white font-bold text-[32px] md:text-[48px] leading-[58px] font-[GHEA Grapalat]">
           Թոփ վաճառքները
         </h2>
       </div>
 
-      {/* --- Քարտերի հատված + Pagination --- */}
       <div className="w-full max-w-[1440px] relative px-6 md:px-[96px] mt-10 mb-16">
 
-        {/* Քարտերը */}
         <div
           ref={scrollRef}
           className="
