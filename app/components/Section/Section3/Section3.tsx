@@ -74,7 +74,7 @@ const Section3 = () => {
             >
               {/* IMAGE */}
               <div className="relative w-[350px] h-[250px] bg-white">
-                <div className="absolute top-[45px] left-[12px] flex flex-col gap-[6px] z-10">
+                <div className="absolute top-[45px] flex flex-col gap-[6px] z-10">
                   {card.badges.map((badge) => (
                     <div
                       key={badge}
