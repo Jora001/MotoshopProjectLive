@@ -22,7 +22,7 @@ const Section2 = () => {
   ];
 
   const getVerticalPosition = (cardId: number, index: number) => {
-    if (cardId === activeCard) return "translate-y-0"; 
+    if (cardId === activeCard) return "translate-y-0";
     switch (activeCard) {
       case 1:
         return index % 2 === 0 ? "-translate-y-8" : "translate-y-8";
@@ -56,7 +56,10 @@ const Section2 = () => {
   };
 
   return (
-    <div className="relative w-full flex flex-col items-center bg-black py-50 overflow-hidden">
+    <div
+      id="section-2"   // ✅ ԱՎԵԼԱՑՎԱԾ — scroll target
+      className="relative w-full flex flex-col items-center bg-black py-50 overflow-hidden"
+    >
       <div className="absolute inset-0">
         <Image
           src="/erk.jpg"
