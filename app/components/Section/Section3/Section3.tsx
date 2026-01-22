@@ -1,155 +1,136 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 
+type Badge = "available" | "new" | "sale";
+
+const cards: {
+  id: number;
+  model: string;
+  price: string;
+  img: string;
+  badges: Badge[];
+}[] = [
+  { id: 1, model: "Ninja ZX-10RR", price: "11 722 000", img: "/sec2f1.jpg", badges: ["available"] },
+  { id: 2, model: "Forma Ice Pro", price: "123 700", img: "/sec2f4.jpg", badges: ["new", "available"] },
+  { id: 3, model: "EMERZE EM5 Armor", price: "55 000", img: "/sec2f2.jpg", badges: ["available"] },
+  { id: 4, model: "Vmoto TC Wanderer", price: "1 786 000", img: "/sec2f5.jpg", badges: ["sale", "available"] },
+  { id: 5, model: "CPX Explorer", price: "2 770 000", img: "/sec2f3.jpg", badges: ["available"] },
+  { id: 6, model: "BILT Apex Helmet", price: "76 000", img: "/heml.jpg", badges: ["new", "available"] },
+];
+
+const badgeConfig: Record<Badge, { text: string; className: string }> = {
+  available: { text: "Առկա է", className: "bg-[#F5F5F5] text-[#2E7D32]" },
+  new: { text: "Նորույթ", className: "bg-[#2E7D32] text-white" },
+  sale: { text: "Ակցիա 15%", className: "bg-[#D0021B] text-white" },
+};
+
 const Section3 = () => {
-  const cards = [
-    { id: 1, title: "Card 1", img: "/wow.png" },
-    { id: 2, title: "Card 2", img: "/wow3.png" },
-    { id: 3, title: "Card 3", img: "/jug.png" },
-    { id: 4, title: "Card 4", img: "/jugs.jpg" },
-    { id: 5, title: "Card 5", img: "/wow2.png" },
-    { id: 6, title: "Card 6", img: "/wow4.png" },
-  ];
-
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const cardWidthRef = useRef<number>(300);
+  const isPausedRef = useRef(false);
+  const SPEED = 0.45;
 
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  // --- Auto scroll ---
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+    const container = scrollRef.current;
+    if (!container) return;
 
-    const firstCard = scrollContainer.firstElementChild as HTMLElement;
-    if (firstCard) {
-      cardWidthRef.current = firstCard.offsetWidth + 36;
-    }
+    let animationId: number;
 
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => {
-        const nextIndex = (prev + 1) % cards.length;
+    const animate = () => {
+      if (!isPausedRef.current) {
+        container.scrollLeft += SPEED;
+        if (container.scrollLeft >= container.scrollWidth / 2) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationId = requestAnimationFrame(animate);
+    };
 
-        scrollContainer.scrollTo({
-          left: nextIndex * cardWidthRef.current,
-          behavior: "smooth",
-        });
-
-        return nextIndex;
-      });
-    }, 2000);
-
-    return () => clearInterval(interval);
+    animationId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationId);
   }, []);
 
-  // --- Pagination click ---
-  const goToCard = (index: number) => {
-    if (!scrollRef.current) return;
-
-    scrollRef.current.scrollTo({
-      left: index * cardWidthRef.current,
-      behavior: "smooth",
-    });
-
-    setActiveIndex(index);
-  };
-
   return (
-    <section className="relative w-full flex flex-col items-center bg-black overflow-hidden">
-      
-      {/* --- Վերևի հատված --- */}
-      <div className="relative w-full h-[539px]">
-        <Image
-          src="/cro.png"
-          alt="Main Section Image"
-          fill
-          className="object-cover"
-          priority
-        />
+    <section className="w-full bg-black">
 
-        <div
-          className="absolute top-0 right-0 flex flex-col items-center justify-center gap-6 px-6 md:px-[96px] text-center"
-          style={{
-            width: "100%",
-            maxWidth: "720px",
-            height: "100%",
-            background:
-              "linear-gradient(269.79deg, rgba(10, 10, 10, 0.8) 0.16%, rgba(10, 10, 10, 0.1) 99.8%)",
-          }}
-        >
-          <h3 className="text-white font-bold text-[24px] md:text-[30px] leading-[40px] font-[GHEA Grapalat] max-w-[510px]">
-            Միայն մեկ քայլ է բաժանում Ձեզ Ձեր գնումից
-          </h3>
-
-          <p className="text-white font-medium text-[15px] md:text-[16px] leading-[24px] font-[Noto Sans Armenian] max-w-[398px]">
-            Ստուգեք ապառիկի պայմանները և պարզեք բանկի հաստատումը՝ ընդամենը մի քանի վայրկյանում
-          </p>
-
-          <button className="rounded-[12px] w-[280px] md:w-[350px] h-[44px] bg-white text-[#D0021B] font-medium text-[16px] leading-[20px] hover:bg-[#f5f5f5] transition">
-            Ստուգել իմ համապատասխանությունը
-          </button>
-        </div>
-      </div>
-
-      <div className="w-full max-w-[1440px] flex items-end border-b border-[#2E2E2E] px-6 md:px-[96px] pt-[60px] pb-[20px] mt-8">
-        <h2 className="text-white font-bold text-[32px] md:text-[48px] leading-[58px] font-[GHEA Grapalat]">
+      {/* TITLE */}
+      <div className="max-w-[1440px] mx-auto px-6 md:px-[96px] pt-[60px] pb-[20px] border-b border-[#2E2E2E]">
+        <h2 className="text-white font-bold text-[32px] md:text-[48px] font-[GHEA Grapalat]">
           Թոփ վաճառքները
         </h2>
       </div>
 
-      <div className="w-full max-w-[1440px] relative px-6 md:px-[96px] mt-10 mb-16">
-
-        <div
-          ref={scrollRef}
-          className="
-            flex gap-6 md:gap-[36px]
-            overflow-x-auto scroll-smooth snap-x snap-mandatory touch-pan-x 
-            pb-4
-            [&::-webkit-scrollbar]:hidden
-            [-ms-overflow-style:'none']
-            [scrollbar-width:'none']
-          "
-        >
-          {cards.map((card, index) => (
-            <div
-              key={card.id}
-              className="
-                flex-shrink-0 w-[250px] sm:w-[280px] md:w-[300px] lg:w-[350px]
-                bg-white rounded-[8px] flex flex-col items-center overflow-hidden
-                transition-transform duration-300 hover:scale-105
-                snap-start
-              "
-            >
-              <div className="relative w-full h-[200px] md:h-[254px]">
-                <Image
-                  src={card.img}
-                  alt={card.title}
-                  fill
-                  className="object-cover rounded-t-[8px]"
-                />
-              </div>
-              <h3 className="text-black font-medium text-[16px] md:text-[18px] mt-4 text-center px-2">
-                {card.title}
-              </h3>
-            </div>
-          ))}
-        </div>
-
-        {/* --- Pagination (Radio-style dots) --- */}
-        <div className="flex justify-center gap-2 mt-4">
-          {cards.map((_, index) => (
+      {/* CAROUSEL */}
+      <div className="max-w-[1440px] mx-auto px-6 md:px-[96px] mt-10 mb-16">
+        <div ref={scrollRef} className="flex gap-[36px] overflow-hidden select-none">
+          {[...cards, ...cards].map((card, index) => (
             <div
               key={index}
-              onClick={() => goToCard(index)}
-              className={`
-                h-[8px] rounded-full cursor-pointer transition-all duration-300 
-                ${activeIndex === index ? "w-[32px] bg-white" : "w-[8px] bg-white/40"}
-              `}
-            ></div>
+              onMouseEnter={() => (isPausedRef.current = true)}
+              onMouseLeave={() => (isPausedRef.current = false)}
+              className="flex-shrink-0 w-[350px] bg-white rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-105"
+            >
+              {/* IMAGE */}
+              <div className="relative w-[350px] h-[250px] bg-white">
+                <div className="absolute top-[45px] left-[12px] flex flex-col gap-[6px] z-10">
+                  {card.badges.map((badge) => (
+                    <div
+                      key={badge}
+                      className={`
+                        min-w-[80px] h-[22px]
+                        px-[10px] py-[2px]
+                        text-[12px] font-semibold
+                        flex items-center justify-center
+                        whitespace-nowrap
+                        rounded-[1px]
+                        ${badgeConfig[badge].className}
+                      `}
+                    >
+                      {badgeConfig[badge].text}
+                    </div>
+                  ))}
+                </div>
+
+                <Image src={card.img} alt={card.model} fill className="object-contain p-4" />
+              </div>
+
+              {/* CONTENT */}
+              <div className="p-4 flex flex-col gap-3">
+                <div className="flex items-end justify-between">
+                  <h3 className="text-black font-semibold text-[16px]">{card.model}</h3>
+                  <span className="font-['Roboto'] text-[16px] leading-[24px] text-[#0c0607]">
+                    {card.price} ֏
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between mt-2">
+                  <button
+                    className="
+                      px-4 py-2 rounded-[8px]
+                      bg-white border border-[#FFB300]
+                      text-[#FFB300] text-[14px] font-medium
+                      hover:bg-[#FFB300] hover:text-white
+                      transition
+                    "
+                  >
+                    Տեսնել ավել
+                  </button>
+
+                  {/* 🔥 TWO IMAGE ICONS */}
+                  <div className="flex items-center gap-3">
+                    <button className="w-8 h-8 rounded-full bg-[#ffffff] flex items-center justify-center">
+                      <Image src="/lov.jpg" alt="Favorite" width={16} height={16} />
+                    </button>
+                    <button className="w-8 h-8 rounded-full bg-[#ffffff] flex items-center justify-center">
+                      <Image src="/smg.jpg" alt="Compare" width={16} height={16} />
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
