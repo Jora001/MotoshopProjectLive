@@ -7,6 +7,7 @@ import Timeline from "../../components/Timeline";
 import Section5 from "../../components/Section/Section5/Section5";
 import Section6 from "@/app/components/Section/Section3/section6";
 import TextCardSlider from "@/app/components/TextCardSlider";
+import Section3 from "@/app/components/Section/Section3/Section3";
 
 const AboutPage: React.FC = () => {
   const stats = [
@@ -235,7 +236,7 @@ const AboutPage: React.FC = () => {
 
       {/* OTHER SECTIONS */}
       <Section5 />
-      <Section6 />
+      <Section3 />
 
      
 
