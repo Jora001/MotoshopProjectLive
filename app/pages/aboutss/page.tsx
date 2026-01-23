@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import * as React from "react";
@@ -8,6 +7,7 @@ import Timeline from "../../components/Timeline";
 import Section5 from "../../components/Section/Section5/Section5";
 import Section6 from "@/app/components/Section/Section3/section6";
 import TextCardSlider from "@/app/components/TextCardSlider";
+import Section3 from "@/app/components/Section/Section3/Section3";
 
 const AboutPage: React.FC = () => {
   const stats = [
@@ -141,7 +141,6 @@ const AboutPage: React.FC = () => {
       {/* CARD — ONLY DESKTOP */}
       <div className="hidden lg:block absolute right-[-500px] bottom-[-200px]">
         <TextCardSlider />
-        
       </div>
 
     </div>
@@ -149,9 +148,87 @@ const AboutPage: React.FC = () => {
 </section>
 
       {/* === SECTION 3 === */}
+       {/* === SECTION 3 === */}
       <section className="bg-[#0A0A0A] py-16">
-        <StatsSection stats={stats} />
-      </section>
+  <StatsSection stats={stats} />
+
+  <div className="w-full max-w-5xl mx-auto mt-12 px-6 flex flex-col md:flex-row gap-10">
+    
+    {/* Buttons */}
+    <div className="relative flex flex-col gap-4 w-full md:w-[35%]">
+
+      {/* VERTICAL ACTIVE LINE */}
+      <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-red-900" />
+
+      {[
+        {
+          id: "mission",
+          label: "Առաքելություն",
+          description:
+            "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:"
+        },
+        {
+          id: "vision",
+          label: "Տեսլական",
+          description:
+            "Տեսլականը կենտրոնացած է Motoshop Armenia-ի զարգացման վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
+        },
+        {
+          id: "advantages",
+          label: "Առավելություններ",
+          description:
+            "Առավելությունները ներառում են բարձրորակ սպասարկում, արագ առաքում և պրոֆեսիոնալ տեխնիկական աջակցություն:"
+        }
+      ].map((btn) => {
+        const isActive = activeButton === btn.id;
+
+        return (
+          <button
+            key={btn.id}
+            onClick={() => setActiveButton(btn.id)}
+            className={`
+              relative w-full
+              font-semibold rounded-l-[10px]
+              transition-all duration-300
+              flex items-center justify-center
+              ${
+                isActive
+                  ? "bg-red-700 text-white py-10 "
+                  : "bg-white text-black py-4 hover:bg-red-100 md:w-[92%]"
+              }
+            `}
+          >
+            {btn.label}
+          </button>
+        );
+      })}
+    </div>
+
+    {/* Content */}
+    <div className="w-full md:w-[60%] flex items-center">
+      <p className="text-gray-300 text-[16px] leading-[26px] max-w-xl transition-opacity duration-300">
+        {[
+          {
+            id: "mission",
+            description:
+              "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:"
+          },
+          {
+            id: "vision",
+            description:
+              "Տեսլականը կենտրոնացած է Motoshop Armenia-ի զարգացման վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
+          },
+          {
+            id: "advantages",
+            description:
+              "Առավելությունները ներառում են բարձրորակ սպասարկում, արագ առաքում և պրոֆեսիոնալ տեխնիկական աջակցություն:"
+          }
+        ].find((btn) => btn.id === activeButton)?.description}
+      </p>
+    </div>
+
+  </div>
+</section>
 
       <section className="w-full relative">
         <Timeline />
@@ -159,7 +236,7 @@ const AboutPage: React.FC = () => {
 
       {/* OTHER SECTIONS */}
       <Section5 />
-      <Section6 />
+      <Section3 />
 
      
 
