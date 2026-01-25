@@ -199,41 +199,35 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="flex gap-[15.5px] md:gap-3 2xl:gap-6 items-center">
-          <div className="p-[2px] md:p-[5px] cursor-pointer">
-            <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
-              <Image
-                src="/icons/compair.svg"
-                alt="compair"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </div>
-          <div className="p-[2px] md:p-[5px] cursor-pointer">
-            <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
-              <Image
-                src="/icons/wish-list.svg"
-                alt="wish-list"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </div>
-          {/* <div className="p-[2px] md:p-[5px] cursor-pointer">
-            <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
-              <Image
-                src="/icons/trash.svg"
-                alt="trash"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </div> */}
-        </div>
+      <div className="flex gap-[15.5px] md:gap-3 2xl:gap-6 items-center">
+
+  {/* COMPARE */}
+  <Link href="/compare" className="p-[2px] md:p-[5px] cursor-pointer">
+    <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
+      <Image
+        src="/icons/compair.svg"
+        alt="compare"
+        fill
+        className="object-contain hover:scale-110 transition"
+        priority
+      />
+    </div>
+  </Link>
+
+  {/* WISHLIST */}
+  <Link href="/wishlist" className="p-[2px] md:p-[5px] cursor-pointer">
+    <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
+      <Image
+        src="/icons/wish-list.svg"
+        alt="wishlist"
+        fill
+        className="object-contain hover:scale-110 transition"
+        priority
+      />
+    </div>
+  </Link>
+
+</div>
       </div>
 
       {/* Burger Menu Drawer with overlay */}
