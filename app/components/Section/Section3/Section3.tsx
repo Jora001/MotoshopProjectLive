@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useRef, useEffect } from "react";
@@ -6,13 +5,15 @@ import Image from "next/image";
 
 type Badge = "available" | "new" | "sale";
 
-const cards: {
+type Card = {
   id: number;
   model: string;
   price: string;
   img: string;
   badges: Badge[];
-}[] = [
+};
+
+const cards: Card[] = [
   { id: 1, model: "Ninja ZX-10RR", price: "11 722 000", img: "/sec2f1.jpg", badges: ["available"] },
   { id: 2, model: "Forma Ice Pro", price: "123 700", img: "/sec2f4.jpg", badges: ["new", "available"] },
   { id: 3, model: "EMERZE EM5 Armor", price: "55 000", img: "/sec2f2.jpg", badges: ["available"] },
@@ -28,15 +29,6 @@ const badgeConfig: Record<Badge, { text: string; className: string }> = {
 };
 
 const Section3 = () => {
-  const cards = [
-    { id: 1, title: "Card 1", img: "/wow.png" },
-    { id: 2, title: "Card 2", img: "/wow3.png" },
-    { id: 3, title: "Card 3", img: "/jug.png" },
-    { id: 4, title: "Card 4", img: "/jugs.jpg" },
-    { id: 5, title: "Card 5", img: "/wow2.png" },
-    { id: 6, title: "Card 6", img: "/wow4.png" },
-  ];
-
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const isPausedRef = useRef(false);
   const SPEED = 0.45;
@@ -63,7 +55,6 @@ const Section3 = () => {
 
   return (
     <section className="w-full bg-black">
-
       {/* TITLE */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-[96px] pt-[60px] pb-[20px] border-b border-[#2E2E2E]">
         <h2 className="text-white font-bold text-[32px] md:text-[48px] font-[GHEA Grapalat]">
@@ -76,7 +67,7 @@ const Section3 = () => {
         <div ref={scrollRef} className="flex gap-[36px] overflow-hidden select-none">
           {[...cards, ...cards].map((card, index) => (
             <div
-              key={index}
+              key={`${card.id}-${index}`}
               onMouseEnter={() => (isPausedRef.current = true)}
               onMouseLeave={() => (isPausedRef.current = false)}
               className="flex-shrink-0 w-[350px] bg-white rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-105"
@@ -115,28 +106,18 @@ const Section3 = () => {
                 </div>
 
                 <div className="flex items-center justify-between mt-2">
-                  <button
-                    className="
-                      px-4 py-2 rounded-[8px]
-                      bg-white border border-[#FFB300]
-                      text-[#FFB300] text-[14px] font-medium
-                      hover:bg-[#FFB300] hover:text-white
-                      transition
-                    "
-                  >
+                  <button className="px-4 py-2 rounded-[8px] bg-white border border-[#FFB300] text-[#FFB300] text-[14px] font-medium hover:bg-[#FFB300] hover:text-white transition">
                     Տեսնել ավել
                   </button>
 
-                  {/* 🔥 TWO IMAGE ICONS */}
                   <div className="flex items-center gap-3">
-                    <button className="w-8 h-8 rounded-full bg-[#ffffff] flex items-center justify-center">
+                    <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
                       <Image src="/lov.jpg" alt="Favorite" width={16} height={16} />
                     </button>
-                    <button className="w-8 h-8 rounded-full bg-[#ffffff] flex items-center justify-center">
+                    <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
                       <Image src="/smg.jpg" alt="Compare" width={16} height={16} />
                     </button>
                   </div>
-
                 </div>
               </div>
             </div>
