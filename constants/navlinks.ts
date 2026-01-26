@@ -29,7 +29,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Մեր մասին", href: "/pages/aboutss", icon: "about-us" },
   {
     label: "Տեսականի",
-    href: "/pages/assortment",
+    href: "/assortment",
     products: [
       { label: "Մոտոցիկլեր", href: "/our/motorcycles", icon: "motorcycles" },
       { label: "Աքսեսուարներ", href: "/our/accessories", icon: "accessories" },
