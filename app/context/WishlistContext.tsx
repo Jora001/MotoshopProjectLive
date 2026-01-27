@@ -10,6 +10,7 @@ import React, {
 
 /* ================= TYPES ================= */
 export interface WishlistProduct {
+  [x: string]: string;
   id: number;
   model: string;
   price: string;

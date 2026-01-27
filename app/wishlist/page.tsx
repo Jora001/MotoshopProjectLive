@@ -74,12 +74,14 @@ const WishlistPage = () => {
       {wishlist.length > 0 && (
         <section className="max-w-[1440px] mx-auto px-6 md:px-[96px] py-20">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
             {wishlist.map((product) => (
               <div
                 key={product.id}
-                className="bg-white rounded-[12px] overflow-hidden transition hover:scale-105"
+                className="bg-white rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-105"
               >
-                <div className="relative h-[250px]">
+                {/* IMAGE */}
+                <div className="relative h-[250px] bg-white">
                   <Image
                     src={product.img}
                     alt={product.model}
@@ -88,33 +90,63 @@ const WishlistPage = () => {
                   />
                 </div>
 
+                {/* CONTENT */}
                 <div className="p-4 flex flex-col gap-3">
-                  <h3 className="text-black font-medium text-[16px]">
-                    {product.model}
-                  </h3>
+                  <div className="flex justify-between items-end">
+                    <h3 className="text-black font-medium text-[16px]">
+                      {product.model}
+                    </h3>
+
+                    <span className="flex items-center gap-1 text-[16px] font-normal text-black whitespace-nowrap">
+                      {product.price} <span>֏</span>
+                    </span>
+                  </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-black text-[16px]">
-                      {product.price} ֏
-                    </span>
-
-                    <button
-                      onClick={() =>
-                        removeFromWishlist(product.id)
-                      }
-                      className="w-8 h-8 rounded-full bg-[#D0021B] flex items-center justify-center hover:opacity-80 transition"
-                    >
-                      <Image
-                        src="/icons/close.svg"
-                        alt="remove"
-                        width={14}
-                        height={14}
-                      />
+                    <button className="px-4 py-2 border border-[#FFB300] text-[#FFB300] rounded-[8px] hover:bg-[#FFB300] hover:text-black transition">
+                      Տեսնել ավել
                     </button>
+
+                    <div className="flex gap-2">
+                      {/* ❤️ REMOVE FROM WISHLIST */}
+                      <button
+                        onClick={() => removeFromWishlist(product.id)}
+                        className="w-8 h-8 rounded-full bg-[#D0021B] flex items-center justify-center hover:opacity-80 transition"
+                      >
+                        <Image
+                          src="/lov.jpg"
+                          alt="remove"
+                          width={16}
+                          height={16}
+                          className="invert brightness-0"
+                        />
+                      </button>
+
+                      <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                        <Image
+                          src="/smg.jpg"
+                          alt="compare"
+                          width={16}
+                          height={16}
+                        />
+                      </button>
+
+                      {product.category === "motorcycles" && (
+                        <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                          <Image
+                            src="/eng.jpg"
+                            alt="engine"
+                            width={16}
+                            height={16}
+                          />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
+
           </div>
         </section>
       )}
