@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { useWishlist } from "@/app/context/WishlistContext";
 
 /* ================= TYPES ================= */
 type Badge = "available" | "new" | "sale" | "not-available" | "for-kids";
-type Category = "all" | "motorcycles" | "accessories" | "spare-parts" | "kids";
+type Category = "motorcycles" | "accessories" | "spare-parts" | "kids";
 
 type Product = {
   id: number;
@@ -43,20 +43,14 @@ const products: Product[] = [
 
 /* ================= PAGE ================= */
 const Page = () => {
-  const [activeFilter, setActiveFilter] = useState<Category>("all");
   const { toggleWishlist, isInWishlist, hydrated } = useWishlist();
 
   if (!hydrated) return null;
 
-  const filteredProducts =
-    activeFilter === "all"
-      ? products
-      : products.filter((p) => p.category === activeFilter);
-
   return (
     <main className="w-full min-h-screen bg-black">
       {/* HERO */}
-      <section className="relative w-full h-screen">
+      <section className="relative w-full h-[60vh]">
         <Image src="/pimg.png" alt="Hero" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute left-6 bottom-6">
@@ -67,8 +61,7 @@ const Page = () => {
       {/* PRODUCTS */}
       <section className="max-w-[1440px] mx-auto px-6 md:px-[96px] py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => {
-            // ✅ isInWishlist սպասում է NUMBER
+          {products.map((product) => {
             const liked = isInWishlist(product.id);
 
             return (
@@ -76,7 +69,7 @@ const Page = () => {
                 key={product.id}
                 className="bg-white rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-105"
               >
-                <div className="relative h-[250px] bg-white">
+                <div className="relative h-[220px] bg-white">
                   <Image
                     src={product.img}
                     alt={product.model}
@@ -86,52 +79,33 @@ const Page = () => {
                 </div>
 
                 <div className="p-4 flex flex-col gap-3">
-                  <div className="flex justify-between items-end">
-                    <h3 className="text-black font-medium text-[16px]">
-                      {product.model}
-                    </h3>
-                    <span className="flex items-center gap-1 text-[16px] text-black">
-                      {product.price} <span>֏</span>
-                    </span>
-                  </div>
+                  <h3 className="text-black font-medium text-[15px]">
+                    {product.model}
+                  </h3>
+
+                  <span className="text-black text-[15px]">
+                    {product.price} ֏
+                  </span>
 
                   <div className="flex justify-between items-center">
                     <button className="px-4 py-2 border border-[#FFB300] text-[#FFB300] rounded-[8px] hover:bg-[#FFB300] hover:text-black transition">
                       Տեսնել ավել
                     </button>
 
-                    <div className="flex gap-2">
-                      {/* ❤️ WISHLIST */}
-                      <button
-                        onClick={() =>
-                          toggleWishlist({
-                            ...product,
-                            id: product.id.toString(), // ✅ wishlist → string
-                          })
-                        }
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
-                          liked ? "bg-[#D0021B]" : "bg-white"
-                        }`}
-                      >
-                        <Image
-                          src="/lov.jpg"
-                          alt="fav"
-                          width={16}
-                          height={16}
-                          className={liked ? "invert brightness-0" : ""}
-                        />
-                      </button>
-
-                      <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                        <Image src="/smg.jpg" alt="compare" width={16} height={16} />
-                      </button>
-
-                      {product.category === "motorcycles" && (
-                        <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                          <Image src="/eng.jpg" alt="engine" width={16} height={16} />
-                        </button>
-                      )}
-                    </div>
+                    <button
+                      onClick={() => toggleWishlist(product)}
+                      className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                        liked ? "bg-[#D0021B]" : "bg-white"
+                      }`}
+                    >
+                      <Image
+                        src="/lov.jpg"
+                        alt="fav"
+                        width={16}
+                        height={16}
+                        className={liked ? "invert brightness-0" : ""}
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
