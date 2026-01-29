@@ -68,7 +68,8 @@ const Page = () => {
       <section className="max-w-[1440px] mx-auto px-6 md:px-[96px] py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => {
-            const liked = isInWishlist(product.id.toString());
+            // ✅ isInWishlist սպասում է NUMBER
+            const liked = isInWishlist(product.id);
 
             return (
               <div
@@ -89,8 +90,7 @@ const Page = () => {
                     <h3 className="text-black font-medium text-[16px]">
                       {product.model}
                     </h3>
-
-                    <span className="flex items-center gap-1 text-[16px] font-normal text-black whitespace-nowrap">
+                    <span className="flex items-center gap-1 text-[16px] text-black">
                       {product.price} <span>֏</span>
                     </span>
                   </div>
@@ -106,10 +106,10 @@ const Page = () => {
                         onClick={() =>
                           toggleWishlist({
                             ...product,
-                            id: product.id.toString(),
+                            id: product.id.toString(), // ✅ wishlist → string
                           })
                         }
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition cursor-pointer ${
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
                           liked ? "bg-[#D0021B]" : "bg-white"
                         }`}
                       >
