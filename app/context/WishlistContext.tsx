@@ -9,11 +9,14 @@ import React, {
 } from "react";
 
 /* ================= TYPES ================= */
+export type ProductCategory = "motorcycles" | "cars" | "accessories";
+
 export interface WishlistProduct {
   id: number;
   model: string;
   price: string;
   img: string;
+  category?: ProductCategory; // 👈 ԱՅՍՆ Է ԼՈՒԾՈՒՄԸ
 }
 
 export interface WishlistContextType {

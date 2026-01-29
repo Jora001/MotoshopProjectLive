@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
@@ -6,7 +7,12 @@ import { useWishlist } from "@/app/context/WishlistContext";
 
 /* ================= TYPES ================= */
 type Badge = "available" | "new" | "sale" | "not-available" | "for-kids";
-type Category = "all" | "motorcycles" | "accessories" | "spare-parts" | "kids";
+type Category =
+  | "all"
+  | "motorcycles"
+  | "accessories"
+  | "spare-parts"
+  | "kids";
 
 type Product = {
   id: number;
@@ -55,18 +61,26 @@ const Page = () => {
 
   return (
     <main className="w-full min-h-screen bg-black">
-
+      {/* HERO */}
       <section className="relative w-full h-screen">
-        <Image src="/pimg.png" alt="Hero" fill className="object-cover" priority />
+        <Image
+          src="/pimg.png"
+          alt="Hero"
+          fill
+          className="object-cover"
+          priority
+        />
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute left-6 bottom-6">
-          <h1 className="text-white text-4xl md:text-5xl font-bold">Տեսականի</h1>
+          <h1 className="text-white text-4xl md:text-5xl font-bold">
+            Տեսականի
+          </h1>
         </div>
       </section>
 
+      {/* PRODUCTS */}
       <section className="max-w-[1440px] mx-auto px-6 md:px-[96px] py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-
           {filteredProducts.map((product) => {
             const liked = isInWishlist(product.id);
 
@@ -75,17 +89,24 @@ const Page = () => {
                 key={product.id}
                 className="bg-white rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-105"
               >
+                {/* IMAGE */}
                 <div className="relative h-[250px] bg-white">
-                  <Image src={product.img} alt={product.model} fill className="object-contain p-4" />
+                  <Image
+                    src={product.img}
+                    alt={product.model}
+                    fill
+                    className="object-contain p-4"
+                  />
                 </div>
 
+                {/* CONTENT */}
                 <div className="p-4 flex flex-col gap-3">
                   <div className="flex justify-between items-end">
                     <h3 className="text-black font-medium text-[16px]">
                       {product.model}
                     </h3>
 
-                    <span className="flex items-center gap-1 text-[16px] font-normal text-black whitespace-nowrap">
+                    <span className="flex items-center gap-1 text-[16px] text-black whitespace-nowrap">
                       {product.price} <span>֏</span>
                     </span>
                   </div>
@@ -96,10 +117,22 @@ const Page = () => {
                     </button>
 
                     <div className="flex gap-2">
-                      {/* ❤️ WISHLIST — ՄԻԱՅՆ ՍԱ Է ՓՈԽՎԱԾ */}
+                      {/* WISHLIST */}
                       <button
-                        onClick={() => toggleWishlist(product)}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition cursor-pointer ${
+                        onClick={() =>
+                          toggleWishlist({
+                            id: product.id,
+                            model: product.model,
+                            price: product.price,
+                            img: product.img,
+                            category:
+                              product.category === "motorcycles" ||
+                              product.category === "accessories"
+                                ? product.category
+                                : undefined,
+                          })
+                        }
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
                           liked ? "bg-[#D0021B]" : "bg-white"
                         }`}
                       >
@@ -112,13 +145,25 @@ const Page = () => {
                         />
                       </button>
 
+                      {/* COMPARE */}
                       <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                        <Image src="/smg.jpg" alt="compare" width={16} height={16} />
+                        <Image
+                          src="/smg.jpg"
+                          alt="compare"
+                          width={16}
+                          height={16}
+                        />
                       </button>
 
+                      {/* ENGINE ICON */}
                       {product.category === "motorcycles" && (
                         <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                          <Image src="/eng.jpg" alt="engine" width={16} height={16} />
+                          <Image
+                            src="/eng.jpg"
+                            alt="engine"
+                            width={16}
+                            height={16}
+                          />
                         </button>
                       )}
                     </div>
@@ -127,7 +172,6 @@ const Page = () => {
               </div>
             );
           })}
-
         </div>
       </section>
     </main>
