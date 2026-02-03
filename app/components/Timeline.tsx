@@ -10,18 +10,14 @@ interface TimelineEvent {
 }
 
 const events: TimelineEvent[] = [
-  { year: 2012, text: "Հիմնադրվեց Motoshop Armenia", isLeft: false },
+  { year: 2012, text: "հիմնադրվեց Motoshop Armenia", isLeft: false },
   { year: 2013, text: "բացվեց առաջին խանութը", isLeft: true },
   { year: 2016, text: "բացվեց նոր խանութ", isLeft: false },
   { year: 2018, text: "գրանցվեցին աննախադեպ վաճառքներ", isLeft: true },
   { year: 2020, text: "ստեղծվեց HAYASA բրենդը", isLeft: false },
   { year: 2021, text: "մեկնարկեց առցանց խանութը", isLeft: true },
   { year: 2022, text: "հաճախորդների թիվը անցավ 1000-ը", isLeft: false },
-  {
-    year: 2023,
-    text: "ավելացվեց միջազգային բրենդների նոր շարք",
-    isLeft: true,
-  },
+  { year: 2023, text: "ավելացվեց միջազգային բրենդների նոր շարք", isLeft: true },
 ];
 
 export default function Timeline() {
@@ -35,19 +31,21 @@ export default function Timeline() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const containerWidth = isMobile ? 380 : 900;
-  const centerX = isMobile ? 40 : containerWidth / 2;
-  const offsetX = isMobile ? 0 : 80;
+  /* ===== FIXED CANVAS ===== */
+  const containerWidth = 1440;
+  const totalHeight = 700;
 
-  const baseY = isMobile ? 100 : 120;
-  const gapY = isMobile ? 110 : 140;
+  /* ===== VISUAL TUNING (NO LOGIC CHANGE) ===== */
+  const centerX = containerWidth / 2;
+  const offsetX = 48;
+
+  const baseY = 75;
+  const gapY = 78;
 
   const points = events.map((e, index) => ({
-    x: isMobile ? centerX : centerX + (e.isLeft ? -offsetX : offsetX),
+    x: centerX + (e.isLeft ? -offsetX : offsetX),
     y: baseY + index * gapY,
   }));
-
-  const totalHeight = points[points.length - 1].y + 200;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -67,9 +65,9 @@ export default function Timeline() {
   return (
     <section
       ref={containerRef}
-      className="w-full relative py-20 px-4 md:px-8 lg:px-16 text-white"
+      className="w-full relative text-white"
       style={{
-        minHeight: totalHeight + 200,
+        height: 700,
         backgroundColor: "#0A0A0A",
         backgroundImage: "url('/timeline-bg.png')",
         backgroundSize: "cover",
@@ -77,17 +75,18 @@ export default function Timeline() {
       }}
     >
       <h2
-        className="text-left text-[24px] sm:text-[28px] md:text-[32px] font-bold mb-12"
-        style={{ fontFamily: "GHEA Grapalat, sans-serif" }}
+          className="text-[32px] font-bold px-16 pt-14 mb-2"
+          style={{ fontFamily: "GHEA Grapalat, sans-serif", marginLeft: 130 }}
       >
-        Կարևոր Տարեթվեր
+          Կարևոր Տարեթվեր
       </h2>
 
       <div
         className="relative mx-auto"
         style={{
-          maxWidth: containerWidth,
-          minHeight: totalHeight,
+          width: containerWidth,
+          height: totalHeight,
+          top: -70,
         }}
       >
         <svg
@@ -96,70 +95,44 @@ export default function Timeline() {
           viewBox={`0 0 ${containerWidth} ${totalHeight}`}
           className="absolute top-0 left-0 pointer-events-none"
         >
-          {isMobile ? (
-            <>
-              {/* Mobile vertical dashed line */}
-              <line
-                x1={centerX}
-                y1={baseY}
-                x2={centerX}
-                y2={points.at(-1)?.y}
-                stroke="#fff"
-                strokeWidth={1.5}
-                strokeDasharray="28 22"
-              />
+          <polyline
+            points={polylinePoints}
+            fill="none"
+            stroke="#fff"
+            strokeWidth={2}
+            strokeDasharray="26 20"
+          />
 
-              {points.map((p, i) => (
-                <circle key={i} cx={p.x} cy={p.y} r={7} fill="#fff" />
-              ))}
+          {points.map((p, i) => (
+            <circle key={i} cx={p.x} cy={p.y} r={8} fill="#fff" />
+          ))}
 
-              <motion.circle r={9} fill="#D0051D" cx={dotX} cy={dotY} />
-            </>
-          ) : (
-            <>
-              {/* Desktop dashed polyline */}
-              <polyline
-                points={polylinePoints}
-                fill="none"
-                stroke="#fff"
-                strokeWidth={2}
-                strokeDasharray="32 24"
-              />
-
-              {points.map((p, i) => (
-                <circle key={i} cx={p.x} cy={p.y} r={8} fill="#fff" />
-              ))}
-
-              <motion.circle r={9} fill="#D0051D" cx={dotX} cy={dotY} />
-            </>
-          )}
+          <motion.circle r={9} fill="#D0051D" cx={dotX} cy={dotY} />
         </svg>
 
         {events.map((event, index) => {
           const p = points[index];
-          const textWidth = isMobile ? 220 : 300;
-          const gap = isMobile ? 35 : 100;
+          const textWidth = 380;
+          const gap = 65;
 
-          const left = isMobile
-            ? centerX + gap
-            : event.isLeft
+          const left = event.isLeft
             ? centerX - gap - textWidth
             : centerX + gap;
 
           return (
             <div
               key={event.year}
-              className="absolute text-[13px] md:text-[12px]"
+              className="absolute text-[18px] leading-snug"
               style={{
                 top: p.y,
                 left,
                 width: textWidth,
                 transform: "translateY(-50%)",
-                textAlign: isMobile ? "left" : event.isLeft ? "right" : "left",
+                textAlign: event.isLeft ? "right" : "left",
+                fontFamily: "GHEA Grapalat, sans-serif",
               }}
             >
-              <strong>{event.year} — </strong>
-              {event.text}
+              <strong>{event.year}</strong> — {event.text}
             </div>
           );
         })}
