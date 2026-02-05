@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import * as React from "react";
@@ -11,7 +12,7 @@ import Section3 from "@/app/components/Section/Section3/Section3";
 
 const AboutPage: React.FC = () => {
   const stats = [
-    { value: "2002թ", label: "Սկսած" },
+    { value: "2012թ", label: "Սկսած" },
     { value: "1990+", label: "Հաճախորդ" },
     { value: "9990+", label: "Վաճառք" },
   ];
@@ -45,7 +46,7 @@ const AboutPage: React.FC = () => {
         />
 
         <div
-          className="absolute top-[25%] md:top-[30%] lg:top-[70%] left-0 flex items-center opacity-90 w-[260px] h-[55px] md:w-[500px] md:h-[70px] lg:w-[636px] lg:h-[78px]"
+          className="absolute top-[25%] md:top-[30%] lg:top-[70%] left-0 flex items-center opacity-90 w-[370px] h-[55px] md:w-[880px] md:h-[70px] lg:w-[890px] lg:h-[78px]"
           style={{
             clipPath: "polygon(0 0, 80% 0%, 70% 100%, 0 100%)",
             background:
@@ -61,7 +62,7 @@ const AboutPage: React.FC = () => {
         </div>
 
         <div
-          className="absolute bottom-[5%] md:bottom-[15%] lg:bottom-[0%] right-0 flex items-center justify-center opacity-90 w-[200px] h-[45px] md:w-[500px] md:h-[70px] lg:w-[636px] lg:h-[78px]"
+          className="absolute bottom-[5%] md:bottom-[15%] lg:bottom-[0%] right-0 flex items-center justify-center opacity-90 w-370px] h-[45px] md:w-[880px] md:h-[70px] lg:w-1050px] lg:h-[78px]"
           style={{
             clipPath: "polygon(100% 0, 20% 0%, 28% 100%, 100% 100%)",
             background:
@@ -97,7 +98,6 @@ const AboutPage: React.FC = () => {
       </div>
 
       {/* === SECTION 2 === */}
- {/* === SECTION 2 === */}
 <section
   ref={secondSectionRef}
   className="relative w-full min-h-[500px] lg:h-[780px] flex items-center justify-center overflow-hidden"
@@ -127,15 +127,15 @@ const AboutPage: React.FC = () => {
     <div className="relative">
 
       {/* IMAGE */}
-      <div className="w-[280px] h-[160px] sm:w-[420px] sm:h-[240px] md:w-[500px] md:h-[300px] lg:w-[700px] lg:h-[429px] rounded-[10px] overflow-hidden shadow-lg ml-[-500px] -mt-20">
-  <Image
-    src="/xanut.jpg"
-    alt="Inner section image"
-    width={700}
-    height={429}
-    className="object-cover w-full h-full ml-[120px]"
-  />
-</div>
+      <div className="w-[280px] h-[160px] sm:w-[500px] sm:h-[240px] md:w-[500px] md:h-[300px] lg:w-[700px] lg:h-[429px] rounded-[10px] overflow-hidden shadow-lg ml-[-500px] -mt-20">
+          <Image
+            src="/xanut.jpg"
+            alt="Inner section image"
+            width={700}
+            height={429}
+            className="object-cover w-full h-full"
+          />
+      </div>
 
 
       {/* CARD — ONLY DESKTOP */}
@@ -148,87 +148,85 @@ const AboutPage: React.FC = () => {
 </section>
 
       {/* === SECTION 3 === */}
-       {/* === SECTION 3 === */}
-      <section className="bg-[#0A0A0A] py-16">
-  <StatsSection stats={stats} />
+      <StatsSection stats={stats} />
 
-  <div className="w-full max-w-5xl mx-auto mt-12 px-6 flex flex-col md:flex-row gap-10">
-    
-    {/* Buttons */}
-    <div className="relative flex flex-col gap-4 w-full md:w-[35%]">
+<div className="w-full max-w-5xl mt-12 px-6 flex flex-col md:flex-row gap-30 ml-[165px]">
 
-      {/* VERTICAL ACTIVE LINE */}
-      <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-red-900" />
+  {/* Buttons */}
+  <div className="relative flex flex-col gap-4 w-full md:w-[35%]">
 
+    {/* VERTICAL ACTIVE LINE */}
+    <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-red-900" />
+
+    {[
+      {
+        id: "mission",
+        label: "Առաքելություն",
+        description:
+          "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:"
+      },
+      {
+        id: "vision",
+        label: "Տեսլական",
+        description:
+          "Տեսլականը կենտրոնացած է Motoshop Armenia-ի զարգացման վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
+      },
+      {
+        id: "advantages",
+        label: "Առավելություններ",
+        description:
+          "Առավելությունները ներառում են բարձրորակ սպասարկում, արագ առաքում և պրոֆեսիոնալ տեխնիկական աջակցություն:"
+      }
+    ].map((btn) => {
+      const isActive = activeButton === btn.id;
+
+      return (
+        <button
+          key={btn.id}
+          onClick={() => setActiveButton(btn.id)}
+          className={`
+            relative w-full
+            font-semibold rounded-l-[10px]
+            transition-all duration-300
+            flex items-center justify-center
+            ${
+              isActive
+                ? "bg-red-700 text-white py-10"
+                : "bg-white text-black py-4 hover:bg-red-100 md:w-[92%]"
+            }
+          `}
+        >
+          {btn.label}
+        </button>
+      );
+    })}
+  </div>
+
+  {/* Content */}
+  <div className="w-full md:w-[60%] flex items-center">
+    <p className="text-gray-300 text-[20px] leading-[26px] max-w-xl transition-opacity duration-300">
       {[
         {
           id: "mission",
-          label: "Առաքելություն",
           description:
             "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:"
         },
         {
           id: "vision",
-          label: "Տեսլական",
           description:
             "Տեսլականը կենտրոնացած է Motoshop Armenia-ի զարգացման վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
         },
         {
           id: "advantages",
-          label: "Առավելություններ",
           description:
             "Առավելությունները ներառում են բարձրորակ սպասարկում, արագ առաքում և պրոֆեսիոնալ տեխնիկական աջակցություն:"
         }
-      ].map((btn) => {
-        const isActive = activeButton === btn.id;
-
-        return (
-          <button
-            key={btn.id}
-            onClick={() => setActiveButton(btn.id)}
-            className={`
-              relative w-full
-              font-semibold rounded-l-[10px]
-              transition-all duration-300
-              flex items-center justify-center
-              ${
-                isActive
-                  ? "bg-red-700 text-white py-10 "
-                  : "bg-white text-black py-4 hover:bg-red-100 md:w-[92%]"
-              }
-            `}
-          >
-            {btn.label}
-          </button>
-        );
-      })}
-    </div>
-
-    {/* Content */}
-    <div className="w-full md:w-[60%] flex items-center">
-      <p className="text-gray-300 text-[16px] leading-[26px] max-w-xl transition-opacity duration-300">
-        {[
-          {
-            id: "mission",
-            description:
-              "Motoshop Armenia-ի առաքելությունն է առաջարկել բարձրորակ, ամբողջական և հուսալի մոտոցիկլային ծառայություններ Հայաստանում՝ միաժամանակ աջակցելով տեղական արտադրությանը և զարգացնելով մասնագիտական համայնքը:"
-          },
-          {
-            id: "vision",
-            description:
-              "Տեսլականը կենտրոնացած է Motoshop Armenia-ի զարգացման վրա՝ ապահովելով երկարաժամկետ արժեք և հաճախորդների գոհունակություն:"
-          },
-          {
-            id: "advantages",
-            description:
-              "Առավելությունները ներառում են բարձրորակ սպասարկում, արագ առաքում և պրոֆեսիոնալ տեխնիկական աջակցություն:"
-          }
-        ].find((btn) => btn.id === activeButton)?.description}
-      </p>
-    </div>
-
+      ].find((btn) => btn.id === activeButton)?.description}
+    </p>
   </div>
-</section>
+
+</div>
+
 
       <section className="w-full relative">
         <Timeline />
