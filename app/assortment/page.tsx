@@ -50,6 +50,8 @@ const products: Product[] = [
 /* ================= PAGE ================= */
 const Page = () => {
   const [activeFilter, setActiveFilter] = useState<Category>("all");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
   const { toggleWishlist, isInWishlist, hydrated } = useWishlist();
 
   if (!hydrated) return null;
@@ -79,7 +81,7 @@ const Page = () => {
       </section>
 
       {/* PRODUCTS */}
-      <section className="max-w-[1440px] mx-auto px-6 md:px-[96px] py-16">
+      <section className="max-w-[1440px] mx-auto px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => {
             const liked = isInWishlist(product.id);
@@ -89,7 +91,6 @@ const Page = () => {
                 key={product.id}
                 className="bg-white rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-105"
               >
-                {/* IMAGE */}
                 <div className="relative h-[250px] bg-white">
                   <Image
                     src={product.img}
@@ -99,7 +100,6 @@ const Page = () => {
                   />
                 </div>
 
-                {/* CONTENT */}
                 <div className="p-4 flex flex-col gap-3">
                   <div className="flex justify-between items-end">
                     <h3 className="text-black font-medium text-[16px]">
@@ -112,12 +112,14 @@ const Page = () => {
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <button className="px-4 py-2 border border-[#FFB300] text-[#FFB300] rounded-[8px] hover:bg-[#FFB300] hover:text-black transition">
+                    <button
+                      onClick={() => setSelectedProduct(product)}
+                      className="px-4 py-2 border border-[#FFB300] text-[#FFB300] rounded-[8px] hover:bg-[#FFB300] hover:text-black transition"
+                    >
                       Տեսնել ավել
                     </button>
 
                     <div className="flex gap-2">
-                      {/* WISHLIST */}
                       <button
                         onClick={() =>
                           toggleWishlist({
@@ -144,28 +146,6 @@ const Page = () => {
                           className={liked ? "invert brightness-0" : ""}
                         />
                       </button>
-
-                      {/* COMPARE */}
-                      <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                        <Image
-                          src="/smg.jpg"
-                          alt="compare"
-                          width={16}
-                          height={16}
-                        />
-                      </button>
-
-                      {/* ENGINE ICON */}
-                      {product.category === "motorcycles" && (
-                        <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                          <Image
-                            src="/eng.jpg"
-                            alt="engine"
-                            width={16}
-                            height={16}
-                          />
-                        </button>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -174,6 +154,49 @@ const Page = () => {
           })}
         </div>
       </section>
+
+      {/* MODAL */}
+      {selectedProduct && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-white w-[95%] md:w-[800px] rounded-[16px] p-6 relative">
+            <button
+              onClick={() => setSelectedProduct(null)}
+              className="absolute top-4 right-4 text-black text-xl"
+            >
+              ✕
+            </button>
+
+            <div className="grid md:grid-cols-2 gap-6 items-center">
+              <div className="relative h-[300px]">
+                <Image
+                  src={selectedProduct.img}
+                  alt={selectedProduct.model}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <h2 className="text-2xl font-bold">
+                  {selectedProduct.model}
+                </h2>
+
+                <p className="text-gray-600">
+                  Այստեղ կարող ես տեղադրել տվյալ ապրանքի ամբողջական նկարագրությունը։
+                </p>
+
+                <span className="text-xl font-semibold">
+                  {selectedProduct.price} ֏
+                </span>
+
+                <button className="bg-[#D0021B] text-white py-2 rounded-[8px] hover:opacity-90 transition">
+                  Ավելացնել զամբյուղում
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 };
