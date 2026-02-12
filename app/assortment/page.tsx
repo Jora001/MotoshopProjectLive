@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
@@ -6,7 +7,12 @@ import { useWishlist } from "@/app/context/WishlistContext";
 
 /* ================= TYPES ================= */
 type Badge = "available" | "new" | "sale" | "not-available" | "for-kids";
-type Category = "all" | "motorcycles" | "accessories" | "spare-parts" | "kids";
+type Category =
+  | "all"
+  | "motorcycles"
+  | "accessories"
+  | "spare-parts"
+  | "kids";
 
 type Product = {
   id: number;
@@ -44,6 +50,8 @@ const products: Product[] = [
 /* ================= PAGE ================= */
 const Page = () => {
   const [activeFilter, setActiveFilter] = useState<Category>("all");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
   const { toggleWishlist, isInWishlist, hydrated } = useWishlist();
 
   if (!hydrated) return null;
@@ -55,18 +63,26 @@ const Page = () => {
 
   return (
     <main className="w-full min-h-screen bg-black">
-
+      {/* HERO */}
       <section className="relative w-full h-screen">
-        <Image src="/pimg.png" alt="Hero" fill className="object-cover" priority />
+        <Image
+          src="/pimg.png"
+          alt="Hero"
+          fill
+          className="object-cover"
+          priority
+        />
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute left-6 bottom-6">
-          <h1 className="text-white text-4xl md:text-5xl font-bold">Տեսականի</h1>
+          <h1 className="text-white text-4xl md:text-5xl font-bold">
+            Տեսականի
+          </h1>
         </div>
       </section>
 
-      <section className="max-w-[1440px] mx-auto px-6 md:px-[96px] py-16">
+      {/* PRODUCTS */}
+      <section className="max-w-[1440px] mx-auto px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-
           {filteredProducts.map((product) => {
             const liked = isInWishlist(product.id);
 
@@ -76,7 +92,12 @@ const Page = () => {
                 className="bg-white rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-105"
               >
                 <div className="relative h-[250px] bg-white">
-                  <Image src={product.img} alt={product.model} fill className="object-contain p-4" />
+                  <Image
+                    src={product.img}
+                    alt={product.model}
+                    fill
+                    className="object-contain p-4"
+                  />
                 </div>
 
                 <div className="p-4 flex flex-col gap-3">
@@ -85,21 +106,35 @@ const Page = () => {
                       {product.model}
                     </h3>
 
-                    <span className="flex items-center gap-1 text-[16px] font-normal text-black whitespace-nowrap">
+                    <span className="flex items-center gap-1 text-[16px] text-black whitespace-nowrap">
                       {product.price} <span>֏</span>
                     </span>
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <button className="px-4 py-2 border border-[#FFB300] text-[#FFB300] rounded-[8px] hover:bg-[#FFB300] hover:text-black transition">
+                    <button
+                      onClick={() => setSelectedProduct(product)}
+                      className="px-4 py-2 border border-[#FFB300] text-[#FFB300] rounded-[8px] hover:bg-[#FFB300] hover:text-black transition"
+                    >
                       Տեսնել ավել
                     </button>
 
                     <div className="flex gap-2">
-                      {/* ❤️ WISHLIST — ՄԻԱՅՆ ՍԱ Է ՓՈԽՎԱԾ */}
                       <button
-                        onClick={() => toggleWishlist(product)}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition cursor-pointer ${
+                        onClick={() =>
+                          toggleWishlist({
+                            id: product.id,
+                            model: product.model,
+                            price: product.price,
+                            img: product.img,
+                            category:
+                              product.category === "motorcycles" ||
+                              product.category === "accessories"
+                                ? product.category
+                                : undefined,
+                          })
+                        }
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
                           liked ? "bg-[#D0021B]" : "bg-white"
                         }`}
                       >
@@ -111,25 +146,57 @@ const Page = () => {
                           className={liked ? "invert brightness-0" : ""}
                         />
                       </button>
-
-                      <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                        <Image src="/smg.jpg" alt="compare" width={16} height={16} />
-                      </button>
-
-                      {product.category === "motorcycles" && (
-                        <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-                          <Image src="/eng.jpg" alt="engine" width={16} height={16} />
-                        </button>
-                      )}
                     </div>
                   </div>
                 </div>
               </div>
             );
           })}
-
         </div>
       </section>
+
+      {/* MODAL */}
+      {selectedProduct && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-white w-[95%] md:w-[800px] rounded-[16px] p-6 relative">
+            <button
+              onClick={() => setSelectedProduct(null)}
+              className="absolute top-4 right-4 text-black text-xl"
+            >
+              ✕
+            </button>
+
+            <div className="grid md:grid-cols-2 gap-6 items-center">
+              <div className="relative h-[300px]">
+                <Image
+                  src={selectedProduct.img}
+                  alt={selectedProduct.model}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <h2 className="text-2xl font-bold">
+                  {selectedProduct.model}
+                </h2>
+
+                <p className="text-gray-600">
+                  Այստեղ կարող ես տեղադրել տվյալ ապրանքի ամբողջական նկարագրությունը։
+                </p>
+
+                <span className="text-xl font-semibold">
+                  {selectedProduct.price} ֏
+                </span>
+
+                <button className="bg-[#D0021B] text-white py-2 rounded-[8px] hover:opacity-90 transition">
+                  Ավելացնել զամբյուղում
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 };
