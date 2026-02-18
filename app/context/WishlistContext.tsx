@@ -12,6 +12,7 @@ import React, {
 export type ProductCategory = "motorcycles" | "cars" | "accessories";
 
 export interface WishlistProduct {
+  badges: any;
   id: number;
   model: string;
   price: string;
