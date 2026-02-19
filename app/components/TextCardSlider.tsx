@@ -30,10 +30,9 @@ export default function TextCardSlider() {
   useEffect(() => {
     const timer = setInterval(nextSlide, 5000);
     return () => clearInterval(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const indicatorWidth = 100 / slides.length; // ✅ universal (ոչ միայն 2 slide-ի համար)
+  const indicatorWidth = 100 / slides.length;
 
   return (
     <div className="relative w-[720px] h-[400px] rounded-xl overflow-hidden shadow-xl text-white">

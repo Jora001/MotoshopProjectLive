@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, {
@@ -17,7 +18,7 @@ export interface WishlistProduct {
   model: string;
   price: string;
   img: string;
-  category?: ProductCategory; // 👈 ԱՅՍՆ Է ԼՈՒԾՈՒՄԸ
+  category?: ProductCategory;
 }
 
 export interface WishlistContextType {
