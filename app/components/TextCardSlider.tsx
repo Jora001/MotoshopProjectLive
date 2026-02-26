@@ -50,7 +50,7 @@ export default function TextCardSlider() {
       {/* 📝 CONTENT */}
       <div className="relative z-20 p-6 h-full flex flex-col justify-center">
         {/* 🔴 SLIDING INDICATOR ABOVE TEXT */}
-        <div className="w-[580px] h-[4px] bg-white/30 mb-3 relative mx-auto overflow-hidden rounded-full">
+        <div className="w-[580px] h-[4px] bg-white mb-3 relative mx-auto overflow-hidden rounded-full">
           <div
             className="h-full bg-red-600 transition-all duration-500 absolute top-0"
             style={{
