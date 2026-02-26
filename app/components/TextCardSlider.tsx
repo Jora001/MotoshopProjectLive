@@ -33,7 +33,7 @@ export default function TextCardSlider() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const indicatorWidth = 100 / slides.length; // ✅ universal (ոչ միայն 2 slide-ի համար)
+  const indicatorWidth = 100 / slides.length;
 
   return (
     <div className="relative w-[720px] h-[400px] rounded-xl overflow-hidden shadow-xl text-white">
@@ -46,7 +46,6 @@ export default function TextCardSlider() {
         className="object-cover"
       />
 
-      {/* Dark overlay (որ տեքստը լավ կարդացվի) */}
 
       {/* 📝 CONTENT */}
       <div className="relative z-20 p-6 h-full flex flex-col justify-center">
@@ -106,13 +105,16 @@ export default function TextCardSlider() {
           <button
             type="button"
             onClick={nextSlide}
-            className="p-2 rounded-full hover:bg-white/10 transition"
+            // className="p-2 rounded-full hover:bg-white/10 transition"
             aria-label="Next slide"
           >
-            <HiArrowRight
-              size={32}
-              className={`text-white hover:text-red-500 transition-transform duration-500 ${
-                activeIndex === slides.length - 1 ? "rotate-180" : "rotate-0"
+            <img
+              src="/ajov.jpg"
+              alt="Next slide"
+              className={` transition-transform ${
+                activeIndex === slides.length - 1
+                  ? "rotate-180"
+                  : "rotate-0"
               }`}
             />
           </button>
