@@ -47,6 +47,15 @@ const products: Product[] = [
   { id: 20, model: "Forma Ice Pro", price: "123 700", img: "/sec2f4.jpg", badges: ["new","available"], category: "accessories" },
 ];
 
+/* ================= FILTERS ================= */
+const filters = [
+  { label: "Ամբողջը", value: "all" as Category },
+  { label: "Մոտոցիկլներ", value: "motorcycles" as Category },
+  { label: "Աքսեսուարներ", value: "accessories" as Category },
+  { label: "Պահեստամասեր", value: "spare-parts" as Category },
+  { label: "Մանկական", value: "kids" as Category },
+];
+
 /* ================= PAGE ================= */
 const Page = () => {
   const [activeFilter, setActiveFilter] = useState<Category>("all");
@@ -62,7 +71,7 @@ const Page = () => {
       : products.filter((p) => p.category === activeFilter);
 
   return (
-    <main className="w-full min-h-screen bg-black">
+    <main className="w-full min-h-screen bg-black text-white">
       {/* HERO */}
       <section className="relative w-full h-screen">
         <Image
@@ -80,6 +89,24 @@ const Page = () => {
         </div>
       </section>
 
+      {/* FILTERS (CENTERED) */}
+      <section className="max-w-[1440px] mx-auto px-6 lg:px-8 py-10 flex flex-wrap justify-center items-center gap-10 border-b border-gray-700">
+  {filters.map((f) => (
+    <button
+      key={f.value}
+      onClick={() => setActiveFilter(f.value)}
+      className="relative px-4 py-2 text-[20px] md:text-[22px] font-semibold transition-all duration-300"
+    >
+      <span className="relative inline-block">
+        {f.label}
+        {activeFilter === f.value && (
+          <span className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#D0021B] rounded-full"></span>
+        )}
+      </span>
+    </button>
+  ))}
+</section>
+
       {/* PRODUCTS */}
       <section className="max-w-[1440px] mx-auto px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -89,7 +116,7 @@ const Page = () => {
             return (
               <div
                 key={product.id}
-                className="bg-white rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-105"
+                className="bg-white text-black rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-105"
               >
                 <div className="relative h-[250px] bg-white">
                   <Image
@@ -102,11 +129,11 @@ const Page = () => {
 
                 <div className="p-4 flex flex-col gap-3">
                   <div className="flex justify-between items-end">
-                    <h3 className="text-black font-medium text-[16px]">
+                    <h3 className="font-medium text-[16px]">
                       {product.model}
                     </h3>
 
-                    <span className="flex items-center gap-1 text-[16px] text-black whitespace-nowrap">
+                    <span className="flex items-center gap-1 text-[16px] whitespace-nowrap">
                       {product.price} <span>֏</span>
                     </span>
                   </div>
@@ -119,34 +146,32 @@ const Page = () => {
                       Տեսնել ավել
                     </button>
 
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() =>
-                          toggleWishlist({
-                            id: product.id,
-                            model: product.model,
-                            price: product.price,
-                            img: product.img,
-                            category:
-                              product.category === "motorcycles" ||
-                              product.category === "accessories"
-                                ? product.category
-                                : undefined,
-                          })
-                        }
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
-                          liked ? "bg-[#D0021B]" : "bg-white"
-                        }`}
-                      >
-                        <Image
-                          src="/lov.jpg"
-                          alt="fav"
-                          width={16}
-                          height={16}
-                          className={liked ? "invert brightness-0" : ""}
-                        />
-                      </button>
-                    </div>
+                    <button
+                      onClick={() =>
+                        toggleWishlist({
+                          id: product.id,
+                          model: product.model,
+                          price: product.price,
+                          img: product.img,
+                          category:
+                            product.category === "motorcycles" ||
+                            product.category === "accessories"
+                              ? product.category
+                              : undefined,
+                        })
+                      }
+                      className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
+                        liked ? "bg-[#D0021B]" : "bg-white"
+                      }`}
+                    >
+                      <Image
+                        src="/lov.jpg"
+                        alt="fav"
+                        width={16}
+                        height={16}
+                        className={liked ? "invert brightness-0" : ""}
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
