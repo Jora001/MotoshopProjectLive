@@ -78,7 +78,7 @@ const Section3 = () => {
   };
 
   return (
-    <section className="w-full bg-black">
+    <section className="relative w-full bg-black z-0">
       {/* TITLE */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-[96px] pt-[60px] pb-[20px] border-b border-[#2E2E2E]">
         <h2 className="text-white font-bold text-[32px] md:text-[48px] font-[GHEA Grapalat]">

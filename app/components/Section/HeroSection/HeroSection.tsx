@@ -34,7 +34,7 @@ const HeroSection = () => {
   const currentSlide = HERO_SLIDES[currentIndex];
 
   return (
-    <section className="relative w-full top-32 min-h-[815px] flex justify-center overflow-hidden bg-black">
+    <section className="relative w-full top-32 min-h-[640px] md:min-h-[815px] flex justify-center overflow-hidden bg-black">
 
       {/* ================= BACKGROUND SLIDES ================= */}
       <div className="absolute inset-0 w-full h-full z-10 transition-all duration-500">
@@ -82,7 +82,7 @@ const HeroSection = () => {
               top: isTablet || isMobile ? "auto" : "76%",
               bottom: isTablet || isMobile ? "0" : "auto",
               width: isTablet || isMobile ? "100%" : "70%",
-              height: isTablet ? 88 : isMobile ? 88 : "16%",
+              height: isTablet ? 88 : isMobile ? 72 : "16%",
               background: "linear-gradient(90deg, #D0021B 0%, #9F0115 100%)",
               clipPath:
                 isTablet || isMobile
@@ -169,13 +169,19 @@ const HeroSection = () => {
         </div>
 
         {/* TEXT */}
-        <div className="relative z-30 flex flex-col justify-center pl-[96px] max-w-[1440px] w-full pb-[185px]">
+        <div
+          className="relative z-30 flex flex-col justify-center
+          pl-[160px] md:pl-[96px]
+          pr-[20px]
+          max-w-[1440px] w-full
+          pb-[140px] md:pb-[185px]"
+        >
           <h2
             className={`text-white font-bold font-[GHEA Grapalat] ${
               isTablet
                 ? "text-[28px] leading-[38px] w-[400px]"
                 : isMobile
-                ? "text-[24px] leading-[34px] w-[300px]"
+                ? "text-[22px] leading-[30px] w-[260px]"
                 : "text-[36px] leading-[48px] w-[525px]"
             }`}
             style={{ whiteSpace: "pre-line" }}
@@ -185,7 +191,7 @@ const HeroSection = () => {
 
           <p
             className={`text-white font-semibold mt-4 ${
-              isTablet ? "text-[20px]" : isMobile ? "text-[16px]" : "text-[24px]"
+              isTablet ? "text-[20px]" : isMobile ? "text-[15px]" : "text-[24px]"
             }`}
             style={{ whiteSpace: "pre-line" }}
           >
@@ -197,7 +203,7 @@ const HeroSection = () => {
               isTablet
                 ? "px-5 py-2 text-[16px]"
                 : isMobile
-                ? "px-4 py-2 text-[14px]"
+                ? "px-5 py-2.5 text-[14px]"
                 : "px-6 py-3 text-[18px]"
             }`}
           >
@@ -208,7 +214,6 @@ const HeroSection = () => {
 
       {/* ================= DOTS + ICON ================= */}
       <div className="absolute bottom-8 left-0 right-0 z-40 flex flex-col items-center gap-4">
-
         <div className="flex justify-center gap-3">
           {HERO_SLIDES.map((_, index) => (
             <button
@@ -223,24 +228,17 @@ const HeroSection = () => {
           ))}
         </div>
 
-      <Image
-  src="/vectortw.png"
-  alt="scroll"
-  width={28}
-  height={28}
-  onClick={() => {
-    const section = document.getElementById("section-2");
-    section?.scrollIntoView({ behavior: "smooth" });
-  }}
-  className="
-    cursor-pointer
-    opacity-80
-    hover:opacity-100
-    transition
-    animate-bounce
-  "
-/>
-
+        <Image
+          src="/vectortw.png"
+          alt="scroll"
+          width={28}
+          height={28}
+          onClick={() => {
+            const section = document.getElementById("section-2");
+            section?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="cursor-pointer opacity-80 hover:opacity-100 transition animate-bounce"
+        />
       </div>
     </section>
   );

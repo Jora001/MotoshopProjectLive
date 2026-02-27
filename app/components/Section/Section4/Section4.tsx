@@ -51,7 +51,7 @@ const Section4 = () => {
   return (
     <section
       ref={sectionRef}
-      className="scroll-section relative w-full h-screen overflow-hidden bg-black"
+      className="scroll-section relative w-full h-screen overflow-hidden bg-black "
     >
       <img
         src="/78f9de612f3324c981f6006c873877ee99f09d95.png"
