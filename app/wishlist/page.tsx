@@ -6,6 +6,33 @@ import Link from "next/link";
 import Section3 from "../components/Section/Section3/Section3";
 import { useWishlist } from "@/app/context/WishlistContext";
 
+/* ✅ Նույն badge config-ը ինչ Section3-ում */
+const badgeConfig: Record<
+  "available" | "new" | "sale" | "not-available" | "for-kids",
+  { text: string; className: string }
+> = {
+  available: {
+    text: "Առկա է",
+    className: "bg-[#F5F5F5] text-[#2E7D32]",
+  },
+  new: {
+    text: "Նորույթ",
+    className: "bg-[#2E7D32] text-white",
+  },
+  sale: {
+    text: "Ակցիա 15%",
+    className: "bg-[#D0021B] text-white",
+  },
+  "not-available": {
+    text: "Առկա չէ",
+    className: "bg-gray-400 text-white",
+  },
+  "for-kids": {
+    text: "Մանկական",
+    className: "bg-blue-500 text-white",
+  },
+};
+
 const WishlistPage = () => {
   const { wishlist, removeFromWishlist } = useWishlist();
 
@@ -77,8 +104,22 @@ const WishlistPage = () => {
                 key={product.id}
                 className="bg-white rounded-[12px] overflow-hidden transition-transform duration-300 hover:scale-105"
               >
-                {/* IMAGE */}
+                {/* IMAGE + BADGES */}
                 <div className="relative h-[250px] bg-white">
+                  {/* BADGES */}
+                  <div className="absolute top-[45px] left-0 flex flex-col gap-[6px] z-10">
+                    {product.badges?.map((badge) => (
+                      <div
+                        key={badge}
+                        className={`min-w-[80px] h-[22px] px-[10px] text-[12px] font-semibold flex items-center justify-center rounded-[1px] ${
+                          badgeConfig[badge].className
+                        }`}
+                      >
+                        {badgeConfig[badge].text}
+                      </div>
+                    ))}
+                  </div>
+
                   <Image
                     src={product.img}
                     alt={product.model}
