@@ -150,13 +150,14 @@ const Section3 = () => {
                     {/* WISHLIST */}
                     <button
                       onClick={() =>
-                        toggleWishlist({
-                          id: card.id,
-                          model: card.model,
-                          price: card.price,
-                          img: card.img,
-                          category: "motorcycles",
-                        })
+                     toggleWishlist({
+  id: card.id,
+  model: card.model,
+  price: card.price,
+  img: card.img,
+  badges: card.badges, // ✅ ԱՅՍ ՏՈՂԸ ՊԵՏՔ Է
+  category: "motorcycles",
+})
                       }
                       className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
                         liked ? "bg-[#D0021B]" : "bg-white"
