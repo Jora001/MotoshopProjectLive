@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
@@ -80,7 +79,6 @@ const Section3 = () => {
   };
 
   return (
-    <section className="relative w-full bg-black z-0">
     <section className="w-full bg-black">
       
       {/* TITLE */}
@@ -199,5 +197,7 @@ const Section3 = () => {
     </section>
   );
 };
+
+export default Section3;
 
 export default Section3;
