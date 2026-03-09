@@ -19,6 +19,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -34,7 +35,6 @@ export default function Header() {
       setLastScrollY(currentScroll);
     };
 
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, isMounted]);
@@ -44,6 +44,47 @@ export default function Header() {
   return (
     <header className="w-full">
       <div className="w-full h-[11px] bg-white fixed top-0 left-0 z-[60] border-b border-gray-200" />
+      {/* POPUP */}
+      {open && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black/60 z-[300]"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="relative w-[500px] bg-black rounded-xl overflow-hidden shadow-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* close */}
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute right-4 top-3 text-white text-xl"
+            >
+              ✕
+            </button>
+            <h1 className="text-[25px] text-white">Փոխանակում՝ պարզ և արագ</h1>
+            {/* image */}
+            <div className="relative w-full h-[250px]">
+              <Image src="/crd.jpg" alt="Popup" fill className="object-cover" />
+            </div>
+
+            {/* text */}
+            <div className="p-5 text-white">
+              <h2 className="text-lg font-bold mb-2">
+                Motoshop Armenia-ում գործում է ապրանքի փոխանակման
+                հնարավորություն
+              </h2>
+
+              <p className="text-sm opacity-80 mb-4">
+                Եթե ցանկանում եք փոխանակել ապրանքը, պարզապես զանգահարեք մեզ։
+              </p>
+
+              <button className="w-full bg-red-600 py-3 rounded-lg font-semibold">
+                📞 Զանգել հիմա
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Top Bar */}
       <div className="w-full bg-[#000000] h-16 text-white px-4 py-2 md:h-18 md:px-8 md:pt-[14px] md:pb-[10px] 2xl:pt-[24px] 2xl:pb-5 2xl:h-[70px] 2xl:px-5 2xl:px-24 flex items-center justify-between shadow-md fixed top-0 z-50 transition-transform duration-300">
@@ -71,43 +112,31 @@ export default function Header() {
     border-b-2 
     ${
       pathname === link.href
-                      ? link.label === "Ապառիկ"
-                        ? "border-[#ffc107]"
-                        : "border-white"
-                      : "border-transparent"
-                    }
-    ${
-      link.label === "Ապառիկ"
-                      ? "hover:border-[#fff]"
-                      : "hover:border-white"
-                    }
+        ? link.label === "Ապառիկ"
+          ? "border-[#ffc107]"
+          : "border-white"
+        : "border-transparent"
+    }
+    ${link.label === "Ապառիկ" ? "hover:border-[#fff]" : "hover:border-white"}
     cursor-pointer py-2
   `}
                 >
-
-
                   <Link
                     href={link.href}
+                    onClick={(e) => {
+                      if (link.label === "Փոխանակում") {
+                        e.preventDefault();
+                        setOpen(true);
+                      }
+                    }}
                     className={`
     font-medium md:font-semibold text-lg transition-colors
-    ${
-      link.label === "Ապառիկ"
-                        ? "text-[#ffc107]"
-                        : "text-white"
-                      }
-    ${
-      pathname === link.href && link.label !== "Ապառիկ"
-                        ? "text-white"
-                        : ""
-                      }
+    ${link.label === "Ապառիկ" ? "text-[#ffc107]" : "text-white"}
+    ${pathname === link.href && link.label !== "Ապառիկ" ? "text-white" : ""}
   `}
                   >
                     {link.label}
                   </Link>
-
-
-
-
                 </div>
               </div>
             ))}
@@ -166,7 +195,7 @@ export default function Header() {
         className={`w-full bg-gradient-to-r from-[#0A0A0A] to-[#4A4A4A] flex items-center justify-between px-4 py-[14px] md:px-8 2xl:px-24 2xl:h-16 shadow-md
   fixed top-16 md:top-[70px] z-40 backdrop-blur-md transition-transform duration-300 ${
     showBottomBar ? "translate-y-0" : "-translate-y-full"
-          }`}
+  }`}
       >
         <div className="relative flex items-center h-7 md:h-10 2xl:h-11 w-[115px] md:w-70 rounded-lg md:rounded-[10px] 2xl:rounded-xl border border-[#F5F5F5]">
           <div className="pl-2 md:pl-4">
@@ -199,35 +228,33 @@ export default function Header() {
           </Link>
         </div>
 
-      <div className="flex gap-[15.5px] md:gap-3 2xl:gap-6 items-center">
+        <div className="flex gap-[15.5px] md:gap-3 2xl:gap-6 items-center">
+          {/* COMPARE */}
+          <Link href="/compare" className="p-[2px] md:p-[5px] cursor-pointer">
+            <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
+              <Image
+                src="/icons/compair.svg"
+                alt="compare"
+                fill
+                className="object-contain hover:scale-110 transition"
+                priority
+              />
+            </div>
+          </Link>
 
-  {/* COMPARE */}
-  <Link href="/compare" className="p-[2px] md:p-[5px] cursor-pointer">
-    <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
-      <Image
-        src="/icons/compair.svg"
-        alt="compare"
-        fill
-        className="object-contain hover:scale-110 transition"
-        priority
-      />
-    </div>
-  </Link>
-
-  {/* WISHLIST */}
-  <Link href="/wishlist" className="p-[2px] md:p-[5px] cursor-pointer">
-    <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
-      <Image
-        src="/icons/wish-list.svg"
-        alt="wishlist"
-        fill
-        className="object-contain hover:scale-110 transition"
-        priority
-      />
-    </div>
-  </Link>
-
-</div>
+          {/* WISHLIST */}
+          <Link href="/wishlist" className="p-[2px] md:p-[5px] cursor-pointer">
+            <div className="relative h-6 w-6 md:h-[30px] md:w-[30px] 2xl:h-7 2xl:w-7">
+              <Image
+                src="/icons/wish-list.svg"
+                alt="wishlist"
+                fill
+                className="object-contain hover:scale-110 transition"
+                priority
+              />
+            </div>
+          </Link>
+        </div>
       </div>
 
       {/* Burger Menu Drawer with overlay */}
@@ -254,7 +281,7 @@ export default function Header() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              transition={{ type: 'tween', duration: 0.5, ease: 'easeInOut' }}
+              transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
             >
               <div className="flex items-center justify-between px-4 py-3 md:px-8 md:pt-8">
                 <Link href="/">
@@ -297,7 +324,7 @@ export default function Header() {
                           href={link.href}
                           className={`font-medium md:font-semibold text-lg transition-colors ${
                             link.label === "Ապառիկ" ? "text-[#D0021B]" : ""
-                            }`}
+                          }`}
                         >
                           {link.label}
                         </Link>
